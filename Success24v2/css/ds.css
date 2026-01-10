@@ -1,0 +1,78 @@
+﻿.img-wrapper:hover {
+    transform: translateY(-8px);
+    background: rgba(255,255,255,0.15) !important;
+}
+.courses-section {
+    padding: 80px 20px;
+    background: #f9fafb;
+}
+
+.courses-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+    .courses-title h1 {
+        font-size: 36px;
+        font-weight: 800;
+    }
+
+.courses-grid {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* COURSE CARD */
+.course-card {
+    position: relative;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 25px rgba(0,0,0,.08);
+    transform: translateY(40px);
+    opacity: 0;
+    transition: all .6s ease;
+}
+
+    .course-card.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .course-card a {
+        display: block;
+        padding: 30px;
+        height: 100%;
+        color: #111;
+        text-decoration: none;
+    }
+
+    .course-card h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+/* HOVER DESCRIPTION */
+.course-desc {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+    opacity: 0;
+    max-height: 0;
+    transition: all .4s ease;
+}
+
+.course-card:hover .course-desc {
+    opacity: 1;
+    max-height: 120px;
+}
+
+/* HOVER EFFECT */
+.course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 18px 40px rgba(0,0,0,.15);
+}
