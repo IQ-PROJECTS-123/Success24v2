@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="24.Master" />
+    <Content Include="AdminGallery.aspx" />
     <Content Include="Android App.aspx" />
     <Content Include="Angular.aspx" />
     <Content Include="Automotion.aspx" />
@@ -77,6 +78,8 @@
     <Content Include="DotNet.aspx" />
     <Content Include="DotNetMicrosoft.aspx" />
     <Content Include="DS.aspx" />
+    <Content Include="EventPage.aspx" />
+    <Content Include="GalleryUpload.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Frontend.aspx" />
     <Content Include="HDAA.aspx" />
@@ -108,6 +111,7 @@
     <Content Include="PHP.aspx" />
     <Content Include="Python Programing.aspx" />
     <Content Include="QA.aspx" />
+    <Content Include="RegistartionForm.aspx" />
     <Content Include="SAP ERP.aspx" />
     <Content Include="scss\bootstrap.scss" />
     <Content Include="scss\bootstrap\scss\bootstrap-grid.scss" />
@@ -257,6 +261,7 @@
     <Content Include="SharePoint2019Administration.aspx" />
     <Content Include="Software Testing.aspx" />
     <Content Include="SPD.aspx" />
+    <Content Include="Success24v2.sln" />
     <Content Include="SuccessStory.aspx" />
     <Content Include="test.aspx" />
     <Content Include="Web Design.aspx" />
@@ -269,6 +274,13 @@
     </Compile>
     <Compile Include="24.Master.designer.cs">
       <DependentUpon>24.Master</DependentUpon>
+    </Compile>
+    <Compile Include="AdminGallery.aspx.cs">
+      <DependentUpon>AdminGallery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminGallery.aspx.designer.cs">
+      <DependentUpon>AdminGallery.aspx</DependentUpon>
     </Compile>
     <Compile Include="Android App.aspx.cs">
       <DependentUpon>Android App.aspx</DependentUpon>
@@ -382,6 +394,20 @@
     <Compile Include="DS.aspx.designer.cs">
       <DependentUpon>DS.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EventPage.aspx.cs">
+      <DependentUpon>EventPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EventPage.aspx.designer.cs">
+      <DependentUpon>EventPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GalleryUpload.aspx.cs">
+      <DependentUpon>GalleryUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GalleryUpload.aspx.designer.cs">
+      <DependentUpon>GalleryUpload.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -462,6 +488,13 @@
     </Compile>
     <Compile Include="QA.aspx.designer.cs">
       <DependentUpon>QA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RegistartionForm.aspx.cs">
+      <DependentUpon>RegistartionForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegistartionForm.aspx.designer.cs">
+      <DependentUpon>RegistartionForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="SAP ERP.aspx.cs">
       <DependentUpon>SAP ERP.aspx</DependentUpon>

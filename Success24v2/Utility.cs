@@ -53,34 +53,32 @@ namespace Success24v2
             gv.DataSource = _dt;
             gv.DataBind(); 
         }
-        static public void _SendEmail(String _To, String _Ccs, String _Subject, String _MSG)
+        static public void _SendEmail(string _To, string _Ccs, string _Subject, string _MSG)
         {
             try
             {
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
-                message.From = new MailAddress("info@iq-india.com", "SHRIKANT SIR OFFICE");
-                String[] _ccs = _Ccs.TrimEnd(';').Split(';');
-                _ccs = _ccs.Distinct().ToArray();
-                foreach (String _cc in _ccs)
-                    if (!String.IsNullOrEmpty(_cc))
-                        if (_To != _cc)
-                            message.CC.Add(new MailAddress(_cc));
-                message.To.Add(new MailAddress(_To));
+
+                message.From = new MailAddress("info@iq-india.com", "Success24");
+                message.To.Add(_To);
                 message.Subject = _Subject;
-                message.IsBodyHtml = true;
                 message.Body = _MSG;
-                message.Priority = MailPriority.High;
-                smtp.Port = 25;
-                smtp.Host = "email-smtp.ap-south-1.amazonaws.com"; //for gmail host  
+                message.IsBodyHtml = true;
+
+                smtp.Host = "email-smtp.ap-south-1.amazonaws.com";
+                smtp.Port = 587;
                 smtp.EnableSsl = true;
-                smtp.UseDefaultCredentials = false;    
-                smtp.Credentials = new System.Net.NetworkCredential("AKIAVY75UURZL5LCL5UA", "9VjHiSfr6zee7Y+Re+kIm3/b4Fa/SBguXKemjFtS");
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Credentials = new NetworkCredential(
+                    "AKIAVY75UURZKY6JOY5L",
+                    "BCgGVIOe8wFp+mlL7bknwTcFkX0BnsQe+tsKoRZ+hZ9R"
+                );
+
                 smtp.Send(message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                HttpContext.Current.Response.Write("Email Error: " + ex.Message);
             }
         }
         static public System.Data.DataTable _GetDataTable(String _Query)

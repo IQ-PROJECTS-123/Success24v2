@@ -14,7 +14,7 @@ namespace Success24v2
         {
             if (!IsPostBack)
             {
-                DataTable dt = Utility._GetDataTable24("SELECT * FROM [orbexcoi_Success24].Placement ORDER BY Batch DESC, [OrderBy] DESC");
+                DataTable dt = Utility._GetDataTable("SELECT * FROM Placement ORDER BY Batch DESC, [OrderBy] DESC");
                 _LiteralSuccess.Text = dt.Rows.Count.ToString();
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -35,7 +35,7 @@ namespace Success24v2
                  </div>
              </div>", Convert.ToString(dr["ImageURL"]), Convert.ToString(dr["salary"]), Convert.ToString(dr["Location"]), Convert.ToString(dr["Title"]).ToUpper(), Convert.ToString(dr["Company"]), Convert.ToString(dr["Batch"]));
                 }
-                dt = Utility._GetDataTable24("select count(ID) as Active from [orbexcoi_Success24].student where Active=1");
+                dt = Utility._GetDataTable("select count(ID) as Active from student where Active=1");
                 _LiteralPrac.Text = dt.Rows[0][0].ToString();
             }
         }

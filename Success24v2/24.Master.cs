@@ -1,10 +1,7 @@
-﻿    using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
-using System.Linq;
-using System.Web;
+using System.Text;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Success24v2
 {
@@ -12,29 +9,63 @@ namespace Success24v2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            //    DataTable _DataTable = Utility._GetDataTable24("Select * from SiteNavigation where Active=1 order by Orderby");
-            //    foreach (DataRow dr in _DataTable.Rows)
-            //    {
-            //        if (String.IsNullOrEmpty(Convert.ToString(dr["ParentID"])) && String.IsNullOrEmpty(Convert.ToString(dr["dropdownnav"])))
-            //            _LiteralNav.Text += String.Format("<a href='{0}' class='nav-item nav-link'>{1}</a>", Convert.ToString(dr["Navurl"]), Convert.ToString(dr["Title"]));
-            //        else
-            //        {
-            //            if (String.IsNullOrEmpty(Convert.ToString(dr["ParentID"])) && !String.IsNullOrEmpty(Convert.ToString(dr["dropdownnav"])))
-            //            {
-            //                _LiteralNav.Text += String.Format(@"<div class='nav-item dropdown'><a href='#' class='nav-link dropdown-toggle' data-bs-toggle='dropdown'>{0}</a><div class='dropdown-menu m-0'>", Convert.ToString(dr["Title"]));
-            //                DataRow[] _Rows = _DataTable.Select("ParentID=" + Convert.ToString(dr["ID"]));
-            //                foreach (DataRow dr1 in _Rows)
-            //                {
-            //                    _LiteralNav.Text += String.Format("<a href='{0}' class='dropdown-item'>{1}</a>", Convert.ToString(dr1["Navurl"]), Convert.ToString(dr1["Title"]));
-            //                }
-            //                _LiteralNav.Text += "</div></div>";
-            //            }
+            if (!IsPostBack)
+            {
+                try
+                {
+                    DataTable dt = Utility._GetDataTable24(
+                        "SELECT * FROM SiteNavigation WHERE Active = 1 ORDER BY Orderby");
 
-            //        }
-            //    }
-            //}
+                    if (dt == null || dt.Rows.Count == 0) return;
+
+                    StringBuilder desktopNav = new StringBuilder();
+
+                    DataRow[] parents = dt.Select("ParentID IS NULL OR ParentID = 0");
+
+                    foreach (DataRow row in parents)
+                    {
+                        string id = row["ID"].ToString();
+                        string title = row["Title"].ToString();
+                        string url = row["Navurl"].ToString();
+
+                        DataRow[] children = dt.Select("ParentID = " + id);
+
+                        if (children.Length == 0)
+                        {
+                            desktopNav.AppendFormat(
+                                "<li><a href='{0}' class='hover:text-orange-400'>{1}</a></li>",
+                                url, title);
+                        }
+                        else
+                        {
+                            desktopNav.AppendFormat(
+                                "<li class='group relative'>" +
+                                "<button class='hover:text-orange-400 flex items-center gap-1'>{0} " +
+                                "<i class='fas fa-chevron-down text-[10px]'></i></button>",
+                                title);
+
+                            desktopNav.Append(
+                                "<div class='absolute hidden group-hover:block bg-white text-gray-800 " +
+                                "shadow-xl rounded-lg p-4 min-w-[200px] top-full left-0'>");
+
+                            foreach (DataRow child in children)
+                            {
+                                desktopNav.AppendFormat(
+                                    "<a href='{0}' class='block py-2 hover:text-orange-500'>{1}</a>",
+                                    child["Navurl"], child["Title"]);
+                            }
+
+                            desktopNav.Append("</div></li>");
+                        }
+                    }
+
+                    _LiteralNavDesktop.Text = desktopNav.ToString();
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("Error: " + ex.Message);
+                }
+            }
         }
     }
 }

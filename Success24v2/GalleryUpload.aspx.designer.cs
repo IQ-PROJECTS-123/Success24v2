@@ -11,43 +11,43 @@ namespace Success24v2
 {
 
 
-    public partial class _24
+    public partial class GalleryUpload
     {
 
         /// <summary>
-        /// head control.
+        /// txtTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.TextBox txtTitle;
 
         /// <summary>
-        /// form1 control.
+        /// fuImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.FileUpload fuImage;
 
         /// <summary>
-        /// _LiteralNavDesktop control.
+        /// lblMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal _LiteralNavDesktop;
+        protected global::System.Web.UI.WebControls.Label lblMsg;
 
         /// <summary>
-        /// ContentPlaceHolder1 control.
+        /// btnUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.Button btnUpload;
     }
 }
