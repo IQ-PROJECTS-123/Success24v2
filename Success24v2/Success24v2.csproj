@@ -42,6 +42,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
@@ -195,6 +198,8 @@
     <Content Include="scss\bootstrap\scss\_type.scss" />
     <Content Include="scss\bootstrap\scss\_utilities.scss" />
     <Content Include="scss\bootstrap\scss\_variables.scss" />
+    <None Include="packages.config" />
+    <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -261,9 +266,9 @@
     <Content Include="SharePoint2019Administration.aspx" />
     <Content Include="Software Testing.aspx" />
     <Content Include="SPD.aspx" />
-    <Content Include="Success24v2.sln" />
     <Content Include="SuccessStory.aspx" />
     <Content Include="test.aspx" />
+    <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web Design.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -296,6 +301,7 @@
     <Compile Include="Angular.aspx.designer.cs">
       <DependentUpon>Angular.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Automotion.aspx.cs">
       <DependentUpon>Automotion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -517,6 +523,13 @@
     <Compile Include="SharePoint2019Administration.aspx.designer.cs">
       <DependentUpon>SharePoint2019Administration.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Site.Mobile.Master.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
     <Compile Include="Software Testing.aspx.cs">
       <DependentUpon>Software Testing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -546,6 +559,13 @@
       <DependentUpon>test.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utility.cs" />
+    <Compile Include="ViewSwitcher.ascx.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Web Design.aspx.cs">
       <DependentUpon>Web Design.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

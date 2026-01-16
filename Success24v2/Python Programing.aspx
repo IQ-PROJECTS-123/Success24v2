@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="Python Programing.aspx.cs" Inherits="Success24v2.Python_Programing" %>
+﻿<%@ Page Title="Python Programing" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="Python Programing.aspx.cs" Inherits="Success24v2.Python_Programing" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="css/allcourses.css" rel="stylesheet" />

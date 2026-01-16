@@ -16,7 +16,7 @@ namespace Success24v2
         protected void Application_Start(object sender, EventArgs e)
         {
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls;
-            RegisterRoutes(RouteTable.Routes);
+            /*RouteConfig.*/RegisterRoutes(RouteTable.Routes);
         }
         void RegisterRoutes(RouteCollection routes)
         {
@@ -41,6 +41,8 @@ namespace Success24v2
             routes.MapPageRoute("certification", "certification/{WidgetType}", "~/certification.aspx");
             //routes.MapPageRoute("training", "training/{City}/{Tech}/{Page}", "~/training.aspx");
             //routes.MapPageRoute("tags", "tags/{ket}", "~/tags.aspx");
+            //routes.MapPageRoute("Data Science" , "Data Science/{city}", "~/DS.aspx");
+            routes.MapPageRoute( "CourseDetails","course/{CourseSlug}","~/default.aspx");
         }
 
         protected void Session_Start(object sender, EventArgs e)

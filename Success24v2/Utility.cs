@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -15,12 +16,12 @@ namespace Success24v2
 {
     public class Utility
     {
-        static public void _BindDropdown(System.Web.UI.WebControls.DropDownList ddl, String Query,String ValueField,String TestField)
+        static public void _BindDropdown(System.Web.UI.WebControls.DropDownList ddl, String Query, String ValueField, String TestField)
         {
             DataTable _dt = Utility._GetDataTable(Query);
-            ddl.DataSource = _dt;            
-            ddl.DataTextField=TestField;
-            ddl.DataValueField=ValueField;
+            ddl.DataSource = _dt;
+            ddl.DataTextField = TestField;
+            ddl.DataValueField = ValueField;
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("None", "0"));
 
@@ -43,7 +44,7 @@ namespace Success24v2
             chklist.DataSource = _dt;
             chklist.DataTextField = TestField;
             chklist.DataValueField = ValueField;
-            chklist.DataBind();          
+            chklist.DataBind();
 
 
         }
@@ -51,7 +52,7 @@ namespace Success24v2
         {
             DataTable _dt = Utility._GetDataTable(Query);
             gv.DataSource = _dt;
-            gv.DataBind(); 
+            gv.DataBind();
         }
         static public void _SendEmail(string _To, string _Ccs, string _Subject, string _MSG)
         {
@@ -90,9 +91,9 @@ namespace Success24v2
         }
         static public System.Data.DataTable _GetDataTable24(String _Query)
         {
-           SqlDataAdapter adapter = new SqlDataAdapter(_Query, System.Configuration.ConfigurationManager.ConnectionStrings["S24"].ConnectionString);
-           System.Data.DataTable dt = new System.Data.DataTable();
-           adapter.Fill(dt);
+            SqlDataAdapter adapter = new SqlDataAdapter(_Query, System.Configuration.ConfigurationManager.ConnectionStrings["S24"].ConnectionString);
+            System.Data.DataTable dt = new System.Data.DataTable();
+            adapter.Fill(dt);
             return dt;
         }
         static public void ExecuteQuery(String _Query)
@@ -101,23 +102,23 @@ namespace Success24v2
             try
             {
                 SqlCommand cmd = Con.CreateCommand();
-                cmd.CommandText = _Query;               
+                cmd.CommandText = _Query;
                 Con.Open();
                 cmd.ExecuteNonQuery();
             }
             catch { }
             finally { Con.Close(); }
         }
-        static public void ExecuteQuery(String _Query, Boolean _Procedure,params SqlParameter[] _Parameters)
+        static public void ExecuteQuery(String _Query, Boolean _Procedure, params SqlParameter[] _Parameters)
         {
             SqlConnection Con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["Capis"].ConnectionString);
 
             try
             {
                 SqlCommand cmd = Con.CreateCommand();
-                cmd.CommandText = _Query;                
-                cmd.CommandType =  _Procedure ? CommandType.StoredProcedure : CommandType.Text;
-                foreach(SqlParameter _Parameter in _Parameters)
+                cmd.CommandText = _Query;
+                cmd.CommandType = _Procedure ? CommandType.StoredProcedure : CommandType.Text;
+                foreach (SqlParameter _Parameter in _Parameters)
                     cmd.Parameters.Add(_Parameter);
                 Con.Open();
                 cmd.ExecuteNonQuery();
@@ -174,7 +175,7 @@ namespace Success24v2
                 page.Header.Controls.Add(description);
                 if (_LiteralHeader != null)
                     _LiteralHeader.Text = Convert.ToString(_DataTable.Rows[0]["PageHeader"]).Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"]));
-                _Literal.Text =HttpUtility.HtmlDecode( Convert.ToString(_DataTable.Rows[0]["PageContent"]).Replace("%23", "#").Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"])).Replace("_#SiteURL#_", Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["HostURL"])));
+                _Literal.Text = HttpUtility.HtmlDecode(Convert.ToString(_DataTable.Rows[0]["PageContent"]).Replace("%23", "#").Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"])).Replace("_#SiteURL#_", Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["HostURL"])));
             }
 
             // _DataTable = _GetO365Data("SharepointTrainingContents", "<Where><Eq><FieldRef Name='ParentPage' LookupId='TRUE' /><Value Type='Text'>" + _PageId + "</Value> </Eq> </Where> <OrderBy>  <FieldRef Name='OrderBy'/></OrderBy>", "ID", "Title", "PageTitle", "Description", "MetaKey", "PageHeader", "PageImage", "summery");//_GetData("select  PAGEID,ID,TITLE,TitleType,LINK,POSITION,ISACTIVE ,Imagepath,DESCRIPTION from pagecontent where ISACTIVE=1 and PAGEID=" + _PageId + "  Order By Position");
@@ -246,7 +247,7 @@ namespace Success24v2
                         page.Header.Controls.Add(description);
                         if (_PageHeader != null)
                             _PageHeader.Text = Convert.ToString(_DataTable.Rows[0]["PageHeader"]).Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"]));
-                        _PageContent.Text =HttpUtility.HtmlDecode( Convert.ToString(_DataTable.Rows[0]["PageContent"]).Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"])));
+                        _PageContent.Text = HttpUtility.HtmlDecode(Convert.ToString(_DataTable.Rows[0]["PageContent"]).Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"])));
                         if (!String.IsNullOrEmpty(Convert.ToString(_DataTable.Rows[0]["LinkTitle"])))
                             _LinkTitle = Convert.ToString(_DataTable.Rows[0]["LinkTitle"]);
                         Int16 _Counter = 0;
@@ -397,6 +398,15 @@ namespace Success24v2
         {
             return _Val.Substring(0, 1).ToUpper() + _Val.Substring(1, _Val.Length - 1);
         }
+        public static string GenerateSlug(string phrase)
+        {
+            if (string.IsNullOrEmpty(phrase)) return "";
+            string str = phrase.ToLower();
+            str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
+            str = Regex.Replace(str, @"\s+", " ").Trim();
+            str = str.Replace(" ", "-");
+            str = Regex.Replace(str, @"-+", "-");
+            return str;
+        }
     }
-    
 }
