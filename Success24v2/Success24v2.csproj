@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="24.Master" />
+    <Content Include="404.aspx" />
     <Content Include="AdminGallery.aspx" />
     <Content Include="Android App.aspx" />
     <Content Include="Angular.aspx" />
@@ -198,6 +199,7 @@
     <Content Include="scss\bootstrap\scss\_type.scss" />
     <Content Include="scss\bootstrap\scss\_utilities.scss" />
     <Content Include="scss\bootstrap\scss\_variables.scss" />
+    <None Include=".editorconfig" />
     <None Include="packages.config" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
@@ -279,6 +281,13 @@
     </Compile>
     <Compile Include="24.Master.designer.cs">
       <DependentUpon>24.Master</DependentUpon>
+    </Compile>
+    <Compile Include="404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminGallery.aspx.cs">
       <DependentUpon>AdminGallery.aspx</DependentUpon>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Text;
+using System.Web;
 using System.Web.UI;
 
 namespace Success24v2
@@ -13,53 +14,48 @@ namespace Success24v2
             {
                 try
                 {
-                    DataTable dt = Utility._GetDataTable24(
-                        "SELECT * FROM SiteNavigation WHERE Active = 1 ORDER BY Orderby");
-
+                    DataTable dt = Utility._GetDataTable24("Select * from SiteNavigation where Active=1 order by Orderby");
                     if (dt == null || dt.Rows.Count == 0) return;
 
-                    StringBuilder desktopNav = new StringBuilder();
+                    StringBuilder dsktp = new StringBuilder();
+                    StringBuilder mbl = new StringBuilder();
 
                     DataRow[] parents = dt.Select("ParentID IS NULL OR ParentID = 0");
 
                     foreach (DataRow row in parents)
                     {
                         string id = row["ID"].ToString();
-                        string title = row["Title"].ToString();
-                        string url = row["Navurl"].ToString();
+                        string title = row["Title"].ToString().Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"]));//Data Science Training Institute in _#City#_
+                        string url = Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["HostURL"])+ Convert.ToString(HttpContext.Current.Session["City"]).Replace(" ", "-") +"/"+ (row["Navurl"].ToString().Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"]))).Replace(" ","-");
 
-                        DataRow[] children = dt.Select("ParentID = " + id);
+                          DataRow[] children = dt.Select("ParentID = " + id);
 
                         if (children.Length == 0)
                         {
-                            desktopNav.AppendFormat(
-                                "<li><a href='{0}' class='hover:text-orange-400'>{1}</a></li>",
-                                url, title);
+                            dsktp.AppendFormat("<li><a href='{0}' class='hover:text-orange-400'>{1}</a></li>", url, title);
+                            mbl.AppendFormat("<li><a href='{0}' class='block hover:text-orange-400'>{1}</a></li>", url, title);
                         }
                         else
                         {
-                            desktopNav.AppendFormat(
-                                "<li class='group relative'>" +
-                                "<button class='hover:text-orange-400 flex items-center gap-1'>{0} " +
-                                "<i class='fas fa-chevron-down text-[10px]'></i></button>",
-                                title);
+                            dsktp.AppendFormat("<li class='group relative'><button class='hover:text-orange-400 flex items-center gap-1'>{0} <i class='fas fa-chevron-down text-[10px]'></i></button>", title);
+                            dsktp.Append("<div class='absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-lg p-4 min-w-[200px] top-full left-0'>");
 
-                            desktopNav.Append(
-                                "<div class='absolute hidden group-hover:block bg-white text-gray-800 " +
-                                "shadow-xl rounded-lg p-4 min-w-[200px] top-full left-0'>");
+                            mbl.AppendFormat("<li><button type='button' onclick='this.nextElementSibling.classList.toggle(\"hidden\")' class='flex items-center gap-1'>{0} <i class='fas fa-chevron-down text-[10px]'></i></button><div class='hidden ml-4 space-y-2'>", title);
 
                             foreach (DataRow child in children)
                             {
-                                desktopNav.AppendFormat(
-                                    "<a href='{0}' class='block py-2 hover:text-orange-500'>{1}</a>",
-                                    child["Navurl"], child["Title"]);
+                                url = Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["HostURL"]) + Convert.ToString(HttpContext.Current.Session["City"]).Replace(" ", "-") + "/" + (child["Navurl"].ToString().Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"]))).Replace(" ", "-");
+
+                                dsktp.AppendFormat("<a href='{0}' class='block py-2 hover:text-orange-500'>{1}</a>", url, child["Title"]);
+                                mbl.AppendFormat("<a href='{0}' class='block py-2 hover:text-orange-400'>{1}</a>", url, child["Title"]);
                             }
 
-                            desktopNav.Append("</div></li>");
+                            dsktp.Append("</div></li>");
+                            mbl.Append("</div></li>");
                         }
                     }
 
-                    _LiteralNavDesktop.Text = desktopNav.ToString();
+                    _LiteralNavDesktop.Text = dsktp.ToString();
                 }
                 catch (Exception ex)
                 {

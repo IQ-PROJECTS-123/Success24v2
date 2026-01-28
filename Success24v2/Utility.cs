@@ -408,5 +408,16 @@ namespace Success24v2
             str = Regex.Replace(str, @"-+", "-");
             return str;
         }
+
+        public static bool _SeoPageExists(string pageKey)
+        {
+            // Example DB check
+            DataTable dt = _GetDataTable24(
+                "SELECT 1 FROM SeoPages WHERE PageKey = '" + pageKey.Replace("'", "''") + "'"
+            );
+
+            return dt != null && dt.Rows.Count > 0;
+        }
+
     }
 }
