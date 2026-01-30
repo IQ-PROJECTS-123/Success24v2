@@ -1,40 +1,48 @@
-﻿<%@ Page Title="SharePoint 2019 Training" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="SharePoint.aspx.cs" Inherits="Success24v2.SharePoint" %>
+﻿<%@ Page Title="SharePoint 2019 Training" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="SharePoint 2019 Designer.aspx.cs" Inherits="Success24v2.SharePoint" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="css/allcourses.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <section class="relative overflow-hidden h-screen flex items-center justify-center">
-        <img src="https://success24.in/img/iq-india2.jpeg" 
-            class="absolute inset-0 w-full h-full object-cover"
-            alt="SharePoint 2019 Training" />
+    <!-- HERO SECTION -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
 
-        <div class="hero-overlay"></div>
+        <img src="https://success24.in/img/iq-india2.jpeg"
+            class="absolute inset-0 w-full h-full object-cover"
+            alt="SharePoint 2019 Design" />
+
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <div class="hero-text-glow">
-                <h2 class="font-bold text-xl md:text-2xl mb-4 scroll-fade-left">
-                    <span class="gradient-blue-yellow">2026 Enterprise Collaboration Program</span>
+            <div class="backdrop-blur-md bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
+
+                <h2 class="text-xl md:text-2xl font-bold mb-4
+                       bg-gradient-to-r from-blue-500 to-yellow-400
+                       bg-clip-text text-transparent">2026 Microsoft Collaboration Program
                 </h2>
 
-                <div class="hero-line mx-auto mb-6"></div>
+                <div class="mx-auto mb-6 h-1 w-24
+                        bg-gradient-to-r from-yellow-400 to-blue-500
+                        shadow-lg shadow-yellow-400/50">
+                </div>
 
-                <h1 class="font-black text-5xl md:text-7xl mb-6 scroll-scale">
-                    <span class="gradient-yellow-blue">SharePoint 2019
-                    </span>
+                <h1 class="text-5xl md:text-7xl font-black mb-6
+                       bg-gradient-to-r from-yellow-400 to-blue-500
+                       bg-clip-text text-transparent">SharePoint 2019 Design Training
                 </h1>
 
-                <p class="text-white text-xl md:text-2xl font-semibold scroll-fade-right">
-                    Master On-Premise Administration, SPFx Development & Hybrid Solutions
+                <p class="text-white text-xl md:text-2xl font-semibold">
+                    Modern UI, Branding, Master Pages, Page Layouts & UX Customization
                 </p>
+
             </div>
         </div>
     </section>
 
+    <!-- CTA BANNER -->
     <section class="bg-gradient-to-r from-yellow-400 to-orange-400 text-center py-12 scroll-scale">
-        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">Start Your SharePoint Career
+        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">Start Your SharePoint Designer Career
         </h2>
         <div class="text-3xl md:text-5xl font-bold text-white">
             <a href="tel:+919555580458" class="hover:text-gray-900 transition-colors">+91 95555 80458
@@ -42,20 +50,21 @@
         </div>
     </section>
 
+    <!-- STATS SECTION -->
     <section class="bg-slate-900 border-t border-b border-slate-700">
         <div class="max-w-7xl mx-auto px-6 py-12">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
                 <div class="scroll-scale">
                     <h3 class="text-5xl font-bold text-orange-500 mb-2 counter" data-target="100">0</h3>
-                    <p class="text-sm text-gray-400">Architecture Lab</p>
+                    <p class="text-sm text-gray-400">Hands-on Design</p>
                 </div>
                 <div class="scroll-scale">
-                    <h3 class="text-5xl font-bold text-orange-500 mb-2">SQL</h3>
-                    <p class="text-sm text-gray-400">Database Backend</p>
+                    <h3 class="text-5xl font-bold text-orange-500 mb-2">UI/UX</h3>
+                    <p class="text-sm text-gray-400">Branding</p>
                 </div>
                 <div class="scroll-scale">
-                    <h3 class="text-5xl font-bold text-orange-500 mb-2">SPFx</h3>
-                    <p class="text-sm text-gray-400">Modern Dev</p>
+                    <h3 class="text-5xl font-bold text-orange-500 mb-2">CSS</h3>
+                    <p class="text-sm text-gray-400">Customization</p>
                 </div>
                 <div class="scroll-scale">
                     <h3 class="text-5xl font-bold text-orange-500 mb-2">100%</h3>
@@ -65,74 +74,79 @@
         </div>
     </section>
 
+    <!-- ABOUT SECTION -->
     <section class="py-16 bg-slate-50">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="scroll-fade-left">
-                    <h6 class="uppercase text-orange-500 font-bold text-sm mb-3">Enterprise Content Management
+                    <h6 class="uppercase text-orange-500 font-bold text-sm mb-3">SharePoint 2019 Design
                     </h6>
-                    <h2 class="text-4xl font-bold mb-4">Become a SharePoint 2019 Expert
+                    <h2 class="text-4xl font-bold mb-4">Become a SharePoint UI & Branding Expert
                     </h2>
                     <p class="text-gray-600 text-lg leading-relaxed">
-                        SharePoint 2019 brings the "Modern Experience" to on-premise environments. 
-                        This course covers Farm Architecture, Service Applications, Security, 
-                        and Migration strategies, along with the latest SharePoint Framework (SPFx) 
-                        to build modern web parts and enterprise-grade portals.
+                        This course focuses on designing and branding SharePoint 2019 portals.
+                        Learn page layouts, master pages, themes, CSS customization,
+                        JavaScript integration, and user-friendly intranet design
+                        for enterprise environments.
                     </p>
                 </div>
                 <div class="scroll-fade-right">
-                    <img src="https://success24.in/img/php-training.jpg"
+                    <img src="https://success24.in/img/sharepoint-training.jpg"
                         class="w-full rounded-2xl shadow-2xl hover-lift"
-                        alt="SharePoint 2019 Training" />
+                        alt="SharePoint 2019 Design Training" />
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- SYLLABUS SECTION -->
     <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-12 scroll-reveal">
                 <h6 class="uppercase text-orange-500 font-bold text-sm mb-3">Complete Curriculum
                 </h6>
-                <h2 class="text-4xl font-bold mb-4">SharePoint 2019 Roadmap
+                <h2 class="text-4xl font-bold mb-4">SharePoint 2019 Design Roadmap
                 </h2>
                 <p class="text-gray-600 text-lg">
-                    From Server Installation to Advanced Hybrid Migrations.
+                    From basic UI customization to advanced branding.
                 </p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
 
+                <!-- Module 1 -->
                 <div class="p-6 rounded-2xl border-2 border-gray-200 hover:border-orange-500 hover-lift scroll-reveal bg-white">
                     <h6 class="text-orange-500 font-bold text-sm mb-2">MODULE 01</h6>
-                    <h4 class="text-2xl font-bold mb-4">Farm Administration</h4>
+                    <h4 class="text-2xl font-bold mb-4">SharePoint UI Basics</h4>
                     <ul class="text-gray-600 space-y-2">
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Logical Architecture</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Installation & MinRole</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Service Applications</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Backup & Recovery</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Site Pages & Layouts</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Lists & Libraries UI</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Navigation Design</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Responsive Layouts</li>
                     </ul>
                 </div>
 
+                <!-- Module 2 -->
                 <div class="p-6 rounded-2xl border-2 border-gray-200 hover:border-orange-500 hover-lift scroll-reveal bg-white">
                     <h6 class="text-orange-500 font-bold text-sm mb-2">MODULE 02</h6>
-                    <h4 class="text-2xl font-bold mb-4">Development & UI</h4>
+                    <h4 class="text-2xl font-bold mb-4">Branding & Customization</h4>
                     <ul class="text-gray-600 space-y-2">
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Modern Sites & Pages</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>SPFx Web Parts</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Power Automate Integration</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>REST API & CSOM</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Master Pages</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>CSS & Themes</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>JavaScript Injection</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Brand Center</li>
                     </ul>
                 </div>
 
+                <!-- Module 3 -->
                 <div class="p-6 rounded-2xl border-2 border-gray-200 hover:border-orange-500 hover-lift scroll-reveal bg-white">
                     <h6 class="text-orange-500 font-bold text-sm mb-2">MODULE 03</h6>
-                    <h4 class="text-2xl font-bold mb-4">Security & Migration</h4>
+                    <h4 class="text-2xl font-bold mb-4">Advanced Design & Projects</h4>
                     <ul class="text-gray-600 space-y-2">
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Permissions & Groups</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Active Directory Sync</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Hybrid Configuration</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Migration (2013/16 to 19)</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Intranet Design</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Custom Dashboards</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>UX Optimization</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Live Design Projects</li>
                     </ul>
                 </div>
 
@@ -140,6 +154,7 @@
         </div>
     </section>
 
+    <!-- PLACEMENT SECTION -->
     <section class="py-16 bg-slate-50 border-t">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid lg:grid-cols-12 gap-8">
@@ -150,31 +165,31 @@
 
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="flex gap-3">
-                                <i class="fas fa-server text-2xl text-orange-500 mt-1"></i>
+                                <i class="fas fa-palette text-2xl text-orange-500 mt-1"></i>
                                 <div>
-                                    <h6 class="font-bold">Real-world Migration</h6>
-                                    <p class="text-sm text-gray-600">Upgrade live farm data</p>
+                                    <h6 class="font-bold">Live Design Projects</h6>
+                                    <p class="text-sm text-gray-600">Enterprise portals</p>
                                 </div>
                             </div>
                             <div class="flex gap-3">
                                 <i class="fas fa-user-tie text-2xl text-orange-500 mt-1"></i>
                                 <div>
-                                    <h6 class="font-bold">SharePoint Interview Prep</h6>
-                                    <p class="text-sm text-gray-600">Admin & Dev scenarios</p>
+                                    <h6 class="font-bold">Interview Preparation</h6>
+                                    <p class="text-sm text-gray-600">SharePoint Design</p>
                                 </div>
                             </div>
                             <div class="flex gap-3">
                                 <i class="fas fa-file-alt text-2xl text-orange-500 mt-1"></i>
                                 <div>
-                                    <h6 class="font-bold">Expert CV Building</h6>
-                                    <p class="text-sm text-gray-600">Focus on M365/SP 2019</p>
+                                    <h6 class="font-bold">Portfolio Building</h6>
+                                    <p class="text-sm text-gray-600">UI/UX samples</p>
                                 </div>
                             </div>
                             <div class="flex gap-3">
                                 <i class="fas fa-briefcase text-2xl text-orange-500 mt-1"></i>
                                 <div>
-                                    <h6 class="font-bold">MNC Referrals</h6>
-                                    <p class="text-sm text-gray-600">Access to consultant roles</p>
+                                    <h6 class="font-bold">Job Assistance</h6>
+                                    <p class="text-sm text-gray-600">Support till placement</p>
                                 </div>
                             </div>
                         </div>
@@ -185,8 +200,8 @@
                 <div class="lg:col-span-5">
                     <div class="p-8 rounded-2xl text-center text-white shadow-2xl h-full bg-gradient-to-br from-blue-600 to-indigo-400 hover-lift">
                         <h6 class="uppercase font-bold text-sm mb-3">Expected Package</h6>
-                        <h1 class="text-6xl font-bold mb-3">5 – 15 LPA</h1>
-                        <p class="opacity-90 mb-6">Based on Admin & Dev skills</p>
+                        <h1 class="text-6xl font-bold mb-3">4 – 12 LPA</h1>
+                        <p class="opacity-90 mb-6">Based on skills & experience</p>
                         <a href="#enroll" class="bg-gray-900 px-8 py-4 rounded-full font-bold">Apply Now</a>
                     </div>
                 </div>
@@ -194,7 +209,6 @@
             </div>
         </div>
     </section>
-
     <section class="relative overflow-hidden">
         <img src="https://success24.in/img/iq-india2.jpeg"
             class="w-full h-[520px] object-cover" alt="SharePoint Live Sessions" />
@@ -224,7 +238,6 @@
             </div>
         </div>
     </section>
-
     <section class="py-20 bg-gradient-to-r from-orange-500 to-red-500 text-white scroll-scale">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Master SharePoint 2019?
@@ -242,4 +255,5 @@
             </div>
         </div>
     </section>
+
 </asp:Content>

@@ -1,40 +1,49 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="Automotion.aspx.cs" Inherits="Success24v2.Automotion" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="Automation.aspx.cs" Inherits="Success24v2.Automotion" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-   <link href="css/allcourses.css" rel="stylesheet" />
+    <link href="css/allcourses.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- HERO SECTION -->
-    <section class="relative overflow-hidden h-screen flex items-center justify-center">
-        <img src="https://success24.in/img/iq-india2.jpeg"
-            class="absolute inset-0 w-full h-full object-cover" alt="Automation Testing" />
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
 
-        <div class="hero-overlay"></div>
+        <img src="https://success24.in/img/iq-india2.jpeg"
+            class="absolute inset-0 w-full h-full object-cover"
+            alt="Automation Training" />
+
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <div class="hero-text-glow">
-                <h2 class="font-bold text-xl md:text-2xl mb-4 scroll-fade-left">
-                    <span class="gradient-blue-yellow">2026 Software Testing Program</span>
+            <div class="backdrop-blur-md bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
+
+                <h2 class="text-xl md:text-2xl font-bold mb-4
+                       bg-gradient-to-r from-blue-500 to-yellow-400
+                       bg-clip-text text-transparent">2026 Automation & Testing Program
                 </h2>
 
-                <div class="hero-line mx-auto mb-6"></div>
+                <div class="mx-auto mb-6 h-1 w-24
+                        bg-gradient-to-r from-yellow-400 to-blue-500
+                        shadow-lg shadow-yellow-400/50">
+                </div>
 
-                <h1 class="font-black text-5xl md:text-7xl mb-6 scroll-scale">
-                    <span class="gradient-yellow-blue">Automation Testing</span>
+                <h1 class="text-5xl md:text-7xl font-black mb-6
+                       bg-gradient-to-r from-yellow-400 to-blue-500
+                       bg-clip-text text-transparent">Automation Testing Training
                 </h1>
 
-                <p class="text-white text-xl md:text-2xl font-semibold scroll-fade-right">
-                    Master Selenium, Java, TestNG & Real-Time Automation Frameworks
+                <p class="text-white text-xl md:text-2xl font-semibold">
+                    Selenium, TestNG, Java/Python, CI/CD Integration & Live Projects
                 </p>
+
             </div>
         </div>
     </section>
 
+
     <!-- CTA BANNER -->
     <section class="bg-gradient-to-r from-yellow-400 to-orange-400 text-center py-12 scroll-scale">
-        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">
-            Start Your Testing Career Today
+        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">Start Your Testing Career Today
         </h2>
         <div class="text-3xl md:text-5xl font-bold text-white">
             <a href="tel:+919555580458" class="hover:text-gray-900 transition-colors">+91 95555 80458</a>
@@ -70,11 +79,9 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="scroll-fade-left">
-                    <h6 class="uppercase text-orange-500 font-bold text-sm mb-3">
-                        Automation Testing Technology
+                    <h6 class="uppercase text-orange-500 font-bold text-sm mb-3">Automation Testing Technology
                     </h6>
-                    <h2 class="text-4xl font-bold mb-4">
-                        Build a Career in Software Automation Testing
+                    <h2 class="text-4xl font-bold mb-4">Build a Career in Software Automation Testing
                     </h2>
                     <p class="text-gray-600 text-lg leading-relaxed">
                         Automation Testing improves software quality and speeds up delivery.
@@ -182,8 +189,7 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-12 scroll-reveal">
                 <h6 class="uppercase font-bold text-orange-500 text-sm mb-3">Career & Placement</h6>
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">
-                    Become an Automation Test Engineer
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Become an Automation Test Engineer
                 </h2>
                 <p class="text-lg text-gray-600">
                     Industry-ready testing skills with placement support.
@@ -242,8 +248,7 @@
                         <h6 class="uppercase font-bold text-sm mb-3 opacity-90">Expected Package</h6>
                         <h1 class="text-6xl font-bold mb-3">3 – 8 LPA</h1>
                         <p class="text-lg opacity-90 mb-6">Based on skills & experience</p>
-                        <a href="#enroll" class="inline-block bg-gray-900 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-800 hover:scale-105 transition-all shadow-lg">
-                            Apply Now
+                        <a href="#enroll" class="inline-block bg-gray-900 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-800 hover:scale-105 transition-all shadow-lg">Apply Now
                         </a>
                     </div>
                 </div>
@@ -263,24 +268,23 @@
         <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
 
         <div class="max-w-7xl mx-auto px-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full z-10">
-            <h2 class="text-center text-3xl md:text-4xl font-bold text-orange-400 mb-10 scroll-reveal">
-                Live Class Automation Testing
+            <h2 class="text-center text-3xl md:text-4xl font-bold text-orange-400 mb-10 scroll-reveal">Live Class Automation Testing
             </h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div class="scroll-scale">
-                    <img src="https://success24.in/img/class1.jpg" 
+                    <img src="https://success24.in/img/class1.jpg"
                         class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 1" />
                 </div>
                 <div class="scroll-scale">
-                    <img src="https://success24.in/img/DS_5.jpg" 
+                    <img src="https://success24.in/img/DS_5.jpg"
                         class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 2" />
                 </div>
                 <div class="scroll-scale">
-                    <img src="https://success24.in/img/classds.jpg" 
+                    <img src="https://success24.in/img/classds.jpg"
                         class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 3" />
                 </div>
                 <div class="scroll-scale">
-                    <img src="https://success24.in/img/class_4.jpg" 
+                    <img src="https://success24.in/img/class_4.jpg"
                         class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 4" />
                 </div>
             </div>
@@ -296,8 +300,7 @@
                 <a href="tel:+919555580458" class="bg-white text-orange-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 hover:scale-105 transition-all shadow-lg">
                     <i class="fas fa-phone mr-2"></i>Call Now
                 </a>
-                <a href="#enroll" class="border-2 border-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-orange-600 transition-all">
-                    Enroll Today
+                <a href="#enroll" class="border-2 border-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-orange-600 transition-all">Enroll Today
                 </a>
             </div>
         </div>

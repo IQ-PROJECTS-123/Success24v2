@@ -1,35 +1,41 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="PHP.aspx.cs" Inherits="Success24v2.PHP" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="css/allcourses.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <!-- HERO SECTION -->
-    <section class="relative overflow-hidden h-screen flex items-center justify-center">
-        <img src="https://success24.in/img/iq-india2.jpeg" 
-            class="absolute inset-0 w-full h-full object-cover"
-            alt="PHP Web Development Training" />
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
 
-        <div class="hero-overlay"></div>
+        <img src="https://success24.in/img/iq-india2.jpeg"
+            class="absolute inset-0 w-full h-full object-cover"
+            alt="PHP" />
+
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <div class="hero-text-glow">
-                <h2 class="font-bold text-xl md:text-2xl mb-4 scroll-fade-left">
-                    <span class="gradient-blue-yellow">2026 Web Development Program</span>
+            <div class="backdrop-blur-md bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
+
+                <h2 class="text-xl md:text-2xl font-bold mb-4
+                       bg-gradient-to-r from-blue-500 to-yellow-400
+                       bg-clip-text text-transparent">2026 Advanced Analytics Program
                 </h2>
 
-                <div class="hero-line mx-auto mb-6"></div>
+                <div class="mx-auto mb-6 h-1 w-24
+                        bg-gradient-to-r from-yellow-400 to-blue-500
+                        shadow-lg shadow-yellow-400/50">
+                </div>
 
-                <h1 class="font-black text-5xl md:text-7xl mb-6 scroll-scale">
-                    <span class="gradient-yellow-blue">PHP Web Development
-                    </span>
+                <h1 class="text-5xl md:text-7xl font-black mb-6
+                       bg-gradient-to-r from-yellow-400 to-blue-500
+                       bg-clip-text text-transparent">Python & R Programming
                 </h1>
 
-                <p class="text-white text-xl md:text-2xl font-semibold scroll-fade-right">
-                    Build Dynamic Websites using PHP, MySQL, Laravel & APIs
+                <p class="text-white text-xl md:text-2xl font-semibold">
+                    Python, Machine Learning, AI, Statistics & Real-Time Projects
                 </p>
+
             </div>
         </div>
     </section>
@@ -237,10 +243,10 @@
     <!-- FINAL CTA -->
     <section class="py-20 bg-gradient-to-r from-orange-500 to-red-500 text-white scroll-scale">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Become a Data Scientist?
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Become a Python Devloper?
             </h2>
             <p class="text-xl mb-8 opacity-90">
-                Learn Data Science with real-world projects
+                Learn Python Programing with real-world projects
             </p>
             <div class="flex justify-center gap-4 flex-wrap">
                 <a href="tel:+919555580458"

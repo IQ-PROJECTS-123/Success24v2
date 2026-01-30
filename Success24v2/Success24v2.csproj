@@ -68,7 +68,7 @@
     <Content Include="AdminGallery.aspx" />
     <Content Include="Android App.aspx" />
     <Content Include="Angular.aspx" />
-    <Content Include="Automotion.aspx" />
+    <Content Include="Automation.aspx" />
     <Content Include="AzureTraining.aspx" />
     <Content Include="Big data Hadoop.aspx" />
     <Content Include="CloudComputing.aspx" />
@@ -93,6 +93,7 @@
     <Content Include="img\class_1.jpg" />
     <Content Include="img\class_4.jpg" />
     <Content Include="img\Cyber1.jpg" />
+    <Content Include="img\data-science-img.jpg" />
     <Content Include="img\DS.jpg" />
     <Content Include="img\classds.jpg" />
     <Content Include="img\class1.jpg" />
@@ -264,7 +265,7 @@
     <Content Include="lib\waypoints\waypoints.min.js" />
     <Content Include="lib\wow\wow.js" />
     <Content Include="lib\wow\wow.min.js" />
-    <Content Include="SharePoint.aspx" />
+    <Content Include="SharePoint 2019 Designer.aspx" />
     <Content Include="SharePoint2019Administration.aspx" />
     <Content Include="Software Testing.aspx" />
     <Content Include="SPD.aspx" />
@@ -311,12 +312,12 @@
       <DependentUpon>Angular.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Automotion.aspx.cs">
-      <DependentUpon>Automotion.aspx</DependentUpon>
+    <Compile Include="Automation.aspx.cs">
+      <DependentUpon>Automation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Automotion.aspx.designer.cs">
-      <DependentUpon>Automotion.aspx</DependentUpon>
+    <Compile Include="Automation.aspx.designer.cs">
+      <DependentUpon>Automation.aspx</DependentUpon>
     </Compile>
     <Compile Include="AzureTraining.aspx.cs">
       <DependentUpon>AzureTraining.aspx</DependentUpon>
@@ -518,12 +519,12 @@
     <Compile Include="SAP ERP.aspx.designer.cs">
       <DependentUpon>SAP ERP.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SharePoint.aspx.cs">
-      <DependentUpon>SharePoint.aspx</DependentUpon>
+    <Compile Include="SharePoint 2019 Designer.aspx.cs">
+      <DependentUpon>SharePoint 2019 Designer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SharePoint.aspx.designer.cs">
-      <DependentUpon>SharePoint.aspx</DependentUpon>
+    <Compile Include="SharePoint 2019 Designer.aspx.designer.cs">
+      <DependentUpon>SharePoint 2019 Designer.aspx</DependentUpon>
     </Compile>
     <Compile Include="SharePoint2019Administration.aspx.cs">
       <DependentUpon>SharePoint2019Administration.aspx</DependentUpon>

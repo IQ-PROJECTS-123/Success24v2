@@ -18,8 +18,6 @@ namespace Success24v2
                     if (dt == null || dt.Rows.Count == 0) return;
 
                     StringBuilder dsktp = new StringBuilder();
-                    StringBuilder mbl = new StringBuilder();
-
                     DataRow[] parents = dt.Select("ParentID IS NULL OR ParentID = 0");
 
                     foreach (DataRow row in parents)
@@ -33,25 +31,21 @@ namespace Success24v2
                         if (children.Length == 0)
                         {
                             dsktp.AppendFormat("<li><a href='{0}' class='hover:text-orange-400'>{1}</a></li>", url, title);
-                            mbl.AppendFormat("<li><a href='{0}' class='block hover:text-orange-400'>{1}</a></li>", url, title);
                         }
                         else
                         {
                             dsktp.AppendFormat("<li class='group relative'><button class='hover:text-orange-400 flex items-center gap-1'>{0} <i class='fas fa-chevron-down text-[10px]'></i></button>", title);
                             dsktp.Append("<div class='absolute hidden group-hover:block bg-white text-gray-800 shadow-xl rounded-lg p-4 min-w-[200px] top-full left-0'>");
 
-                            mbl.AppendFormat("<li><button type='button' onclick='this.nextElementSibling.classList.toggle(\"hidden\")' class='flex items-center gap-1'>{0} <i class='fas fa-chevron-down text-[10px]'></i></button><div class='hidden ml-4 space-y-2'>", title);
 
                             foreach (DataRow child in children)
                             {
                                 url = Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["HostURL"]) + Convert.ToString(HttpContext.Current.Session["City"]).Replace(" ", "-") + "/" + (child["Navurl"].ToString().Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"]))).Replace(" ", "-");
 
                                 dsktp.AppendFormat("<a href='{0}' class='block py-2 hover:text-orange-500'>{1}</a>", url, child["Title"]);
-                                mbl.AppendFormat("<a href='{0}' class='block py-2 hover:text-orange-400'>{1}</a>", url, child["Title"]);
                             }
 
                             dsktp.Append("</div></li>");
-                            mbl.Append("</div></li>");
                         }
                     }
 

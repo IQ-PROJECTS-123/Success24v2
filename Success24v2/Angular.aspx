@@ -1,36 +1,45 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="Automotion.aspx.cs" Inherits="Success24v2.Automotion" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="css/allcourses.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <!-- HERO SECTION -->
-    <section class="relative overflow-hidden h-screen flex items-center justify-center">
-        <img src="https://success24.in/img/iq-india2.jpeg"
-            class="absolute inset-0 w-full h-full object-cover" alt="Angular Training" />
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
 
-        <div class="hero-overlay"></div>
+        <img src="https://success24.in/img/iq-india2.jpeg"
+            class="absolute inset-0 w-full h-full object-cover"
+            alt="Angular Training" />
+
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <div class="hero-text-glow">
-                <h2 class="font-bold text-xl md:text-2xl mb-4 scroll-fade-left">
-                    <span class="gradient-blue-yellow">2026 Frontend Development Program</span>
+            <div class="backdrop-blur-md bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
+
+                <h2 class="text-xl md:text-2xl font-bold mb-4
+                       bg-gradient-to-r from-blue-500 to-yellow-400
+                       bg-clip-text text-transparent">2026 Frontend Framework Program
                 </h2>
 
-                <div class="hero-line mx-auto mb-6"></div>
+                <div class="mx-auto mb-6 h-1 w-24
+                        bg-gradient-to-r from-yellow-400 to-blue-500
+                        shadow-lg shadow-yellow-400/50">
+                </div>
 
-                <h1 class="font-black text-5xl md:text-7xl mb-6 scroll-scale">
-                    <span class="gradient-yellow-blue">Angular 2+ & AngularJS</span>
+                <h1 class="text-5xl md:text-7xl font-black mb-6
+                       bg-gradient-to-r from-yellow-400 to-blue-500
+                       bg-clip-text text-transparent">Angular Development Training
                 </h1>
 
-                <p class="text-white text-xl md:text-2xl font-semibold scroll-fade-right">
-                    Master Angular, TypeScript, Components & Real-Time Projects
+                <p class="text-white text-xl md:text-2xl font-semibold">
+                    Angular, TypeScript, RxJS, REST APIs & Real-Time Projects
                 </p>
+
             </div>
         </div>
     </section>
+
 
     <!-- CTA BANNER -->
     <section class="bg-gradient-to-r from-yellow-400 to-orange-400 text-center py-12 scroll-scale">
@@ -217,35 +226,40 @@
         </div>
     </section>
     <!-- LIVE CLASS GALLERY -->
-    <section class="relative overflow-hidden">
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+
         <img src="https://success24.in/img/iq-india2.jpeg"
-            class="w-full h-[520px] object-cover" alt="Live Classes" />
+            class="absolute inset-0 w-full h-full object-cover"
+            alt="Angular Training" />
 
         <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
 
-        <div class="max-w-7xl mx-auto px-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full z-10">
-            <h2 class="text-center text-3xl md:text-4xl font-bold text-orange-400 mb-10 scroll-reveal">Live Class Automation Testing
-            </h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/class1.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 1" />
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+            <div class="backdrop-blur-md bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
+
+                <h2 class="text-xl md:text-2xl font-bold mb-4
+                       bg-gradient-to-r from-blue-500 to-yellow-400
+                       bg-clip-text text-transparent">2026 Frontend Framework Program
+                </h2>
+
+                <div class="mx-auto mb-6 h-1 w-24
+                        bg-gradient-to-r from-yellow-400 to-blue-500
+                        shadow-lg shadow-yellow-400/50">
                 </div>
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/DS_5.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 2" />
-                </div>
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/classds.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 3" />
-                </div>
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/class_4.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 4" />
-                </div>
+
+                <h1 class="text-5xl md:text-7xl font-black mb-6
+                       bg-gradient-to-r from-yellow-400 to-blue-500
+                       bg-clip-text text-transparent">Angular Development Training
+                </h1>
+
+                <p class="text-white text-xl md:text-2xl font-semibold">
+                    Angular, TypeScript, RxJS, REST APIs & Real-Time Projects
+                </p>
+
             </div>
         </div>
     </section>
+
 
     <!-- FINAL CTA -->
     <section class="py-20 bg-gradient-to-r from-orange-500 to-red-500 text-white scroll-scale">

@@ -1,35 +1,41 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="Office365SharePointOnline.aspx.cs" Inherits="Success24v2.Office365SharePointOnline" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="css/allcourses.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <!-- HERO SECTION -->
-    <section class="relative overflow-hidden h-screen flex items-center justify-center">
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+
         <img src="https://success24.in/img/iq-india2.jpeg"
             class="absolute inset-0 w-full h-full object-cover"
-            alt="Office 365 SharePoint Online Training" />
+            alt="Data Science Training" />
 
-        <div class="hero-overlay"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <div class="hero-text-glow">
-                <h2 class="font-bold text-xl md:text-2xl mb-4 scroll-fade-left">
-                    <span class="gradient-blue-yellow">2026 Microsoft Cloud Program</span>
+            <div class="backdrop-blur-md bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
+
+                <h2 class="text-xl md:text-2xl font-bold mb-4
+                       bg-gradient-to-r from-blue-500 to-yellow-400
+                       bg-clip-text text-transparent">2026 Advanced Analytics Program
                 </h2>
 
-                <div class="hero-line mx-auto mb-6"></div>
+                <div class="mx-auto mb-6 h-1 w-24
+                        bg-gradient-to-r from-yellow-400 to-blue-500
+                        shadow-lg shadow-yellow-400/50">
+                </div>
 
-                <h1 class="font-black text-5xl md:text-7xl mb-6 scroll-scale">
-                    <span class="gradient-yellow-blue">Office 365 & SharePoint Online
-                    </span>
+                <h1 class="text-5xl md:text-7xl font-black mb-6
+                       bg-gradient-to-r from-yellow-400 to-blue-500
+                       bg-clip-text text-transparent">Office365SharePointOnline
                 </h1>
 
-                <p class="text-white text-xl md:text-2xl font-semibold scroll-fade-right">
-                    Master Microsoft 365, SharePoint Online & Power Platform
+                <p class="text-white text-xl md:text-2xl font-semibold">
+                    AngularJS, Knockout and Breeze JavaScript Libraries & Real-Time Projects
                 </p>
+
             </div>
         </div>
     </section>

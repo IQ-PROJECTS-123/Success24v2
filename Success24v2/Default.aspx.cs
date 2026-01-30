@@ -29,7 +29,7 @@ namespace Success24v2
                             string _Val = this.Request.Url.ToString().Split('/')[3];
                             Session["City"] = Utility._GetCityNameCamlecase(_Val);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                         }
                     }
