@@ -1,37 +1,188 @@
-﻿.hero-overlay {
+﻿body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.mega-menu-container {
+    position: relative;
+}
+
+.mega-menu {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8));
-    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 1.5rem);
+    width: 1100px;
+    max-width: 90vw;
+    display: none;
+    z-index: 50;
 }
 
-.gradient-blue-yellow {
-    background: linear-gradient(90deg, #3b82f6, #fbbf24);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+    .mega-menu.show {
+        display: block;
+        animation: slideDown 0.3s ease-out;
+    }
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
-.gradient-yellow-blue {
-    background: linear-gradient(90deg, #fbbf24, #3b82f6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+/* Scroll Animations */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.hero-line {
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, #fbbf24, #3b82f6);
-    box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+    .scroll-reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+.scroll-fade-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.hero-text-glow {
-    text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(8px);
-    background: rgba(15, 23, 42, 0.3);
-    padding: 3rem;
-    border-radius: 1.5rem;
+    .scroll-fade-left.active {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+.scroll-fade-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
+    .scroll-fade-right.active {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+.scroll-scale {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+    .scroll-scale.active {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+/* Stagger animation delays */
+.scroll-reveal:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.scroll-reveal:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.scroll-reveal:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.scroll-reveal:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-bounce-slow {
+    animation: bounce 2s infinite;
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Parallax effect */
+.parallax-bg {
+    transition: transform 0.5s ease-out;
+}
+
+/* Hover effects */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+/* Gradient animation */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+.tab-logic {
+    display: none;
+}
+
+
+.tab-content {
+    display: none;
+}
+
+#btn-testimonial:checked ~ .tab-card #content-testimonial {
+    display: block;
+}
+
+#btn-links:checked ~ .tab-card #content-links {
+    display: block;
+}
+
+#btn-location:checked ~ .tab-card #content-location {
+    display: block;
+}
+
+#btn-testimonial:checked ~ .tab-card #label-testimonial {
+    background-color: #ea580c;
+    color: white;
+}
+
+#btn-links:checked ~ .tab-card #label-links {
+    background-color: #ea580c;
+    color: white;
+}
+
+#btn-location:checked ~ .tab-card #label-location {
+    background-color: #ea580c;
+    color: white;
+}
