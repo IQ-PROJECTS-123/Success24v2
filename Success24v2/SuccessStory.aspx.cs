@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Success24v2
 {
@@ -14,27 +12,72 @@ namespace Success24v2
         {
             if (!IsPostBack)
             {
+                
+                string logoPositionClass = "right-3 top-3";
+                string logoSizeClass = "h-10";
+                string logoContainerPadding = "p-1";
+
                 DataTable dt = Utility._GetDataTable("SELECT * FROM Placement ORDER BY Batch DESC, [OrderBy] DESC");
                 _LiteralSuccess.Text = dt.Rows.Count.ToString();
+
+                var sb = new StringBuilder();
+
                 foreach (DataRow dr in dt.Rows)
                 {
-                    Literal1.Text += String.Format(@" <div class=""col-md-6 col-lg-4 col-xl-3 wow fadeInUp"" data-wow-delay=""0.1s"">
-                 <div class=""event-item rounded"">
-                     <div class=""position-relative"">
-                         <img src=""{0}""  class=""img-fluid rounded-top w-100"" alt=""Image"">
-                         <div class=""bg-primary text-white fw-bold rounded d-inline-block position-absolute p-2"" style=""top: 0; right: 0;"">{5}</div>
-                         <div class=""d-flex justify-content-between border-start border-end bg-white px-2 py-2 w-100 position-absolute"" style=""bottom: 0; left: 0; opacity: 0.8;"">
-                             <a href=""#"" class=""text-dark""><i class=""fas fa-rupee-sign text-primary""></i> {1}/-</a>
-                             <a href=""#"" class=""text-dark""><span class=""fas fa-map-marker-alt text-primary""></span> {2}</a>
-                         </div>
-                     </div>
-                     <div class=""border border-top-0 rounded-bottom p-4"">
-                        
-                         <p class=""mb-3""><b>{3}</b><br />{4}</p>                        
-                     </div>
-                 </div>
-             </div>", Convert.ToString(dr["ImageURL"]), Convert.ToString(dr["salary"]), Convert.ToString(dr["Location"]), Convert.ToString(dr["Title"]).ToUpper(), Convert.ToString(dr["Company"]), Convert.ToString(dr["Batch"]));
+                    string photo = Convert.ToString(dr["ImageURL"]);
+                    if (string.IsNullOrWhiteSpace(photo)) photo = "/img/default-avatar.jpg";
+
+                    string logo = "";
+                    string[] logoCandidates = { "CompanyLogo", "LogoUrl", "Logo", "CompanyLogoURL", "LogoImage" };
+                    foreach (var c in logoCandidates)
+                    {
+                        if (dr.Table.Columns.Contains(c) && !String.IsNullOrEmpty(Convert.ToString(dr[c])))
+                        {
+                            logo = Convert.ToString(dr[c]);
+                            break;
+                        }
+                    }
+
+                    string name = Convert.ToString(dr["Title"]);
+                    string company = Convert.ToString(dr["Company"]);
+                    string location = Convert.ToString(dr["Location"]);
+                    string salary = Convert.ToString(dr["salary"]);
+                    string batch = Convert.ToString(dr["Batch"]);
+
+                    string companyText = company + (string.IsNullOrEmpty(location) ? "" : ", " + location);
+
+                    string logoHtml = String.Empty;
+                    if (!String.IsNullOrEmpty(logo))
+                    {
+                        logoHtml = $"<div class='absolute {logoPositionClass} bg-white rounded-md {logoContainerPadding} shadow-sm flex items-center justify-center'><img src='{HttpUtility.HtmlAttributeEncode(logo)}' alt='company logo' class='{logoSizeClass} w-auto object-contain' /></div>";
+                    }
+
+                    sb.AppendFormat(@"
+                         <div class='bg-white card border border-gray-200 shadow-sm overflow-visible rounded-lg'>
+                              <div class='relative'>
+                                   <div class='bg-cyan-300 h-28 rounded-t-lg'></div>
+                                     {0}
+                                   </div>
+
+                                       <div class='-mt-16 flex justify-center relative z-20'>
+                                          <img src='{1}' alt='{2}' class='w-32 h-32 rounded-full border-4 border-white object-cover shadow-md' />
+                                        </div>
+
+                                       <div class='px-6 pb-6 pt-4 text-gray-800'>
+                                       <div class='font-semibold text-gray-900 mb-2'>Name: {2}</div>
+                                       <div class='text-sm text-gray-700 mb-2'><strong>Company:</strong> {3}</div>
+                                       <div class='text-sm text-gray-600'><strong>Salary:</strong> {4}/- &nbsp;&nbsp; <strong>Batch:</strong> {5}</div>
+                                  </div>
+                               </div>",
+                        logoHtml,
+                        HttpUtility.HtmlAttributeEncode(photo),
+                        HttpUtility.HtmlEncode(name),
+                        HttpUtility.HtmlEncode(companyText),
+                        HttpUtility.HtmlEncode(salary),
+                        HttpUtility.HtmlEncode(batch)
+                    );
                 }
+                Literal1.Text = sb.ToString();
                 dt = Utility._GetDataTable("select count(ID) as Active from student where Active=1");
                 _LiteralPrac.Text = dt.Rows[0][0].ToString();
             }

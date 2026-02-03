@@ -96,8 +96,6 @@
             </div>
         </nav>
 
-
-
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             <!-- Hero Section -->
             <section class="relative bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 text-white py-20 overflow-hidden">
@@ -263,21 +261,23 @@
                             </tr>
                         </table>
 
-                        <div class="p-5 min-h-[160px]">
-                            <div id="content-testimonials" class="tab-pane block">
+                        <!-- Fixed-height content area so every tab shows same size -->
+                        <!-- Adjust h-44 -> h-56 if you want taller -->
+                        <div class="p-5 h-44">
+                            <div id="content-testimonials" class="tab-pane block h-full flex flex-col">
                                 <div class="flex justify-between items-center mb-3">
                                     <div>
-                                        <h4 class="text-lg font-bold text-slate-800">Ashish Bhardwaj</h4>
-                                        <p class="text-gray-500 italic text-xs">Greater London, UK</p>
+                                        <h4 class="text-lg font-bold text-slate-800">Kaushal chauhan</h4>
+                                        <p class="text-gray-500 italic text-xs">IQ, India</p>
                                     </div>
                                     <img src="https://ui-avatars.com/api/?name=Ashish+Bhardwaj&background=f97316&color=fff" alt="User" class="w-10 h-10 rounded-full shadow-sm">
                                 </div>
-                                <p class="text-gray-600 text-sm leading-snug mb-3">
-                                    SharePoint Development Training Conducted very well. Instructor has good command on course.
-                                </p>
+                                <div class="text-gray-600 text-sm leading-snug overflow-auto">
+                                    .NET Devloper at IQ india.
+                                </div>
                             </div>
 
-                            <div id="content-linked" class="tab-pane hidden">
+                            <div id="content-linked" class="tab-pane hidden h-full overflow-auto">
                                 <ul class="space-y-2 text-sm">
                                     <li><a href="#" class="text-orange-500 hover:underline flex items-center gap-2">Course Catalog</a></li>
                                     <li><a href="#" class="text-orange-500 hover:underline flex items-center gap-2">Student Login</a></li>
@@ -285,10 +285,14 @@
                                 </ul>
                             </div>
 
-                            <div id="content-location" class="tab-pane hidden text-sm">
-                                <h4 class="font-bold mb-2 text-orange-500">Corporate Office</h4>
-                                <p class="text-gray-600">D1/338, New Kondli, Delhi – 110096</p>
-                                <p class="mt-2 text-gray-500 italic text-xs">Timing: 9:00 AM - 7:00 PM</p>
+                                <!-- Replace the Location tab content area with this markup (keeps fixed height and shows inline horizontal scroll list) -->
+                            <div id="content-location" class="tab-pane hidden text-sm h-full flex flex-col" role="region" aria-labelledby="tab-location">
+
+                                <!-- Horizontal scroll single-line list; stays inside fixed-height tab -->
+                                <div class="overflow-x-auto whitespace-nowrap py-2">
+                                    <asp:Literal runat="server" ID="_LiteralLocationAll"></asp:Literal>
+                                </div>
+
                             </div>
                         </div>
                     </div>

@@ -24,15 +24,6 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.Literal _LiteralSuccess;
 
         /// <summary>
-        /// _LiteralPrac control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal _LiteralPrac;
-
-        /// <summary>
         /// Literal1 control.
         /// </summary>
         /// <remarks>
@@ -40,5 +31,14 @@ namespace Success24v2
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Literal1;
+
+        /// <summary>
+        /// _LiteralPrac control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal _LiteralPrac;
     }
 }
