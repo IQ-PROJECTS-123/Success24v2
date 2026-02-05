@@ -365,7 +365,7 @@ namespace Success24v2
                 for (int _Counter = 0; _Counter < _DataTable.Rows.Count; _Counter++)
                 {
 
-                    _LiteralColl1.Text += "<p><a href='" + System.Configuration.ConfigurationManager.AppSettings["HostURL"] + "/" + _GetFormatedURL(Convert.ToString(_DataTable.Rows[_Counter]["DisplayName"])) + "/" + _Page.Replace(" ", "-") + "-In-" + _GetFormatedURL(Convert.ToString(_DataTable.Rows[_Counter]["DisplayName"])) + "' title='" + _PageName.Replace("-", " ") + " in " + Convert.ToString(_DataTable.Rows[_Counter]["DisplayName"]) + "'>" + _PageName.Replace("-", " ") + " in " + Convert.ToString(_DataTable.Rows[_Counter]["DisplayName"]) + "</a></p>";
+                    _LiteralColl1.Text += "<p><a href='" + System.Configuration.ConfigurationManager.AppSettings["HostURL"] + _GetFormatedURL(Convert.ToString(_DataTable.Rows[_Counter]["DisplayName"])) + "/" + _Page.Replace(" ", "-") + "-In-" + _GetFormatedURL(Convert.ToString(_DataTable.Rows[_Counter]["DisplayName"])) + "' title='" + _PageName.Replace("-", " ") + " in " + Convert.ToString(_DataTable.Rows[_Counter]["DisplayName"]) + "'>" + _PageName.Replace("-", " ") + " in " + Convert.ToString(_DataTable.Rows[_Counter]["DisplayName"]) + "</a></p>";
                     // _Counter = _Counter + 1;
                     //if (_Counter < _DataTable.Rows.Count)
                     // {

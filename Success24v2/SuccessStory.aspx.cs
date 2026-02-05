@@ -55,7 +55,7 @@ namespace Success24v2
                     sb.AppendFormat(@"
                          <div class='bg-white card border border-gray-200 shadow-sm overflow-visible rounded-lg'>
                               <div class='relative'>
-                                   <div class='bg-cyan-300 h-28 rounded-t-lg'></div>
+                                   <div class='bg-orange-200 h-28 rounded-t-lg'></div>
                                      {0}
                                    </div>
 

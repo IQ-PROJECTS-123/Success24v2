@@ -16,7 +16,7 @@ namespace Success24v2
                 {
                     GenerateNavigation();
 
-                    Utility._SetLocationsHome(_LiteralLocationAll, null, "Programs", "Programs");
+                    Utility._SetLocationsHome(_LiteralLocationAll, null, "Data-Science-Training-Institute", "Data-science-Training-Institute");
                 }
                 catch (Exception ex)
                 {
@@ -76,7 +76,7 @@ namespace Success24v2
                     else
                         children = dt.Select("ParentID = '" + idRaw.Replace("'", "''") + "'");
 
-                    // detect Programs parent (adjust if needed)
+                    // detect Programs parent (adjust if needed)z
                     bool isProgramsParent = (!string.IsNullOrEmpty(title) && title.IndexOf("Programs", StringComparison.OrdinalIgnoreCase) >= 0)
                                             || (!string.IsNullOrEmpty(parentNav) && parentNav.IndexOf("Programs", StringComparison.OrdinalIgnoreCase) >= 0);
 

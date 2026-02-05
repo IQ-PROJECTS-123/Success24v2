@@ -75,7 +75,6 @@
     <Content Include="courses.aspx" />
     <Content Include="CS.aspx" />
     <Content Include="css\ds.css" />
-    <Content Include="css\allcourses.css" />
     <Content Include="Databases.aspx" />
     <Content Include="DevOps.aspx" />
     <Content Include="Digital Marketing.aspx" />
