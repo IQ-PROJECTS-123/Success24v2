@@ -9,7 +9,7 @@ namespace Success24v2
 {
     public partial class EventPage : System.Web.UI.Page
     {
-        
+        // Pulls the connection string from your Web.config
         private string connString = ConfigurationManager.ConnectionStrings["S24"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -24,7 +24,7 @@ namespace Success24v2
         {
             using (SqlConnection conn = new SqlConnection(connString))
             {
-                
+                // We only select 'Approved' status images
                 string query = "SELECT Title, FilePath FROM EventGallery WHERE Status = 'Approved' ORDER BY UploadedDate DESC";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))

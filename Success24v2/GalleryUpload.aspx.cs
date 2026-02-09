@@ -71,7 +71,7 @@ namespace Success24v2
                     {
                         cmd.Parameters.AddWithValue("@Title", txtTitle.Text.Trim());
                         cmd.Parameters.AddWithValue("@Path", dbRelativePath);
-                        cmd.Parameters.AddWithValue("@Status", "Pending"); 
+                        cmd.Parameters.AddWithValue("@Status", "Pending");
                         cmd.Parameters.AddWithValue("@Date", DateTime.Now);
 
                         con.Open();

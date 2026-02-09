@@ -3,6 +3,7 @@ using System.Data;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+using System.Globalization;
 
 namespace Success24v2
 {
@@ -16,7 +17,9 @@ namespace Success24v2
                 {
                     GenerateNavigation();
 
-                    Utility._SetLocationsHome(_LiteralLocationAll, null, "Data-Science-Training-Institute", "Data-science-Training-Institute");
+                    DataTable navDt = Utility._GetDataTable24("Select * from SiteNavigation where Site = 'Success24' order by Orderby");
+                    var programInfo = GetProgramsChildInfo(navDt); // returns (pageSlugDisplay, pageTitle)
+                    Utility._SetLocationsHome(_LiteralLocationAll, null, programInfo.Item1, programInfo.Item2);
                 }
                 catch (Exception ex)
                 {
@@ -25,6 +28,85 @@ namespace Success24v2
                 }
             }
         }
+
+        private Tuple<string, string> GetProgramsChildInfo(DataTable navDt)
+        {
+            string defaultSlug = "Data-Science-Training-Institute";
+            string defaultTitle = "Data Science Training Institute";
+
+            try
+            {
+                if (navDt == null || navDt.Rows.Count == 0)
+                    return Tuple.Create(defaultSlug, defaultTitle);
+
+                // Get City
+                string city = Convert.ToString(HttpContext.Current.Session["City"] ?? "").Trim();
+                if (string.IsNullOrEmpty(city))
+                    city = Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["DefaultCity"] ?? "").Trim();
+
+                string citySlug = city.Replace(" ", "-");
+
+                string currentPath = HttpContext.Current.Request.Url.AbsolutePath.ToLowerInvariant();
+
+                // Find Programs parent
+                var parentRows = navDt.Select("ParentID IS NULL OR ParentID = 0");
+                DataRow programsParent = null;
+
+                foreach (DataRow p in parentRows)
+                {
+                    string pTitle = Convert.ToString(p["Title"] ?? "");
+                    string pNav = Convert.ToString(p["Navurl"] ?? "");
+                    if (pTitle.IndexOf("Programs", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                        pNav.IndexOf("Programs", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        programsParent = p;
+                        break;
+                    }
+                }
+
+                if (programsParent == null)
+                    return Tuple.Create(defaultSlug, defaultTitle);
+
+                // Get children
+                string pid = Convert.ToString(programsParent["ID"] ?? "");
+                DataRow[] children = navDt.Select("ParentID = " + pid);
+
+                if (children.Length == 0)
+                    return Tuple.Create(defaultSlug, defaultTitle);
+
+                // Default first child
+                DataRow selectedChild = children[0];
+
+                foreach (DataRow child in children)
+                {
+                    string childTitle = Convert.ToString(child["Title"] ?? "").Replace("_#City#_", "").Trim();
+                    string childSlug = Utility.GenerateSlug(childTitle).ToLowerInvariant();
+
+                    if (currentPath.Contains(childSlug))
+                    {
+                        selectedChild = child;
+                        break;
+                    }
+                }
+
+                string rawTitle = Convert.ToString(selectedChild["Title"] ?? "");
+
+                // Footer link slug = {title}-Training-Institute-in-{city}
+                string slugPart = rawTitle.Replace(" ", "-");
+
+                string pageSlugDisplay = $"{slugPart}-Training-Institute";
+
+                // Footer title text = Title with spacing
+                string pageTitle = $"{rawTitle} Training Institute";
+
+                return Tuple.Create(pageSlugDisplay, pageTitle);
+            }
+            catch
+            {
+                return Tuple.Create(defaultSlug, defaultTitle);
+            }
+        }
+
 
         private void GenerateNavigation()
         {
@@ -100,12 +182,10 @@ namespace Success24v2
 
                         if (!string.IsNullOrEmpty(parentDefaultLink))
                         {
-                            // Render parent as an anchor that navigates to first child, keep dropdown
                             dsktp.AppendFormat("<a href='{0}' class='hover:text-orange-400 flex items-center gap-1 font-medium transition-colors text-white'>{1} <i class='fas fa-chevron-down text-[10px]'></i></a>", HttpUtility.HtmlAttributeEncode(parentDefaultLink), HttpUtility.HtmlEncode(title));
                         }
                         else
                         {
-                            // Non-programs parent or no default link: render button label (no navigation on parent)
                             dsktp.AppendFormat("<button class='hover:text-orange-400 flex items-center gap-1 font-medium transition-colors text-white'>{0} <i class='fas fa-chevron-down text-[10px]'></i></button>", HttpUtility.HtmlEncode(title));
                         }
 
@@ -123,7 +203,6 @@ namespace Success24v2
                             string childNav = Convert.ToString(child["Navurl"] ?? "");
                             string childTitle = Convert.ToString(child["Title"] ?? "").Replace("_#City#_", city);
 
-                            // Only program links include the city slug
                             string childUrl = BuildUrl(childNav, includeCity: isProgramsParent);
 
                             dsktp.AppendFormat("<a href='{0}' class='block py-2 px-3 hover:text-orange-600 hover:bg-orange-50 rounded-md transition-all duration-200 text-[15px] whitespace-normal leading-tight'>{1}</a>", HttpUtility.HtmlAttributeEncode(childUrl), HttpUtility.HtmlEncode(childTitle));
@@ -145,7 +224,7 @@ namespace Success24v2
             }
             catch (Exception ex)
             {
-                Response.Write("Error: " +(ex.ToString()));
+                Response.Write("Error: " + (ex.ToString()));
                 _LiteralNavDesktop.Text = "";
             }
         }
