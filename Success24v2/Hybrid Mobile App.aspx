@@ -8,37 +8,37 @@
     <!-- HERO SECTION -->
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
 
-    <img src="https://success24.in/img/iq-india2.jpeg"
-        class="absolute inset-0 w-full h-full object-cover"
-        alt="Hybrid Mobile App" />
+        <img src="https://success24.in/img/iq-india2.jpeg"
+            class="absolute inset-0 w-full h-full object-cover"
+            alt="Hybrid Mobile App" />
 
-    <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
 
-    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        <div class="backdrop-blur-md bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+            <div class="bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
 
-            <h2 class="text-xl md:text-2xl font-bold mb-4
+                <h2 class="text-xl md:text-2xl font-bold mb-4
                        bg-gradient-to-r from-blue-500 to-yellow-400
                        bg-clip-text text-transparent">2026 Advanced Analytics Program
-            </h2>
+                </h2>
 
-            <div class="mx-auto mb-6 h-1 w-24
+                <div class="mx-auto mb-6 h-1 w-24
                         bg-gradient-to-r from-yellow-400 to-blue-500
                         shadow-lg shadow-yellow-400/50">
-            </div>
+                </div>
 
-            <h1 class="text-5xl md:text-7xl font-black mb-6
+                <h1 class="text-5xl md:text-7xl font-black mb-6
                        bg-gradient-to-r from-yellow-400 to-blue-500
                        bg-clip-text text-transparent">Hybrid Mobile Apps Development Training
-            </h1>
+                </h1>
 
-            <p class="text-white text-xl md:text-2xl font-semibold">
-                Python, Machine Learning, AI, Statistics & Real-Time Projects
-            </p>
+                <p class="text-white text-xl md:text-2xl font-semibold">
+                    Python, Machine Learning, AI, Statistics & Real-Time Projects
+                </p>
 
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- CTA BANNER -->
     <section class="bg-gradient-to-r from-yellow-400 to-orange-400 text-center py-12 scroll-scale">
@@ -248,12 +248,11 @@
             <p class="text-xl mb-8 opacity-90">
                 Learn Hybrid Mobile App Devlopement with real-world projects
             </p>
-            <div class="flex justify-center gap-4 flex-wrap">
-                <a href="tel:+919555580458"
-                    class="bg-white text-orange-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-all">Call Now
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="tel:+919555580458" class="bg-white text-orange-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-all">
+                    <i class="fas fa-phone mr-2"></i>Call Now
                 </a>
-                <a href="#enroll"
-                    class="border-2 border-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-orange-600 transition-all">Enroll Today
+                <a href="RegistartionForm.aspx" class="border-2 border-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-orange-600 transition-all">Enroll Today
                 </a>
             </div>
         </div>

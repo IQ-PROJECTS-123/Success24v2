@@ -16,7 +16,7 @@
         <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <div class="backdrop-blur-md bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
+            <div class="bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
 
                 <h2 class="text-xl md:text-2xl font-bold mb-4
                            bg-gradient-to-r from-blue-500 to-yellow-400
@@ -279,12 +279,11 @@
             Learn Data Science with real-world projects
         </p>
 
-        <div class="flex justify-center gap-4 flex-wrap">
-            <a href="tel:+919555580458"
-                class="bg-white text-orange-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition">Call Now
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="tel:+919555580458" class="bg-white text-orange-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-all">
+                <i class="fas fa-phone mr-2"></i>Call Now
             </a>
-            <a href="#enroll"
-                class="border-2 border-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-orange-600 transition">Enroll Today
+            <a href="https://success24.in/RegistartionForm.aspx" class="border-2 border-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-orange-600 transition-all">Enroll Today
             </a>
         </div>
     </section>
