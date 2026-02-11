@@ -72,10 +72,13 @@
                 <div class="flex items-center h-20 relative">
 
                     <!-- Logo -->
-                    <a href="/" class="flex items-center gap-3 font-black text-xl">
-                        <span class="bg-gradient-to-r from-red-500 to-pink-400 px-4 py-1 rounded-lg">Success<span class="text-white">24</span>
-                        </span>
+                    <a href="/" class="flex items-center gap-3">
+                        <img
+                            src="img/logo1.png"
+                            alt="Success24 Logo"
+                            class="h-10 w-auto" />
                     </a>
+
 
                     <!-- Desktop Navigation (Always Visible) -->
                     <ul class="flex absolute left-1/2 -translate-x-1/2 items-center gap-10 font-semibold">
@@ -211,7 +214,12 @@
             <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10 pb-12">
 
                 <div>
-                    <h1 class="text-white text-3xl font-bold mb-4 italic">SUCCESS<span class="text-orange-500">24</span></h1>
+                    <a href="/" class="flex items-center gap-3">
+                        <img
+                            src="img/logo1.png"
+                            alt="Success24 Logo"
+                            class="h-10 w-auto" />
+                    </a>
                     <p class="text-white/80 font-medium mb-4">A New Way To Success Together</p>
                     <p class="text-sm leading-relaxed">
                         Success24 is committed to delivering quality education and professional training to empower the next generation of tech leaders.
@@ -285,7 +293,7 @@
                                 </ul>
                             </div>
 
-                                <!-- Replace the Location tab content area with this markup (keeps fixed height and shows inline horizontal scroll list) -->
+                            <!-- Replace the Location tab content area with this markup (keeps fixed height and shows inline horizontal scroll list) -->
                             <div id="content-location" class="tab-pane hidden text-sm h-full flex flex-col" role="region" aria-labelledby="tab-location">
 
                                 <!-- Horizontal scroll single-line list; stays inside fixed-height tab -->

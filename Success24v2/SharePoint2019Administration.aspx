@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true"
-    CodeBehind="SharePoint2019Administration.aspx.cs" Inherits="Success24v2.SharePoint2019Administration" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="SharePoint2019Administration.aspx.cs" Inherits="Success24v2.SharePoint2019Administration" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
