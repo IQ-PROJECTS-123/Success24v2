@@ -67,7 +67,7 @@
         </div>
 
         <!-- Navigation -->
-        <nav class="bg-gradient-to-r from-[#0b1220] to-[#111827] text-white sticky top-0 z-40 border-b border-white/10">
+        <nav class="bg-gradient-to-r from-[#FFFFFF] to-[#FFFFFF] text-black sticky top-0 z-40 border-b border-white/10">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="flex items-center h-20 relative">
 
@@ -81,7 +81,7 @@
 
 
                     <!-- Desktop Navigation (Always Visible) -->
-                    <ul class="flex absolute left-1/2 -translate-x-1/2 items-center gap-10 font-semibold">
+                    <ul class="flex absolute left-1/2 -translate-x-1/2 items-center gap-10 font-semibold ">
                         <asp:Literal ID="_LiteralNavDesktop" runat="server"></asp:Literal>
                     </ul>
 
@@ -90,8 +90,8 @@
                         <div class="relative">
                             <input type="text"
                                 placeholder="Search courses..."
-                                class="w-72 rounded-full bg-white/10 border border-white/20 px-5 py-2 text-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" />
-                            <i class="fas fa-search absolute right-4 top-1/2 -translate-y-1/2 text-orange-400"></i>
+                                class="w-72 rounded-full bg-white/10 border border-black px-5 py-2 text-sm text-black placeholder-black focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                            <i class="fas fa-search absolute right-4 top-1/2 -translate-y-1/2 text-balck"></i>
                         </div>
                     </div>
 

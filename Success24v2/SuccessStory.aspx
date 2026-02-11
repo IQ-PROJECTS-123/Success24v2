@@ -24,6 +24,7 @@
        </div>
    </div>
    <!-- Banner End -->
+
      <!-- Events Start -->
  <div class="container-fluid events py-5">
      <div class="container py-5">

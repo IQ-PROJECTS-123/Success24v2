@@ -182,11 +182,11 @@ namespace Success24v2
 
                         if (!string.IsNullOrEmpty(parentDefaultLink))
                         {
-                            dsktp.AppendFormat("<a href='{0}' class='hover:text-orange-400 flex items-center gap-1 font-medium transition-colors text-white'>{1} <i class='fas fa-chevron-down text-[10px]'></i></a>", HttpUtility.HtmlAttributeEncode(parentDefaultLink), HttpUtility.HtmlEncode(title));
+                            dsktp.AppendFormat("<a href='{0}' class='hover:text-orange-400 flex items-center gap-1 font-medium transition-colors text-black'>{1} <i class='fas fa-chevron-down text-[10px]'></i></a>", HttpUtility.HtmlAttributeEncode(parentDefaultLink), HttpUtility.HtmlEncode(title));
                         }
                         else
                         {
-                            dsktp.AppendFormat("<button class='hover:text-orange-400 flex items-center gap-1 font-medium transition-colors text-white'>{0} <i class='fas fa-chevron-down text-[10px]'></i></button>", HttpUtility.HtmlEncode(title));
+                            dsktp.AppendFormat("<button class='hover:text-orange-400 flex items-center gap-1 font-medium transition-colors text-black'>{0} <i class='fas fa-chevron-down text-[10px]'></i></button>", HttpUtility.HtmlEncode(title));
                         }
 
                         dsktp.Append("<div class='absolute hidden group-hover:block bg-white text-gray-800 shadow-2xl rounded-xl p-8 top-full left-1/2 transform -translate-x-1/2 w-max max-w-[95vw] z-[9999] mt-2 border border-gray-100'>");
