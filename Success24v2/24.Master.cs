@@ -126,6 +126,7 @@ namespace Success24v2
                 string citySlug = string.IsNullOrEmpty(city) ? "" : city.Replace(" ", "-");
 
                 StringBuilder dsktp = new StringBuilder();
+                StringBuilder mobileSb = new StringBuilder();
                 DataRow[] parents = dt.Select("ParentID IS NULL OR ParentID = 0");
 
                 string BuildUrl(string rawNavUrl, bool includeCity)
@@ -167,6 +168,9 @@ namespace Success24v2
                         // leaf item: include city only for Programs if desired
                         string url = BuildUrl(parentNav, includeCity: isProgramsParent);
                         dsktp.AppendFormat("<li><a href='{0}' class='hover:text-orange-400'>{1}</a></li>", HttpUtility.HtmlAttributeEncode(url), HttpUtility.HtmlEncode(title));
+
+                        // mobile: single item
+                        mobileSb.AppendFormat("<li><a href='{0}' class='block py-2 px-3 text-sm text-gray-800 hover:text-orange-500'>{1}</a></li>", HttpUtility.HtmlAttributeEncode(url), HttpUtility.HtmlEncode(title));
                     }
                     else
                     {
@@ -217,15 +221,29 @@ namespace Success24v2
                         }
 
                         dsktp.Append("</div></div></div></li>");
+
+                        // mobile: parent with children (vertical)
+                        mobileSb.AppendFormat("<li class='border-b pb-2 mb-2'><div class='font-medium py-2'>{0}</div><ul class='pl-3'>", HttpUtility.HtmlEncode(title));
+                        foreach (DataRow child in children)
+                        {
+                            string childNav = Convert.ToString(child["Navurl"] ?? "");
+                            string childTitle = Convert.ToString(child["Title"] ?? "").Replace("_#City#_", city);
+                            string childUrl = BuildUrl(childNav, includeCity: isProgramsParent);
+                            mobileSb.AppendFormat("<li><a href='{0}' class='block py-2 px-3 text-sm text-gray-700 hover:text-orange-500'>{1}</a></li>", HttpUtility.HtmlAttributeEncode(childUrl), HttpUtility.HtmlEncode(childTitle));
+                        }
+                        mobileSb.Append("</ul></li>");
                     }
                 }
 
                 _LiteralNavDesktop.Text = dsktp.ToString();
+                // wrap mobile list for display inside the mobile menu
+                _LiteralNavMobile.Text = "<ul class='flex flex-col'>" + mobileSb.ToString() + "</ul>";
             }
             catch (Exception ex)
             {
                 Response.Write("Error: " + (ex.ToString()));
                 _LiteralNavDesktop.Text = "";
+                _LiteralNavMobile.Text = "";
             }
         }
     }

@@ -269,12 +269,11 @@
             <p class="text-xl mb-8 opacity-90">
                 Learn Frontend Devlopement with real-world projects
             </p>
-            <div class="flex justify-center gap-4 flex-wrap">
-                <a href="tel:+919555580458"
-                    class="bg-white text-orange-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-all">Call Now
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="tel:+919555580458" class="bg-white text-orange-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-all">
+                    <i class="fas fa-phone mr-2"></i>Call Now
                 </a>
-                <a href="#enroll"
-                    class="border-2 border-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-orange-600 transition-all">Enroll Today
+                <a href="https://success24.in/RegistartionForm.aspx" class="border-2 border-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-orange-600 transition-all">Enroll Today
                 </a>
             </div>
         </div>
