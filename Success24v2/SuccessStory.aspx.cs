@@ -41,9 +41,6 @@ namespace Success24v2
                             string company = HttpUtility.HtmlEncode(Convert.ToString(dr["Company"]));
                             string batch = HttpUtility.HtmlEncode(Convert.ToString(dr["Batch"]));
 
-                            // UPDATED HTML STRUCTURE FOR ALIGNMENT
-                            // 1. Used 'h-100' on the main div to equal height
-                            // 2. Used 'card-img-wrap' (defined in CSS) to fix image size
                             sb.AppendFormat(@"
                             <div class=""col-md-6 col-lg-4 col-xl-3 wow fadeInUp"" data-wow-delay=""0.{0}s"">
                                 <div class=""event-item rounded shadow-sm bg-white border h-100"">
@@ -75,11 +72,9 @@ namespace Success24v2
 
                     Literal1.Text = sb.ToString();
 
-                    // practitioners count
                     dt = Utility._GetDataTable("SELECT COUNT(ID) AS Active FROM student WHERE Active = 1");
                     int practCount = (dt != null && dt.Rows.Count > 0) ? Convert.ToInt32(dt.Rows[0][0]) : 0;
 
-                    // Set server-side literals
                     _LiteralSuccess.Text = successCount.ToString();
                     _LiteralPrac.Text = practCount.ToString();
                 }

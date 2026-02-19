@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Success24v2.Default" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <title>Mahesham Lodge - Room in Rent - HAJIPUR</title>
+    <title>Best Training Institute in Noida | Free Training Till Placement</title>
     <style type="text/css">
         .bg-breadcrumb {
             background: linear-gradient(rgba(242, 139, 0, 0.2),

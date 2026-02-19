@@ -5,44 +5,41 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <!-- HERO SECTION -->
-    <section class="relative h-screen flex items-center justify-center overflow-hidden">
-
+    <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         <img src="https://success24.in/img/iq-india2.jpeg"
-            class="absolute inset-0 w-full h-full object-cover"
-            alt="Data Science Training" />
+            class="absolute inset-0 w-full h-full object-cover object-center"
+            alt="Office 365 SharePoint Online Course in _#City#_" loading="eager" />
 
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/70 to-slate-900/90"></div>
 
-        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <div class="bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
+        <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+            <span class="inline-block py-1.5 px-4 rounded-full bg-orange-500 text-white font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">
+                Cloud Specialist Batch Starting in _#City#_
+            </span>
 
-                <h2 class="text-xl md:text-2xl font-bold mb-4
-                       bg-gradient-to-r from-blue-500 to-yellow-400
-                       bg-clip-text text-transparent">2026 Advanced Analytics Program
-                </h2>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 text-white leading-tight drop-shadow-2xl">
+                <asp:Literal ID="litH1" runat="server"> Office 365 SharePoint <span class="text-orange-500">Training Institute in</span>__#City#__</asp:Literal>
+            </h1>
 
-                <div class="mx-auto mb-6 h-1 w-24
-                        bg-gradient-to-r from-yellow-400 to-blue-500
-                        shadow-lg shadow-yellow-400/50">
-                </div>
+            <p class="text-gray-100 text-xl md:text-2xl font-medium mb-10 max-w-4xl mx-auto leading-relaxed drop-shadow-md">
+                Master the Microsoft 365 ecosystem at our leading **professional training program in 
+                **. 
+                Gain expertise in SPFx, Power Platform, and Governance with **comprehensive placement assistance**.
+            </p>
 
-                <h1 class="text-5xl md:text-7xl font-black mb-6
-                       bg-gradient-to-r from-yellow-400 to-blue-500
-                       bg-clip-text text-transparent">Office365SharePointOnline
-                </h1>
-
-                <p class="text-white text-xl md:text-2xl font-semibold">
-                    AngularJS, Knockout and Breeze JavaScript Libraries & Real-Time Projects
-                </p>
-
+            <div class="flex flex-col sm:flex-row gap-5 justify-center">
+                <a href="tel:+919555580458" class="bg-orange-600 text-white px-10 py-4 rounded-xl font-extrabold hover:bg-orange-700 transition-all hover:scale-105 shadow-xl shadow-orange-600/40 text-lg uppercase tracking-wider">Book Your seat
+                </a>
+                <a href="#syllabus" class="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-10 py-4 rounded-xl font-extrabold hover:bg-white/20 transition-all hover:scale-105 text-lg uppercase tracking-wider">View Syllabus
+                </a>
             </div>
         </div>
+
+        <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent"></div>
     </section>
 
-    <!-- CTA BANNER -->
     <section class="bg-gradient-to-r from-yellow-400 to-orange-400 text-center py-12 scroll-scale">
-        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">Start Your Microsoft Cloud Career
+        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">Top-Rated Skill Development Institute in _#City#_
         </h2>
         <div class="text-3xl md:text-5xl font-bold text-white">
             <a href="tel:+919555580458" class="hover:text-gray-900 transition-colors">+91 95555 80458
@@ -50,210 +47,285 @@
         </div>
     </section>
 
-    <!-- STATS SECTION -->
-    <section class="bg-slate-900 border-t border-b border-slate-700">
-        <div class="max-w-7xl mx-auto px-6 py-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
-                <div class="scroll-scale">
-                    <h3 class="text-5xl font-bold text-orange-500 mb-2 counter" data-target="40">0</h3>
-                    <p class="text-sm text-gray-400">Microsoft Projects</p>
-                </div>
-                <div class="scroll-scale">
-                    <h3 class="text-5xl font-bold text-orange-500 mb-2">M365</h3>
-                    <p class="text-sm text-gray-400">Cloud Apps</p>
-                </div>
-                <div class="scroll-scale">
-                    <h3 class="text-5xl font-bold text-orange-500 mb-2">Power</h3>
-                    <p class="text-sm text-gray-400">Platform</p>
-                </div>
-                <div class="scroll-scale">
-                    <h3 class="text-5xl font-bold text-orange-500 mb-2">Enterprise</h3>
-                    <p class="text-sm text-gray-400">Solutions</p>
-                </div>
+    <section class="bg-black py-10 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <p class="text-3xl font-bold text-white">800+</p>
+                <p class="text-gray-500 text-sm">Experts Certified</p>
+            </div>
+            <div class="text-center">
+                <p class="text-3xl font-bold text-white">10LPA</p>
+                <p class="text-gray-500 text-sm">Average Salary Scope</p>
+            </div>
+            <div class="text-center">
+                <p class="text-3xl font-bold text-white">12+</p>
+                <p class="text-gray-500 text-sm">Real-world Projects</p>
+            </div>
+            <div class="text-center">
+                <p class="text-3xl font-bold text-white">Top 1%</p>
+                <p class="text-gray-500 text-sm">M365 Skillsets</p>
             </div>
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
-    <section class="py-16 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="scroll-fade-left">
-                    <h6 class="uppercase text-orange-500 font-bold text-sm mb-3">Microsoft 365 & SharePoint Online
-                    </h6>
-                    <h2 class="text-4xl font-bold mb-4">Become a Microsoft Cloud Professional
-                    </h2>
-                    <p class="text-gray-600 text-lg leading-relaxed">
-                        Office 365 and SharePoint Online power modern workplaces.
-                        This course covers SharePoint Online administration,
-                        Power Automate, Power Apps, Teams integration, and security.
-                    </p>
-                </div>
-                <div class="scroll-fade-right">
-                    <img src="https://success24.in/img/sharepoint-online.jpg"
-                        class="w-full rounded-2xl shadow-2xl hover-lift"
-                        alt="Office 365 SharePoint Online" />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SYLLABUS SECTION -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12 scroll-reveal">
-                <h6 class="uppercase text-orange-500 font-bold text-sm mb-3">Complete Curriculum
-                </h6>
-                <h2 class="text-4xl font-bold mb-4">Office 365 & SharePoint Online Roadmap
-                </h2>
-                <p class="text-gray-600 text-lg">
-                    From Microsoft 365 basics to enterprise automation.
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h6 class="text-orange-600 font-bold uppercase tracking-wide mb-2">Modern Workplace Solutions</h6>
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">Empower Enterprises with SharePoint & Office 365</h2>
+                <p class="text-gray-600 text-lg mb-6">
+                    If you are searching for a **job-oriented training in _#City#_**, look no further. As global enterprises migrate to cloud-native environments, the demand for Microsoft 365 Architects has reached an all-time high. Our **professional certification in _#City#_** bridges the skill gap by focusing on **Microsoft Graph**, **SPFx Modern UI**, and **Low-code automation**.
                 </p>
+                <p class="text-gray-600 text-lg mb-6">
+                    This course is designed for aspiring developers and IT admins who want to master the digital workplace. We combine deep theoretical knowledge with hands-on labs to ensure you can handle complex intranet architectures and governance policies in any corporate environment.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-gray-700 font-medium">Full-stack SharePoint Development (SPFx, React, Node.js)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-gray-700 font-medium">Advanced Power Automate & Logic Apps Workflow Design</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-gray-700 font-medium">M365 Enterprise Administration & Compliance Governance</span>
+                    </li>
+                </ul>
             </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-
-                <!-- Module 1 -->
-                <div class="p-6 rounded-2xl border-2 border-gray-200 hover:border-orange-500 hover-lift scroll-reveal bg-white">
-                    <h6 class="text-orange-500 font-bold text-sm mb-2">MODULE 01</h6>
-                    <h4 class="text-2xl font-bold mb-4">Microsoft 365 Basics</h4>
-                    <ul class="text-gray-600 space-y-2">
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>M365 Overview</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Exchange Online</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Teams & OneDrive</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Security & Compliance</li>
-                    </ul>
-                </div>
-
-                <!-- Module 2 -->
-                <div class="p-6 rounded-2xl border-2 border-gray-200 hover:border-orange-500 hover-lift scroll-reveal bg-white">
-                    <h6 class="text-orange-500 font-bold text-sm mb-2">MODULE 02</h6>
-                    <h4 class="text-2xl font-bold mb-4">SharePoint Online</h4>
-                    <ul class="text-gray-600 space-y-2">
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Sites & Libraries</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Permissions & Governance</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Content Types</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>SharePoint Admin</li>
-                    </ul>
-                </div>
-
-                <!-- Module 3 -->
-                <div class="p-6 rounded-2xl border-2 border-gray-200 hover:border-orange-500 hover-lift scroll-reveal bg-white">
-                    <h6 class="text-orange-500 font-bold text-sm mb-2">MODULE 03</h6>
-                    <h4 class="text-2xl font-bold mb-4">Power Platform</h4>
-                    <ul class="text-gray-600 space-y-2">
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Power Apps</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Power Automate</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Power BI Basics</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Enterprise Projects</li>
-                    </ul>
-                </div>
-
+            <div class="relative">
+                <div class="absolute -inset-4 bg-orange-100 rounded-3xl transform rotate-3"></div>
+                <img src="https://success24.in/img/data-science-img.jpg" class="relative rounded-2xl shadow-2xl w-full" alt="Best course in _#City#_ for SharePoint Online" />
             </div>
         </div>
     </section>
 
-    <!-- PLACEMENT SECTION -->
-    <section class="py-16 bg-slate-50 border-t">
+    <section id="syllabus" class="py-20 bg-slate-50">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-12 gap-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Enterprise-Grade Learning Path</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">A comprehensive 6-month journey from foundational site administration to advanced developer-level SPFx customizations.</p>
+            </div>
 
-                <div class="lg:col-span-7">
-                    <div class="p-8 bg-white rounded-2xl border-2 border-gray-200 shadow-lg h-full hover-lift">
-                        <h4 class="text-2xl font-bold mb-6">Placement Preparation Includes</h4>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 font-bold mb-6">01</div>
+                    <h3 class="text-xl font-bold mb-3">M365 & SharePoint Admin</h3>
+                    <p class="text-gray-500 text-sm mb-4">Secure the backbone of collaboration. Learn to manage global tenants and information architecture.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>Hub Sites & Modern Intranet</li>
+                        <li>Permissions & Security Groups</li>
+                        <li>Entra ID & Identity Management</li>
+                    </ul>
+                </div>
 
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="flex gap-3">
-                                <i class="fas fa-cloud text-2xl text-orange-500 mt-1"></i>
-                                <div>
-                                    <h6 class="font-bold">Live Microsoft Projects</h6>
-                                    <p class="text-sm text-gray-600">SharePoint & Power Apps</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-3">
-                                <i class="fas fa-user-tie text-2xl text-orange-500 mt-1"></i>
-                                <div>
-                                    <h6 class="font-bold">Interview Preparation</h6>
-                                    <p class="text-sm text-gray-600">M365 & SharePoint</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-3">
-                                <i class="fas fa-file-alt text-2xl text-orange-500 mt-1"></i>
-                                <div>
-                                    <h6 class="font-bold">Resume & Portfolio</h6>
-                                    <p class="text-sm text-gray-600">Microsoft profile</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-3">
-                                <i class="fas fa-briefcase text-2xl text-orange-500 mt-1"></i>
-                                <div>
-                                    <h6 class="font-bold">Job Assistance</h6>
-                                    <p class="text-sm text-gray-600">Support till placement</p>
-                                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 font-bold mb-6">02</div>
+                    <h3 class="text-xl font-bold mb-3">Power Platform Mastery</h3>
+                    <p class="text-gray-500 text-sm mb-4">Harness the power of low-code to build rapid business solutions and sophisticated workflows.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>Canvas & Model-Driven Apps</li>
+                        <li>Cloud Flows & Desktop UI Flows</li>
+                        <li>MS Teams Custom Integration</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 font-bold mb-6">03</div>
+                    <h3 class="text-xl font-bold mb-3">SPFx Development</h3>
+                    <p class="text-gray-500 text-sm mb-4">Build high-performance web parts using modern web standards for a seamless user experience.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>React Web Part Architecture</li>
+                        <li>Application Customizers</li>
+                        <li>CI/CD Deployment Pipelines</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 font-bold mb-6">04</div>
+                    <h3 class="text-xl font-bold mb-3">Microsoft Graph API</h3>
+                    <p class="text-gray-500 text-sm mb-4">Integrate data from across M365 services using a single, unified API endpoint.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>OAuth 2.0 & MSAL.js</li>
+                        <li>Graph Explorer & Tooling</li>
+                        <li>Cross-Service Data Operations</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center text-rose-600 font-bold mb-6">05</div>
+                    <h3 class="text-xl font-bold mb-3">Cloud Migration Labs</h3>
+                    <p class="text-gray-500 text-sm mb-4">Execute high-stakes migrations from Legacy On-Premise systems to the Modern Cloud.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>ShareGate & Migration Manager</li>
+                        <li>PowerShell Automation scripts</li>
+                        <li>Data Integrity & Mapping</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 font-bold mb-6">06</div>
+                    <h3 class="text-xl font-bold mb-3">Capstone & Placement</h3>
+                    <p class="text-gray-500 text-sm mb-4">Finalize your portfolio with an industry project and undergo rigorous interview preparation.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>End-to-End Intranet Portal</li>
+                        <li>PnP PowerShell Automation</li>
+                        <li>MS-600 Exam Readiness</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+
+                <div class="md:w-1/2">
+                    <h6 class="text-orange-500 font-bold mb-2 uppercase tracking-wider">Cloud Career Path</h6>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Lead the Future of Collaborative Work.</h2>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        SharePoint Online is the undisputed backbone of enterprise collaboration. Our **career-focused training program in _#City#_** provides the hands-on exposure required to manage global tenants, ensuring you are ready for high-paying roles in top MNCs.
+                    </p>
+
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <div class="w-14 h-14 bg-orange-600/20 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">📦</div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white">SPFx Enterprise Portfolio</h4>
+                                <p class="text-gray-400 text-sm mt-1">Develop production-ready SPFx solutions, focusing on reusability and scalable deployment via App Catalogs.</p>
                             </div>
                         </div>
 
+                        <div class="flex gap-4">
+                            <div class="w-14 h-14 bg-blue-600/20 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">⚙️</div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white">PowerShell Automation</h4>
+                                <p class="text-gray-400 text-sm mt-1">Master PnP PowerShell to automate bulk operations, site provisioning, and complex security audits.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="w-14 h-14 bg-purple-600/20 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">☁️</div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white">Azure Cloud Integration</h4>
+                                <p class="text-gray-500 text-sm mt-1">Extend the reach of SharePoint using Azure Functions and Logic Apps for complex third-party integrations.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="lg:col-span-5">
-                    <div class="p-8 rounded-2xl text-center text-white shadow-2xl h-full bg-gradient-to-br from-blue-600 to-indigo-400 hover-lift">
-                        <h6 class="uppercase font-bold text-sm mb-3">Expected Package</h6>
-                        <h1 class="text-6xl font-bold mb-3">5 – 13 LPA</h1>
-                        <p class="opacity-90 mb-6">Based on Microsoft expertise</p>
-                        <a href="#enroll" class="bg-gray-900 px-8 py-4 rounded-full font-bold">Apply Now</a>
+                <div class="md:w-1/2 w-full">
+                    <div class="bg-slate-800/50 p-8 rounded-3xl border border-slate-700 backdrop-blur-sm">
+                        <h3 class="text-xl font-bold mb-6 text-center text-white">M365 Industry Core Competencies</h3>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">Development</h5>
+                                <p class="text-gray-400 text-xs">SPFx, React, TypeScript</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">Low-Code</h5>
+                                <p class="text-gray-400 text-xs">Power Apps, Automate</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">Governance</h5>
+                                <p class="text-gray-400 text-xs">SPO Admin, DLP Policy</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">Automation</h5>
+                                <p class="text-gray-400 text-xs">PowerShell, PnP JS</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">Database</h5>
+                                <p class="text-gray-400 text-xs">SharePoint Lists, Dataverse</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">API Hub</h5>
+                                <p class="text-gray-400 text-xs">Microsoft Graph API</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 text-center">
+                            <p class="text-gray-500 text-xs italic">Training curriculum aligned with official Microsoft certification standards.</p>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
-    <!-- LIVE CLASS GALLERY -->
-    <section class="relative overflow-hidden">
-        <img src="https://success24.in/img/iq-india2.jpeg"
-            class="w-full h-[520px] object-cover" alt="Live Classes" />
 
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
+    <section class="py-20 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-10 text-center">
+            <h2 class="text-3xl font-bold">Cloud Innovation Hub</h2>
+            <p class="text-gray-500">Industry-recognized learning academy for SPFx & Power Platform in _#City#_</p>
+        </div>
 
-        <div class="max-w-7xl mx-auto px-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full z-10">
-            <h2 class="text-center text-3xl md:text-4xl font-bold text-orange-400 mb-10 scroll-reveal">Live Class Automation Testing
-            </h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/class1.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 1" />
-                </div>
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/DS_5.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 2" />
-                </div>
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/classds.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 3" />
-                </div>
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/class_4.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 4" />
-                </div>
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <img src="https://success24.in/img/class1.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="SharePoint Lab Sessions" />
+                <img src="https://success24.in/img/DS_5.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="M365 Training Center" />
+                <img src="https://success24.in/img/classds.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="Cloud Migration Workshop" />
+                <img src="https://success24.in/img/class_4.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="Corporate Training in _#City#_" />
             </div>
         </div>
     </section>
 
-    <!-- FINAL CTA -->
-    <section class="py-20 bg-gradient-to-r from-orange-500 to-red-500 text-white scroll-scale">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Become a Data Scientist?
-            </h2>
-            <p class="text-xl mb-8 opacity-90">
-                Learn Data Science with real-world projects
-            </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="tel:+919555580458" class="bg-white text-orange-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-all">
-                    <i class="fas fa-phone mr-2"></i>Call Now
-                </a>
-                <a href="https://success24.in/RegistartionForm.aspx" class="border-2 border-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-orange-600 transition-all">Enroll Today
-                </a>
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Expert Answers: Office 365 & SharePoint</h2>
+
+            <div class="space-y-4">
+                <details class="group bg-white p-6 rounded-2xl shadow-sm border border-gray-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-lg list-none">
+                        Is coding required for a career in SharePoint?
+                        <p class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                                <path d="M6 9l6 6 6-6"></path></svg>
+                        </p>
+                    </summary>
+                    <p class="text-gray-600 mt-4 group-open:animate-fadeIn">
+                        It depends on your chosen specialization! SharePoint Administrators focus on architecture and security with "No-code/Low-code" tools. In contrast, SharePoint Developers (SPFx) utilize modern web technologies like TypeScript, React, and Node.js. Our **professional training program in _#City#_** comprehensively covers both administrative and development paths to make you a versatile expert.
+                    </p>
+                </details>
+
+                <details class="group bg-white p-6 rounded-2xl shadow-sm border border-gray-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-lg list-none">
+                        How does SharePoint Online differ from the On-Premise version?
+                        <p class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                                <path d="M6 9l6 6 6-6"></path></svg>
+                        </p>
+                    </summary>
+                    <p class="text-gray-600 mt-4 group-open:animate-fadeIn">
+                        SharePoint Online is a cloud-based service integrated within the Microsoft 365 suite, managed by Microsoft. It emphasizes "Modern" user experiences, automatic updates, and a cloud-first development model (SPFx). On-premise versions require manual server management and local infrastructure, which many companies are currently migrating away from in favor of the cloud's scalability.
+                    </p>
+                </details>
+
+                <details class="group bg-white p-6 rounded-2xl shadow-sm border border-gray-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-lg list-none">
+                        What is the demand for SharePoint professionals in 2026?
+                        <p class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                                <path d="M6 9l6 6 6-6"></path></svg>
+                        </p>
+                    </summary>
+                    <p class="text-gray-600 mt-4 group-open:animate-fadeIn">
+                        With the global shift toward hybrid work environments, nearly every Fortune 500 company relies on SharePoint for secure collaboration. The role has evolved into the "Modern Workplace Specialist," where expertise in Power Platform, AI-driven automation (Copilot integration), and employee experience platforms like Microsoft Viva is highly rewarded with premium salaries.
+                    </p>
+                </details>
             </div>
         </div>
     </section>
+
 </asp:Content>

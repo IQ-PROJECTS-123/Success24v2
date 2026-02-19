@@ -5,10 +5,8 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-
+    <title>Top IT & Software Training Institute in _
+        _ | Success24</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -106,7 +104,9 @@
             </div>
 
             <!-- MOBILE MENU -->
-            <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div id="mobileMenu"
+                class="hidden md:hidden fixed inset-0 top-20 bg-white z-40 overflow-y-auto">
+
                 <div class="px-6 py-6 space-y-6">
 
                     <!-- Mobile Search -->
@@ -125,6 +125,21 @@
                 </div>
             </div>
         </nav>
+        <script>
+            function toggleMobileMenu(id) {
+
+                document.querySelectorAll("#mobileMenu ul[id^='mob_']")
+                    .forEach(el => {
+                        if (el.id !== id) {
+                            el.classList.add("hidden");
+                        }
+                    });
+
+                const element = document.getElementById(id);
+                element.classList.toggle("hidden");
+            }
+        </script>
+
 
 
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
@@ -244,7 +259,7 @@
                 <div>
                     <a href="/" class="flex items-center gap-3">
                         <img
-                            src="img/logo1.png"
+                            src="https://www.success24.in/img/logo1.png"
                             alt="Success24 Logo"
                             class="h-10 w-auto" />
                     </a>
@@ -394,9 +409,6 @@
             }
         });
     </script>
-
-
-
     <script src="js/main.js"></script>
 </body>
 </html>

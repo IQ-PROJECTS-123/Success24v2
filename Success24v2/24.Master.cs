@@ -116,6 +116,7 @@ namespace Success24v2
                 if (dt == null || dt.Rows.Count == 0)
                 {
                     _LiteralNavDesktop.Text = "";
+                    _LiteralNavMobile.Text = "";
                     return;
                 }
 
@@ -137,7 +138,8 @@ namespace Success24v2
                     string nav = rawNavUrl.Replace("_#City#_", city).Trim();
                     nav = nav.TrimStart('/').Replace(" ", "-");
 
-                    if (nav.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || nav.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                    if (nav.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
+                        nav.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
                         return nav;
 
                     if (includeCity && !string.IsNullOrEmpty(citySlug))
@@ -152,46 +154,39 @@ namespace Success24v2
                     string title = Convert.ToString(row["Title"] ?? "").Replace("_#City#_", city);
                     string parentNav = Convert.ToString(row["Navurl"] ?? "");
 
-                    // get children safely depending on ID type
                     DataRow[] children;
                     if (int.TryParse(idRaw, out int numericId))
                         children = dt.Select("ParentID = " + numericId);
                     else
                         children = dt.Select("ParentID = '" + idRaw.Replace("'", "''") + "'");
 
-                    // detect Programs parent (adjust if needed)z
-                    bool isProgramsParent = (!string.IsNullOrEmpty(title) && title.IndexOf("Programs", StringComparison.OrdinalIgnoreCase) >= 0)
-                                            || (!string.IsNullOrEmpty(parentNav) && parentNav.IndexOf("Programs", StringComparison.OrdinalIgnoreCase) >= 0);
+                    bool isProgramsParent =
+                        (!string.IsNullOrEmpty(title) && title.IndexOf("Programs", StringComparison.OrdinalIgnoreCase) >= 0)
+                        || (!string.IsNullOrEmpty(parentNav) && parentNav.IndexOf("Programs", StringComparison.OrdinalIgnoreCase) >= 0);
 
+                    // -------------------- NO CHILD --------------------
                     if (children.Length == 0)
                     {
-                        // leaf item: include city only for Programs if desired
                         string url = BuildUrl(parentNav, includeCity: isProgramsParent);
-                        dsktp.AppendFormat("<li><a href='{0}' class='hover:text-orange-400'>{1}</a></li>", HttpUtility.HtmlAttributeEncode(url), HttpUtility.HtmlEncode(title));
 
-                        // mobile: single item
-                        mobileSb.AppendFormat("<li><a href='{0}' class='block py-2 px-3 text-sm text-gray-800 hover:text-orange-500'>{1}</a></li>", HttpUtility.HtmlAttributeEncode(url), HttpUtility.HtmlEncode(title));
+                        dsktp.AppendFormat(
+                            "<li><a href='{0}' class='hover:text-orange-400'>{1}</a></li>",
+                            HttpUtility.HtmlAttributeEncode(url),
+                            HttpUtility.HtmlEncode(title));
+
+                        mobileSb.AppendFormat(
+                            "<li><a href='{0}' class='block py-3 text-gray-800 font-medium'>{1}</a></li>",
+                            HttpUtility.HtmlAttributeEncode(url),
+                            HttpUtility.HtmlEncode(title));
                     }
+                    // -------------------- HAS CHILD --------------------
                     else
                     {
-                        // For Programs parent: parent link should default to first child (with city)
-                        string parentDefaultLink = null;
-                        if (isProgramsParent && children.Length > 0)
-                        {
-                            string firstChildNav = Convert.ToString(children[0]["Navurl"] ?? "");
-                            parentDefaultLink = BuildUrl(firstChildNav, includeCity: true);
-                        }
-
-                        dsktp.AppendFormat("<li class='group relative inline-block'>");
-
-                        if (!string.IsNullOrEmpty(parentDefaultLink))
-                        {
-                            dsktp.AppendFormat("<a href='{0}' class='hover:text-orange-400 flex items-center gap-1 font-medium transition-colors text-black'>{1} <i class='fas fa-chevron-down text-[10px]'></i></a>", HttpUtility.HtmlAttributeEncode(parentDefaultLink), HttpUtility.HtmlEncode(title));
-                        }
-                        else
-                        {
-                            dsktp.AppendFormat("<button class='hover:text-orange-400 flex items-center gap-1 font-medium transition-colors text-black'>{0} <i class='fas fa-chevron-down text-[10px]'></i></button>", HttpUtility.HtmlEncode(title));
-                        }
+                        // ===== DESKTOP (UNCHANGED) =====
+                        dsktp.Append("<li class='group relative inline-block'>");
+                        dsktp.AppendFormat(
+                            "<button class='hover:text-orange-400 flex items-center gap-1 font-medium text-black'>{0} <i class='fas fa-chevron-down text-[10px]'></i></button>",
+                            HttpUtility.HtmlEncode(title));
 
                         dsktp.Append("<div class='absolute hidden group-hover:block bg-white text-gray-800 shadow-2xl rounded-xl p-8 top-full left-1/2 transform -translate-x-1/2 w-max max-w-[95vw] z-[9999] mt-2 border border-gray-100'>");
                         dsktp.Append("<div class='grid grid-cols-3 gap-10'>");
@@ -206,10 +201,12 @@ namespace Success24v2
                         {
                             string childNav = Convert.ToString(child["Navurl"] ?? "");
                             string childTitle = Convert.ToString(child["Title"] ?? "").Replace("_#City#_", city);
-
                             string childUrl = BuildUrl(childNav, includeCity: isProgramsParent);
 
-                            dsktp.AppendFormat("<a href='{0}' class='block py-2 px-3 hover:text-orange-600 hover:bg-orange-50 rounded-md transition-all duration-200 text-[15px] whitespace-normal leading-tight'>{1}</a>", HttpUtility.HtmlAttributeEncode(childUrl), HttpUtility.HtmlEncode(childTitle));
+                            dsktp.AppendFormat(
+                                "<a href='{0}' class='block py-2 px-3 hover:text-orange-600 hover:bg-orange-50 rounded-md text-[15px]'>{1}</a>",
+                                HttpUtility.HtmlAttributeEncode(childUrl),
+                                HttpUtility.HtmlEncode(childTitle));
 
                             itemCount++;
                             if (itemCount == itemsPerColumn && columnIndex < 2)
@@ -222,29 +219,46 @@ namespace Success24v2
 
                         dsktp.Append("</div></div></div></li>");
 
-                        // mobile: parent with children (vertical)
-                        mobileSb.AppendFormat("<li class='border-b pb-2 mb-2'><div class='font-medium py-2'>{0}</div><ul class='pl-3'>", HttpUtility.HtmlEncode(title));
+                        // ===== MOBILE FIXED DROPDOWN =====
+                        string mobileId = "mob_" + idRaw;
+
+                        mobileSb.AppendFormat(@"
+<li class='border-b'>
+    <button type='button'
+        onclick=""toggleMobileMenu('{0}')"" 
+        class='w-full flex justify-between items-center py-3 font-semibold text-left'>
+        {1}
+        <i class='fas fa-chevron-down text-xs'></i>
+    </button>
+    <ul id='{0}' class='hidden pl-4 pb-2 space-y-1'>",
+                            mobileId,
+                            HttpUtility.HtmlEncode(title));
+
                         foreach (DataRow child in children)
                         {
                             string childNav = Convert.ToString(child["Navurl"] ?? "");
                             string childTitle = Convert.ToString(child["Title"] ?? "").Replace("_#City#_", city);
                             string childUrl = BuildUrl(childNav, includeCity: isProgramsParent);
-                            mobileSb.AppendFormat("<li><a href='{0}' class='block py-2 px-3 text-sm text-gray-700 hover:text-orange-500'>{1}</a></li>", HttpUtility.HtmlAttributeEncode(childUrl), HttpUtility.HtmlEncode(childTitle));
+
+                            mobileSb.AppendFormat(
+                                "<li><a href='{0}' class='block py-2 text-sm text-gray-700 hover:text-orange-500'>{1}</a></li>",
+                                HttpUtility.HtmlAttributeEncode(childUrl),
+                                HttpUtility.HtmlEncode(childTitle));
                         }
+
                         mobileSb.Append("</ul></li>");
                     }
                 }
 
                 _LiteralNavDesktop.Text = dsktp.ToString();
-                // wrap mobile list for display inside the mobile menu
-                _LiteralNavMobile.Text = "<ul class='flex flex-col'>" + mobileSb.ToString() + "</ul>";
+                _LiteralNavMobile.Text = mobileSb.ToString();
             }
-            catch (Exception ex)
+            catch
             {
-                Response.Write("Error: " + (ex.ToString()));
                 _LiteralNavDesktop.Text = "";
                 _LiteralNavMobile.Text = "";
             }
         }
+
     }
 }

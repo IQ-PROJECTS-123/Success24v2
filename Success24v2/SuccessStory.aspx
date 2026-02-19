@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="SuccessStory.aspx.cs" Inherits="Success24v2.SuccessStory" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        /* --- 1. THEME COLOR: ORANGE --- */
         :root {
             --primary-orange: #fd7e14; /* Bootstrap Orange */
         }
@@ -12,8 +11,6 @@
             border-color: var(--primary-orange) !important; 
         }
 
-        /* --- 2. CARD ALIGNMENT --- */
-        /* Forces all cards to be equal height */
         .event-item {
             display: flex;
             flex-direction: column;
@@ -24,7 +21,6 @@
             transform: translateY(-5px);
         }
         
-        /* Forces images to be exactly same size without stretching */
         .card-img-wrap {
             height: 260px; /* Fixed height */
             width: 100%;
@@ -44,7 +40,7 @@
         <div class="container text-center py-5" style="max-width: 900px;">
             <h3 class="text-primary display-3 mb-4 wow fadeInDown" data-wow-delay="0.1s">Success Stories</h3>
             <ol class="breadcrumb justify-content-center text-white mb-0 wow fadeInDown" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="index.html" class="text-dark">Home</a></li>
+                <li class="breadcrumb-item"><a href="24.Master" class="text-dark">Home</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-dark">Pages</a></li>
                 <li class="breadcrumb-item active text-primary">Success</li>
             </ol>    

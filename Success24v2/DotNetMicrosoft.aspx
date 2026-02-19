@@ -1,49 +1,45 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="DotNetMicrosoft.aspx.cs" Inherits="Success24v2.DotNetMicrosoft" %>
+﻿<%@ Page Title="Advanced Microsoft .NET Specialist Training in _#City#_ | Success24 Institute" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="DotNetMicrosoft.aspx.cs" Inherits="Success24v2.DotNetMicrosoft" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <meta name="description" content="Enroll in the most comprehensive Microsoft .NET certification course in _#City#_. Master C#, .NET 10 Core, and Azure Cloud with 100% placement assistance and MNC-led projects." />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <!-- HERO SECTION -->
-    <section class="relative h-screen flex items-center justify-center overflow-hidden">
-
+    <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         <img src="https://success24.in/img/iq-india2.jpeg"
-            class="absolute inset-0 w-full h-full object-cover"
-            alt="Microsoft .NET Training" />
+            class="absolute inset-0 w-full h-full object-cover object-center"
+            alt="Professional .NET Microsoft certification course provider in _#City#_" loading="eager" />
 
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/70 to-slate-900/90"></div>
 
-        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <div class="bg-slate-900/40 p-12 rounded-3xl shadow-2xl">
+        <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+            <span class="inline-block py-1.5 px-4 rounded-full bg-orange-500 text-white font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">
+                Industry-Recognized Certification in _#City#_
+            </span>
 
-                <h2 class="text-xl md:text-2xl font-bold mb-4
-                       bg-gradient-to-r from-blue-500 to-yellow-400
-                       bg-clip-text text-transparent">2026 Microsoft Technology Program
-                </h2>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 text-white leading-tight drop-shadow-2xl">
+                <asp:Literal ID="litH1" runat="server">Advanced <span class="text-orange-500">Microsoft .NET</span> Specialist Training in __#City#__</asp:Literal>
+            </h1>
 
-                <div class="mx-auto mb-6 h-1 w-24
-                        bg-gradient-to-r from-yellow-400 to-blue-500
-                        shadow-lg shadow-yellow-400/50">
-                </div>
+            <p class="text-gray-100 text-xl md:text-2xl font-medium mb-10 max-w-4xl mx-auto leading-relaxed drop-shadow-md">
+                Launch your career with a premier <strong>skill development institute</strong>. Master the full Microsoft ecosystem, from high-performance C# to .NET 10 Core and Azure Cloud Architecture, backed by <strong>100% MNC placement support</strong>.
+            </p>
 
-                <h1 class="text-5xl md:text-7xl font-black mb-6
-                       bg-gradient-to-r from-yellow-400 to-blue-500
-                       bg-clip-text text-transparent">Microsoft .NET Development Training
-                </h1>
-
-                <p class="text-white text-xl md:text-2xl font-semibold">
-                    C#, ASP.NET Core, MVC, Web API, SQL Server & Real-Time Projects
-                </p>
-
+            <div class="flex flex-col sm:flex-row gap-5 justify-center">
+                <a href="tel:+919555580458" class="bg-orange-600 text-white px-10 py-4 rounded-xl font-extrabold hover:bg-orange-700 transition-all hover:scale-105 shadow-xl shadow-orange-600/40 text-lg uppercase tracking-wider">Get Free Consultation.
+                </a>
+                <a href="#syllabus" class="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-10 py-4 rounded-xl font-extrabold hover:bg-white/20 transition-all hover:scale-105 text-lg uppercase tracking-wider">Course Modules.
+                </a>
             </div>
         </div>
+
+        <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent"></div>
     </section>
 
-
-    <!-- CTA BANNER -->
     <section class="bg-gradient-to-r from-yellow-400 to-orange-400 text-center py-12 scroll-scale">
-        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">Build Your Career in Microsoft Technologies
+        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">Top Career-Focused Training Program in 
+
         </h2>
         <div class="text-3xl md:text-5xl font-bold text-white">
             <a href="tel:+919555580458" class="hover:text-gray-900 transition-colors">+91 95555 80458
@@ -51,178 +47,217 @@
         </div>
     </section>
 
-    <!-- STATS SECTION -->
-    <section class="bg-slate-900 border-t border-b border-slate-700">
-        <div class="max-w-7xl mx-auto px-6 py-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
-                <div class="scroll-scale">
-                    <h3 class="text-5xl font-bold text-orange-500 mb-2">150+</h3>
-                    <p class="text-sm text-gray-400">Hands-on Labs</p>
+    <section class="bg-black py-10 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <p class="text-3xl font-bold text-white">5000+</p>
+                <p class="text-gray-500 text-sm">Graduates Placed</p>
+            </div>
+            <div class="text-center">
+                <p class="text-3xl font-bold text-white">100%</p>
+                <p class="text-gray-500 text-sm">Microsoft Standards</p>
+            </div>
+            <div class="text-center">
+                <p class="text-3xl font-bold text-white">20+</p>
+                <p class="text-gray-500 text-sm">MNC Case Studies</p>
+            </div>
+            <div class="text-center">
+                <p class="text-3xl font-bold text-white">Azure</p>
+                <p class="text-gray-500 text-sm">Official Lab Access</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h6 class="text-orange-600 font-bold uppercase tracking-wide mb-2">Elite Engineering Learning Academy</h6>
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">Master the Microsoft Ecosystem with Experts</h2>
+                <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                    Searching for a premium <strong>professional training program in _#City#_</strong>? Our curriculum is meticulously engineered to transform ambitious developers into <strong>Senior Software Engineers</strong>. In today’s competitive market, simply knowing syntax isn't enough; we emphasize <strong>Domain-Driven Design (DDD)</strong>, architectural patterns, and high-scale enterprise best practices that global tech giants demand.
+                </p>
+                <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                    Whether you are a fresh graduate or a working professional, this <strong>job-oriented training in _#City#_</strong> provides the hands-on experience needed to bridge the gap between classroom theory and real-world production environments.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-gray-700 font-medium">Enterprise Software Architecture & Clean Code Patterns</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-gray-700 font-medium">Cloud-Native Development with Azure Functions & Microservices</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-gray-700 font-medium">Comprehensive Prep for AZ-204, PL-400 & AZ-400 Certs</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="relative">
+                <div class="absolute -inset-4 bg-orange-100 rounded-3xl transform rotate-3"></div>
+                <img src="https://success24.in/img/data-science-img.jpg" class="relative rounded-2xl shadow-2xl w-full" alt="Advanced .NET Microsoft professional course near me" />
+            </div>
+        </div>
+    </section>
+
+    <section id="syllabus" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Official Microsoft Stack Learning Path</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">A structured journey from C# fundamentals to advanced, production-ready Cloud-Native Microservices designed for the modern <strong>skill development institute</strong> environment.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 font-bold mb-6">01</div>
+                    <h3 class="text-xl font-bold mb-3">Expert C# & .NET 10</h3>
+                    <p class="text-gray-500 text-sm mb-4">Diving deep into memory management, Span&lt;T&gt;, and low-latency performance optimization.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>Advanced Task Parallel Library</li>
+                        <li>High-Performance Memory Tuning</li>
+                        <li>C# Source Generators & Roslyn</li>
+                    </ul>
                 </div>
-                <div class="scroll-scale">
-                    <h3 class="text-5xl font-bold text-orange-500 mb-2">20+</h3>
-                    <p class="text-sm text-gray-400">Microsoft Tools</p>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 font-bold mb-6">02</div>
+                    <h3 class="text-xl font-bold mb-3">Enterprise Web API</h3>
+                    <p class="text-gray-500 text-sm mb-4">Architecting resilient, secure, and fully documented REST and gRPC services for global scale.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>Identity Server & JWT Security</li>
+                        <li>Middleware & Filter Pipelines</li>
+                        <li>API Gateway & Rate Limiting</li>
+                    </ul>
                 </div>
-                <div class="scroll-scale">
-                    <h3 class="text-5xl font-bold text-orange-500 mb-2">Live</h3>
-                    <p class="text-sm text-gray-400">Enterprise Projects</p>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 font-bold mb-6">03</div>
+                    <h3 class="text-xl font-bold mb-3">SQL & CosmosDB</h3>
+                    <p class="text-gray-500 text-sm mb-4">Modern data modeling strategies for high-availability systems using Microsoft's leading databases.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>EF Core Global Query Filters</li>
+                        <li>CosmosDB Partitioning Strategies</li>
+                        <li>Advanced SQL Performance Tuning</li>
+                    </ul>
                 </div>
-                <div class="scroll-scale">
-                    <h3 class="text-5xl font-bold text-orange-500 mb-2">Career</h3>
-                    <p class="text-sm text-gray-400">Job-Oriented Training</p>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 font-bold mb-6">04</div>
+                    <h3 class="text-xl font-bold mb-3">Azure Cloud Native</h3>
+                    <p class="text-gray-500 text-sm mb-4">Leveraging the full power of Microsoft Azure to build, host, and scale modern applications.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>Asynchronous Event Hubs</li>
+                        <li>Azure Key Vault & Security Ops</li>
+                        <li>Serverless Logic & Workflows</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center text-rose-600 font-bold mb-6">05</div>
+                    <h3 class="text-xl font-bold mb-3">Azure DevOps & CI/CD</h3>
+                    <p class="text-gray-500 text-sm mb-4">Automating your software delivery lifecycle with professional-grade DevOps toolchains.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>Multi-stage YAML Pipelines</li>
+                        <li>IaC with Bicep & Terraform</li>
+                        <li>Automated Testing with xUnit</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 font-bold mb-6">06</div>
+                    <h3 class="text-xl font-bold mb-3">Enterprise Capstone</h3>
+                    <p class="text-gray-500 text-sm mb-4">Construct a production-grade ERP or SaaS platform following the industry's best architectural standards.</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        <li>Modular Monoliths to Microservices</li>
+                        <li>Docker & Kubernetes Deployment</li>
+                        <li>Full CI/CD Pipeline Integration</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
-    <section class="py-16 bg-slate-50">
+    <section class="py-20 bg-slate-900 text-white">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="scroll-fade-left">
-                    <h6 class="uppercase text-orange-500 font-bold text-sm mb-3">Microsoft Development Stack
-                    </h6>
-                    <h2 class="text-4xl font-bold mb-4">Become a Professional .NET Developer
-                    </h2>
-                    <p class="text-gray-600 text-lg leading-relaxed">
-                        .NET developers are in high demand across enterprise
-                        and product-based companies. Learn C#, ASP.NET Core,
-                        MVC, Web API, SQL Server, Entity Framework and Azure basics
-                        with real-time projects.
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+
+                <div class="md:w-1/2">
+                    <h6 class="text-orange-500 font-bold mb-2 uppercase tracking-wider">MNC Placement Portal</h6>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Connect with Global Microsoft Hiring Partners</h2>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        Success24 serves as a vital bridge between local talent and global corporations. As a leading <strong>training center in _#City#_</strong>, we maintain partnerships with Tier-1 companies to ensure our students receive priority interview slots and high-paying career opportunities.
                     </p>
-                </div>
-                <div class="scroll-fade-right">
-                    <img src="https://success24.in/img/dotnet-training.jpg"
-                        class="w-full rounded-2xl shadow-2xl hover-lift"
-                        alt=".NET Microsoft Training" />
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- SYLLABUS SECTION -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12 scroll-reveal">
-                <h6 class="uppercase text-orange-500 font-bold text-sm mb-3">Complete Curriculum
-                </h6>
-                <h2 class="text-4xl font-bold mb-4">DotNet & Microsoft Roadmap
-                </h2>
-                <p class="text-gray-600 text-lg">
-                    From programming fundamentals to enterprise applications.
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-
-                <!-- Module 1 -->
-                <div class="p-6 rounded-2xl border-2 border-gray-200 hover:border-orange-500 hover-lift scroll-reveal bg-white">
-                    <h6 class="text-orange-500 font-bold text-sm mb-2">MODULE 01</h6>
-                    <h4 class="text-2xl font-bold mb-4">C# & .NET Fundamentals</h4>
-                    <ul class="text-gray-600 space-y-2">
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>C# Programming</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>OOP Concepts</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>.NET Framework & Core</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Exception Handling</li>
-                    </ul>
-                </div>
-
-                <!-- Module 2 -->
-                <div class="p-6 rounded-2xl border-2 border-gray-200 hover:border-orange-500 hover-lift scroll-reveal bg-white">
-                    <h6 class="text-orange-500 font-bold text-sm mb-2">MODULE 02</h6>
-                    <h4 class="text-2xl font-bold mb-4">Web Development</h4>
-                    <ul class="text-gray-600 space-y-2">
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>ASP.NET MVC</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>ASP.NET Core</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Web API</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Authentication & Security</li>
-                    </ul>
-                </div>
-
-                <!-- Module 3 -->
-                <div class="p-6 rounded-2xl border-2 border-gray-200 hover:border-orange-500 hover-lift scroll-reveal bg-white">
-                    <h6 class="text-orange-500 font-bold text-sm mb-2">MODULE 03</h6>
-                    <h4 class="text-2xl font-bold mb-4">Database & Cloud</h4>
-                    <ul class="text-gray-600 space-y-2">
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>SQL Server</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Entity Framework</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Azure Fundamentals</li>
-                        <li class="flex gap-2"><i class="fas fa-check-circle text-orange-500 mt-1"></i>Live .NET Projects</li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- PLACEMENT SECTION -->
-    <section class="py-16 bg-slate-50 border-t">
-        <div class="max-w-7xl mx-auto px-6">
-
-            <div class="text-center mb-12 scroll-reveal">
-                <h6 class="uppercase font-bold text-orange-500 text-sm mb-3">Career & Placement
-                </h6>
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Microsoft .NET Career Opportunities
-                </h2>
-                <p class="text-lg text-gray-600">
-                    Industry-ready skills with placement support.
-                </p>
-            </div>
-
-            <div class="grid lg:grid-cols-12 gap-8">
-
-                <!-- Placement Includes -->
-                <div class="lg:col-span-7">
-                    <div class="p-8 bg-white rounded-2xl border-2 border-gray-200 shadow-lg h-full scroll-fade-left hover-lift">
-                        <h4 class="text-2xl font-bold mb-6">Placement Preparation Includes</h4>
-
-                        <div class="grid md:grid-cols-2 gap-6">
-
-                            <div class="flex gap-3">
-                                <i class="fas fa-code text-2xl text-orange-500 mt-1"></i>
-                                <div>
-                                    <h6 class="font-bold text-lg mb-1">Live .NET Projects</h6>
-                                    <p class="text-sm text-gray-600">Enterprise applications</p>
-                                </div>
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <div class="w-14 h-14 bg-orange-600/20 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">📝</div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white">System Design Workshops</h4>
+                                <p class="text-gray-400 text-sm mt-1">Master both Low-Level (LLD) and High-Level Design (HLD) concepts to crack elite technical interview rounds.</p>
                             </div>
+                        </div>
 
-                            <div class="flex gap-3">
-                                <i class="fas fa-user-tie text-2xl text-orange-500 mt-1"></i>
-                                <div>
-                                    <h6 class="font-bold text-lg mb-1">Interview Preparation</h6>
-                                    <p class="text-sm text-gray-600">C#, MVC & SQL questions</p>
-                                </div>
+                        <div class="flex gap-4">
+                            <div class="w-14 h-14 bg-blue-600/20 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">🎤</div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white">Corporate Communication</h4>
+                                <p class="text-gray-400 text-sm mt-1">Develop the soft skills required to lead projects and collaborate with international stakeholders effectively.</p>
                             </div>
+                        </div>
 
-                            <div class="flex gap-3">
-                                <i class="fas fa-file-alt text-2xl text-orange-500 mt-1"></i>
-                                <div>
-                                    <h6 class="font-bold text-lg mb-1">Resume Building</h6>
-                                    <p class="text-sm text-gray-600">Microsoft stack profile</p>
-                                </div>
+                        <div class="flex gap-4">
+                            <div class="w-14 h-14 bg-purple-600/20 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">💼</div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white">Live Azure Sandboxes</h4>
+                                <p class="text-gray-400 text-sm mt-1">Practice on official enterprise-grade Azure portals to gain practical, resume-worthy cloud experience.</p>
                             </div>
-
-                            <div class="flex gap-3">
-                                <i class="fas fa-briefcase text-2xl text-orange-500 mt-1"></i>
-                                <div>
-                                    <h6 class="font-bold text-lg mb-1">Job Assistance</h6>
-                                    <p class="text-sm text-gray-600">Placement support</p>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
 
-                <!-- Package -->
-                <div class="lg:col-span-5">
-                    <div class="p-8 rounded-2xl text-center text-white shadow-2xl h-full bg-gradient-to-br from-indigo-600 to-blue-400 scroll-fade-right hover-lift">
-                        <h6 class="uppercase font-bold text-sm mb-3 opacity-90">Expected Package</h6>
-                        <h1 class="text-6xl font-bold mb-3">5 – 18 LPA</h1>
-                        <p class="text-lg opacity-90 mb-6">Based on skills & experience</p>
-                        <a href="#enroll"
-                            class="inline-block bg-gray-900 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-800 transition-all">Apply Now
-                        </a>
+                <div class="md:w-1/2 w-full">
+                    <div class="bg-slate-800/50 p-8 rounded-3xl border border-slate-700 backdrop-blur-sm">
+                        <h3 class="text-xl font-bold mb-6 text-center text-white">The 2026 Microsoft Technology Stack</h3>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">Language</h5>
+                                <p class="text-gray-400 text-xs">C# 14, F#, PowerShell Core</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">Frameworks</h5>
+                                <p class="text-gray-400 text-xs">.NET 10, MAUI, SignalR</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">Security</h5>
+                                <p class="text-gray-500 text-xs">Microsoft Identity, Entra ID</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">Data</h5>
+                                <p class="text-gray-400 text-xs">SQL 2024, CosmosDB, Redis</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">Automation</h5>
+                                <p class="text-gray-400 text-xs">Azure DevOps, GitHub Actions</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:border-orange-500 transition duration-300">
+                                <h5 class="text-orange-500 font-bold mb-1">Testing</h5>
+                                <p class="text-gray-400 text-xs">MSTest, Playwright, K6</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 text-center">
+                            <p class="text-gray-500 text-xs italic">Content aligned with 2026 Enterprise Microsoft Guidelines.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -230,54 +265,80 @@
         </div>
     </section>
 
-    <!-- LIVE CLASS GALLERY -->
-    <section class="relative overflow-hidden">
-        <img src="https://success24.in/img/iq-india2.jpeg"
-            class="w-full h-[520px] object-cover" alt="Live Classes" />
+    <section class="py-20 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-10 text-center">
+            <h2 class="text-3xl font-bold">Life at Success24 Institute</h2>
+            <p class="text-gray-500">Corporate-style <strong>coaching center in _#City#_</strong> offering a professional learning environment.</p>
+        </div>
 
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900/80"></div>
-
-        <div class="max-w-7xl mx-auto px-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full z-10">
-            <h2 class="text-center text-3xl md:text-4xl font-bold text-orange-400 mb-10 scroll-reveal">Live Class Automation Testing
-            </h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/class1.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 1" />
-                </div>
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/DS_5.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 2" />
-                </div>
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/classds.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 3" />
-                </div>
-                <div class="scroll-scale">
-                    <img src="https://success24.in/img/class_4.jpg"
-                        class="w-full rounded-xl shadow-2xl hover-lift" alt="Class 4" />
-                </div>
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <img src="https://success24.in/img/class1.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="Microsoft Labs for professional course in _#City#_" loading="lazy" />
+                <img src="https://success24.in/img/DS_5.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="Software Engineers in training" loading="lazy" />
+                <img src="https://success24.in/img/classds.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="Azure Deployment Workshop" loading="lazy" />
+                <img src="https://success24.in/img/class_4.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="MNC Placement Drive at _#City#_ center" loading="lazy" />
             </div>
         </div>
     </section>
 
-    <!-- FINAL CTA -->
-    <section class="py-20 bg-gradient-to-r from-orange-500 to-red-500 text-white scroll-scale">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Become a .NET Developer?
-            </h2>
-            <p class="text-xl mb-8 opacity-90">
-                Learn Microsoft technologies with real-world projects
-            </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="tel:+919555580458" class="bg-white text-orange-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-all">
-                    <i class="fas fa-phone mr-2"></i>Call Now
-                </a>
-                <a href="https://success24.in/RegistartionForm.aspx" class="border-2 border-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-orange-600 transition-all">Enroll Today
-                </a>
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+
+            <div class="space-y-4">
+                <details class="group bg-white p-6 rounded-2xl shadow-sm border border-gray-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-lg list-none">
+                        How is this program different from a standard .NET course?
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                                <path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-600 mt-4 group-open:animate-fadeIn">
+                        Unlike basic courses, our <strong>professional certification in _#City#_</strong> focuses on enterprise-level architecture. We cover C# 14 internals, .NET 10 microservices, and deep Azure integration—skills required specifically for Senior Developer roles in Tier-1 MNCs.
+                    </p>
+                </details>
+
+                <details class="group bg-white p-6 rounded-2xl shadow-sm border border-gray-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-lg list-none">
+                        Does the learning academy help with official Microsoft Certifications?
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                                <path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-600 mt-4 group-open:animate-fadeIn">
+                        Absolutely. We provide curated study materials, practice tests, and guided laboratory sessions to prepare you for the AZ-204 (Azure Developer) and PL-400 (Power Platform) exams, ensuring you hold a globally recognized credential.
+                    </p>
+                </details>
+
+                <details class="group bg-white p-6 rounded-2xl shadow-sm border border-gray-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-lg list-none">
+                        What is the scope for placement assistance in _#City#_?
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                                <path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-600 mt-4 group-open:animate-fadeIn">
+                        Our <strong>placement assistance in _#City#_</strong> boasts a 98% success rate. By focusing on specialized Microsoft stacks, our graduates are frequently hired by giants like Microsoft, Deloitte, Accenture, and innovative product-based startups.
+                    </p>
+                </details>
+
+                <details class="group bg-white p-6 rounded-2xl shadow-sm border border-gray-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-lg list-none">
+                        Are classroom and online training in _#City#_ both available?
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                                <path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-600 mt-4 group-open:animate-fadeIn">
+                        Yes, we offer total flexibility. You can choose immersive <strong>classroom and online training in _#City#_</strong>. Our physical labs provide high-speed infrastructure for offline learning, while our live virtual batches offer the same interactive experience with our expert mentors.
+                    </p>
+                </details>
             </div>
         </div>
     </section>
 
 </asp:Content>
-
