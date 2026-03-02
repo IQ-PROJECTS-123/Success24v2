@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using System.Diagnostics;
 
 namespace Success24v2
 {
@@ -29,18 +30,29 @@ namespace Success24v2
                     {
                         routes.MapPageRoute(Utility._GetFormatedURL(Convert.ToString(_Row["displayname"])), Utility._GetFormatedURL(Convert.ToString(_Row["displayname"])) + "/{WidgetType}", "~/default.aspx");
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        Trace.WriteLine($"RegisterRoutes: failed to map city route for '{_Row["displayname"]}': {ex}");
                     }
                 }
             routes.MapPageRoute("Distance-Learning", "Distance-Learning/{WidgetType}", "~/DistanceLearning.aspx");
             routes.MapPageRoute("registration", "registration/{WidgetType}", "~/registration.aspx");
             routes.MapPageRoute("sponsorship", "sponsorship/{Page}", "~/sponsorship.aspx");
-            routes.MapPageRoute("placements", "placements/{Page}", "~/placements.aspx");
+
+            routes.MapPageRoute("PlacementsRoot", "Placements", "~/SuccessStory.aspx");
+            routes.MapPageRoute( "Placements", "Placements/{Slug}", "~/SuccessStory.aspx",
+                false,
+                new RouteValueDictionary { { "Slug", "" } }
+            );
+
+            routes.MapPageRoute("SuccessStoryRoot", "SuccessStory", "~/SuccessStory.aspx");
+            routes.MapPageRoute("SuccessStory", "SuccessStory/{Page}", "~/SuccessStory.aspx",
+                false,
+                new RouteValueDictionary { { "Page", "" } }
+            );
+
             routes.MapPageRoute("StudentCorner", "StudentCorner/{Page}", "~/StudentCorner.aspx");
             routes.MapPageRoute("certification", "certification/{WidgetType}", "~/certification.aspx");
-            //routes.MapPageRoute("training", "training/{City}/{Tech}/{Page}", "~/training.aspx");
-            //routes.MapPageRoute("tags", "tags/{ket}", "~/tags.aspx");
         }
 
         protected void Session_Start(object sender, EventArgs e)
