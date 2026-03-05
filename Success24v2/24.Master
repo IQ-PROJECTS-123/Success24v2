@@ -168,31 +168,68 @@
                     </div>
                 </div>
             </section>
+            <div class="w-full py-24 relative overflow-hidden bg-black">
+                <div class="absolute inset-0 bg-black/70"></div>
 
-            <!-- Stats Section -->
-            <section class="py-16 bg-slate-900 text-white">
-                <div class="max-w-7xl mx-auto px-6">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                        <div class="scroll-scale">
-                            <div class="text-5xl font-bold text-orange-500 mb-2 counter" data-target="500">0</div>
-                            <p class="text-gray-300">Students Trained</p>
+                <div class="container mx-auto px-6 relative z-10">
+                    <div class="text-center mb-20">
+                        <p class="uppercase tracking-[0.4em] text-orange-200 font-bold mb-4 text-xs md:text-sm drop-shadow-sm">
+                            Our Achievements
+                        </p>
+
+                        <h2 class="text-4xl md:text-6xl font-black text-white drop-shadow-lg tracking-tight">Success in 
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-orange-100">Numbers
+                </span>
+                        </h2>
+
+                        <div class="w-24 h-1 bg-white/20 mx-auto mt-6 rounded-full"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                        <div class="group bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center transition-all duration-300 hover:bg-white/15 hover:-translate-y-2 shadow-xl">
+                            <h6 class="text-orange-100/80 text-xs uppercase font-bold tracking-[0.2em] mb-4 group-hover:text-white transition-colors">Total Success
+                            </h6>
+
+                            <h2 class="text-5xl md:text-6xl font-black text-white drop-shadow-md">
+                                <span class="counter" data-target="500">0</span>
+                                <span class="text-3xl align-top text-yellow-300 ml-1">+</span>
+                            </h2>
                         </div>
-                        <div class="scroll-scale">
-                            <div class="text-5xl font-bold text-orange-500 mb-2 counter" data-target="50">0</div>
-                            <p class="text-gray-300">Expert Trainers</p>
+
+                        <div class="group bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center transition-all duration-300 hover:bg-white/15 hover:-translate-y-2 shadow-xl">
+                            <h6 class="text-orange-100/80 text-xs uppercase font-bold tracking-[0.2em] mb-4 group-hover:text-white transition-colors">Best Instructor
+                            </h6>
+
+                            <h2 class="text-5xl md:text-6xl font-black text-white drop-shadow-md">
+                                <span class="counter" data-target="10">0</span>
+                                <span class="text-3xl align-top text-yellow-300 ml-1">+</span>
+                            </h2>
                         </div>
-                        <div class="scroll-scale">
-                            <div class="text-5xl font-bold text-orange-500 mb-2 counter" data-target="100">0</div>
-                            <p class="text-gray-300">Courses Available</p>
+
+                        <div class="group bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center transition-all duration-300 hover:bg-white/15 hover:-translate-y-2 shadow-xl">
+                            <h6 class="text-orange-100/80 text-xs uppercase font-bold tracking-[0.2em] mb-4 group-hover:text-white transition-colors">Total Batch
+                            </h6>
+
+                            <h2 class="text-5xl md:text-6xl font-black text-white drop-shadow-md">
+                                <span class="counter" data-target="50">0</span>
+                                <span class="text-3xl align-top text-yellow-300 ml-1">+</span>
+                            </h2>
                         </div>
-                        <div class="scroll-scale">
-                            <div class="text-5xl font-bold text-orange-500 mb-2 counter" data-target="98">0</div>
-                            <p class="text-gray-300">Success Rate %</p>
+
+                        <div class="group bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center transition-all duration-300 hover:bg-white/15 hover:-translate-y-2 shadow-xl">
+                            <h6 class="text-orange-100/80 text-xs uppercase font-bold tracking-[0.2em] mb-4 group-hover:text-white transition-colors">Practitioners
+                            </h6>
+
+                            <h2 class="text-5xl md:text-6xl font-black text-white drop-shadow-md">
+                                <span class="counter" data-target="200">0</span>
+                                <span class="text-3xl align-top text-yellow-300 ml-1">+</span>
+                            </h2>
                         </div>
+
                     </div>
                 </div>
-            </section>
-
+            </div>
             <!-- Featured Courses -->
             <section class="py-20 bg-slate-50">
                 <div class="max-w-7xl mx-auto px-6">
@@ -248,8 +285,6 @@
                     </div>
                 </div>
             </section>
-
-
         </asp:ContentPlaceHolder>
 
         <footer class="bg-slate-900 text-gray-300 pt-16">
@@ -329,9 +364,7 @@
 
                             <div id="content-linked" class="tab-pane hidden h-full overflow-auto">
                                 <ul class="space-y-2 text-sm">
-                                    <li><a href="#" class="text-orange-500 hover:underline flex items-center gap-2">Course Catalog</a></li>
-                                    <li><a href="#" class="text-orange-500 hover:underline flex items-center gap-2">Student Login</a></li>
-                                    <li><a href="#" class="text-orange-500 hover:underline flex items-center gap-2">Certification Portal</a></li>
+                                    <li><a href="http://in.iq-india.com/" class="text-orange-500 hover:underline flex items-center gap-2">IQindia</a></li>
                                 </ul>
                             </div>
 

@@ -219,18 +219,17 @@ namespace Success24v2
 
                         dsktp.Append("</div></div></div></li>");
 
-                        // ===== MOBILE FIXED DROPDOWN =====
                         string mobileId = "mob_" + idRaw;
 
                         mobileSb.AppendFormat(@"
-<li class='border-b'>
-    <button type='button'
-        onclick=""toggleMobileMenu('{0}')"" 
-        class='w-full flex justify-between items-center py-3 font-semibold text-left'>
-        {1}
-        <i class='fas fa-chevron-down text-xs'></i>
-    </button>
-    <ul id='{0}' class='hidden pl-4 pb-2 space-y-1'>",
+                        <li class='border-b'>
+                            <button type='button'
+                                onclick=""toggleMobileMenu('{0}')"" 
+                                class='w-full flex justify-between items-center py-3 font-semibold text-left'>
+                                {1}
+                                <i class='fas fa-chevron-down text-xs'></i>
+                            </button>
+                            <ul id='{0}' class='hidden pl-4 pb-2 space-y-1'>",
                             mobileId,
                             HttpUtility.HtmlEncode(title));
 

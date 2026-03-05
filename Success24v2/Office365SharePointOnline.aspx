@@ -18,7 +18,7 @@
             </span>
 
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 text-white leading-tight drop-shadow-2xl">
-                <asp:Literal ID="litH1" runat="server"> Office 365 SharePoint <span class="text-orange-500">Training Institute in</span>__#City#__</asp:Literal>
+                <asp:Literal ID="litH1" runat="server"> Office 365 SharePoint <span class="text-orange-500">Training Institute in</span>_#City#_</asp:Literal>
             </h1>
 
             <p class="text-gray-100 text-xl md:text-2xl font-medium mb-10 max-w-4xl mx-auto leading-relaxed drop-shadow-md">
