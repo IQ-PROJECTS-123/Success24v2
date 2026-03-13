@@ -17,7 +17,7 @@
             </span>
 
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 text-white leading-tight drop-shadow-2xl">
-                <asp:Literal ID="litH1" runat="server">Database Engineering <span class="text-orange-500">_#City#_</span></asp:Literal>
+                <asp:Literal ID="litH1" runat="server">Database Engineering <span class="text-orange-500">in _#City#_</span></asp:Literal>
             </h1>
 
             <p class="text-gray-100 text-xl md:text-2xl font-medium mb-10 max-w-4xl mx-auto leading-relaxed drop-shadow-md">

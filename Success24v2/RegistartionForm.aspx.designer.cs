@@ -42,15 +42,6 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.TextBox txtDOB;
 
         /// <summary>
-        /// txtBatch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBatch;
-
-        /// <summary>
         /// txtQualification control.
         /// </summary>
         /// <remarks>
@@ -177,13 +168,13 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.TextBox txtPassport;
 
         /// <summary>
-        /// ddlReference control.
+        /// txtReference control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlReference;
+        protected global::System.Web.UI.WebControls.TextBox txtReference;
 
         /// <summary>
         /// txtCurrentAddress control.

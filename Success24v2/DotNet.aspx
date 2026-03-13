@@ -8,16 +8,16 @@
     <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         <img src="https://success24.in/img/iq-india2.jpeg"
             class="absolute inset-0 w-full h-full object-cover object-center"
-            alt=".NET Development Professional Certification in __#City#__" loading="eager" />
+            alt=".NET Development Professional Certification in _#City#_" loading="eager" />
 
         <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/70 to-slate-900/90"></div>
 
         <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
-            <span class="inline-block py-1.5 px-4 rounded-full bg-orange-500 text-white font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">New Batch Starting Soon in __#City#__
+            <span class="inline-block py-1.5 px-4 rounded-full bg-orange-500 text-white font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">New Batch Starting Soon in _#City#_
             </span>
 
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 text-white leading-tight drop-shadow-2xl">
-                <asp:Literal ID="litH1" runat="server">Master Full Stack <span class="text-orange-500">.NET Core in __#City#__</span></asp:Literal>
+                <asp:Literal ID="litH1" runat="server">Master Full Stack <span class="text-orange-500">.NET Core in _#City#_</span></asp:Literal>
             </h1>
 
             <p class="text-gray-100 text-xl md:text-2xl font-medium mb-10 max-w-4xl mx-auto leading-relaxed drop-shadow-md">
@@ -37,7 +37,7 @@
     </section>
 
     <section class="bg-gradient-to-r from-yellow-400 to-orange-400 text-center py-12 scroll-scale">
-        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">Top Coaching Center in ___#City#___ for .NET Developers
+        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">Top Coaching Center in _#City#_ for .NET Developers
         </h2>
         <div class="text-3xl md:text-5xl font-bold text-white">
             <a href="tel:+919555580458" class="hover:text-gray-900 transition-colors">+91 95555 80458
@@ -74,7 +74,7 @@
                     
                     _ with Real-World Projects</h2>
                 <p class="text-gray-600 text-lg mb-6">
-                    If you are searching for a career-focused training program that bridges the gap between academic theory and industry requirements, our professional certification in __#City#__ is the answer. We don't just teach syntax; we focus on **Clean Architecture**, **Dependency Injection**, and **Design Patterns**—the core skills demanded by top-tier MNCs and tech startups.
+                    If you are searching for a career-focused training program that bridges the gap between academic theory and industry requirements, our professional certification in _#City#_ is the answer. We don't just teach syntax; we focus on **Clean Architecture**, **Dependency Injection**, and **Design Patterns**—the core skills demanded by top-tier MNCs and tech startups.
                 </p>
                 <p class="text-gray-600 text-lg mb-6">
                     Our skill development institute provides a hands-on environment where you learn to solve complex engineering problems. Whether you are a fresh graduate or a working professional looking to upskill, our weekend classes and flexible schedules ensure you stay ahead in the competitive IT landscape.
@@ -99,7 +99,7 @@
             </div>
             <div class="relative">
                 <div class="absolute -inset-4 bg-orange-100 rounded-3xl transform rotate-3"></div>
-                <img src="https://success24.in/img/data-science-img.jpg" class="relative rounded-2xl shadow-2xl w-full" alt="Best course in __#City#__ for Software Engineering" />
+                <img src="https://success24.in/img/data-science-img.jpg" class="relative rounded-2xl shadow-2xl w-full" alt="Best course in _#City#_ for Software Engineering" />
             </div>
         </div>
     </section>
@@ -186,10 +186,10 @@
             <div class="flex flex-col md:flex-row items-center justify-between gap-12">
 
                 <div class="md:w-1/2">
-                    <h6 class="text-orange-500 font-bold mb-2 uppercase tracking-wider">Placement Assistance in __#City#__</h6>
+                    <h6 class="text-orange-500 font-bold mb-2 uppercase tracking-wider">Placement Assistance in _#City#_</h6>
                     <h2 class="text-3xl md:text-4xl font-bold mb-6">Master the Job Interview Round.</h2>
                     <p class="text-gray-400 text-lg mb-8 leading-relaxed">
-                        The tech ecosystem in __#City#__ is actively seeking developers who can solve architectural challenges. Our dedicated career team prepares you for high-intensity technical rounds with resume building, LinkedIn optimization, and mock sessions.
+                        The tech ecosystem in _#City#_ is actively seeking developers who can solve architectural challenges. Our dedicated career team prepares you for high-intensity technical rounds with resume building, LinkedIn optimization, and mock sessions.
                     </p>
 
                     <div class="space-y-8">
@@ -268,15 +268,15 @@
     <section class="py-20 bg-white overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 mb-10 text-center">
             <h2 class="text-3xl font-bold">Life at Success24 Learning Academy</h2>
-            <p class="text-gray-500">Live coding marathons and hackathons at our training center in __#City#__</p>
+            <p class="text-gray-500">Live coding marathons and hackathons at our training center in _#City#_</p>
         </div>
 
         <div class="relative max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <img src="https://success24.in/img/class1.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt=".NET Lab in __#City#__" loading="lazy" />
+                <img src="https://success24.in/img/class1.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt=".NET Lab in _#City#_" loading="lazy" />
                 <img src="https://success24.in/img/DS_5.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="Students coding in C#" loading="lazy" />
                 <img src="https://success24.in/img/classds.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="Live API Workshop" loading="lazy" />
-                <img src="https://success24.in/img/class_4.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="Tech Placement Drive in __#City#__" loading="lazy" />
+                <img src="https://success24.in/img/class_4.jpg" class="rounded-xl shadow-lg hover:scale-105 transition duration-300" alt="Tech Placement Drive in _#City#_" loading="lazy" />
             </div>
         </div>
     </section>
@@ -295,7 +295,7 @@
                         </p>
                     </summary>
                     <p class="text-gray-600 mt-4 group-open:animate-fadeIn">
-                        Absolutely! .NET remains the backbone of enterprise applications globally. With the release of .NET 10, it is one of the fastest and most versatile frameworks for cloud-native development, making .NET developers highly sought after in the __#City#__ job market.
+                        Absolutely! .NET remains the backbone of enterprise applications globally. With the release of .NET 10, it is one of the fastest and most versatile frameworks for cloud-native development, making .NET developers highly sought after in the _#City#_ job market.
                     </p>
                 </details>
 
@@ -327,14 +327,14 @@
 
                 <details class="group bg-white p-6 rounded-2xl shadow-sm border border-gray-200 cursor-pointer">
                     <summary class="flex justify-between items-center font-bold text-lg list-none">
-                        What is the average salary for a .NET Developer in __#City#__?
+                        What is the average salary for a .NET Developer in _#City#_?
                         <p class="transition group-open:rotate-180">
                             <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
                                 <path d="M6 9l6 6 6-6"></path></svg>
                         </p>
                     </summary>
                     <p class="text-gray-600 mt-4 group-open:animate-fadeIn">
-                        Freshers in __#City#__ can expect 4.5 LPA to 8 LPA. Developers with 3+ years of experience and cloud expertise often secure packages ranging from 15-25 LPA, depending on their architectural knowledge.
+                        Freshers in _#City#_ can expect 4.5 LPA to 8 LPA. Developers with 3+ years of experience and cloud expertise often secure packages ranging from 15-25 LPA, depending on their architectural knowledge.
                     </p>
                 </details>
             </div>

@@ -37,7 +37,7 @@
         <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent"></div>
     </section>
     <section class="bg-gradient-to-r from-yellow-400 to-orange-400 text-center py-12 scroll-scale">
-        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">Step Into a High-Paying Tech Career Today in __#City#__
+        <h2 class="font-extrabold text-3xl md:text-5xl mb-3 text-gray-900 uppercase">Step Into a High-Paying Tech Career Today in \
         </h2>
         <div class="text-3xl md:text-5xl font-bold text-white">
             <a href="tel:+919555580458" class="hover:text-gray-900 transition-colors">+91 95555 80458

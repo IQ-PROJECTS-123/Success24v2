@@ -175,7 +175,26 @@ namespace Success24v2
                 page.Header.Controls.Add(description);
                 if (_LiteralHeader != null)
                     _LiteralHeader.Text = Convert.ToString(_DataTable.Rows[0]["PageHeader"]).Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"]));
-                _Literal.Text = HttpUtility.HtmlDecode(Convert.ToString(_DataTable.Rows[0]["PageContent"]).Replace("%23", "#").Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"])).Replace("_#SiteURL#_", Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["HostURL"])));
+                string pageContent = Convert.ToString(_DataTable.Rows[0]["PageContent"]);
+
+                pageContent = HttpUtility.HtmlDecode(pageContent);
+                pageContent = pageContent.Replace("%23", "#").Replace("_#City#_", Convert.ToString(HttpContext.Current.Session["City"])).Replace("_#SiteURL#_", Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["HostURL"]));
+
+
+                DataTable ds = Utility._GetDataTable("SELECT COUNT(*) AS SuccessCount FROM Placement");
+                int successCount = (ds != null && ds.Rows.Count > 0) ? Convert.ToInt32(ds.Rows[0]["SuccessCount"]) : 0;
+
+                ds = Utility._GetDataTable("SELECT COUNT(ID) AS Active FROM student WHERE Active = 1");
+                int practCount = (ds != null && ds.Rows.Count > 0) ? Convert.ToInt32(ds.Rows[0]["Active"]) : 0;
+
+                pageContent = pageContent.Replace("_#successCount#_", successCount.ToString());
+                pageContent = pageContent.Replace("_#practCount#_", practCount.ToString());
+
+                pageContent = pageContent.Replace("_%23successCount%23_", successCount.ToString());
+                pageContent = pageContent.Replace("_%23practCount%23_", practCount.ToString());
+                //pageContent = pageContent.Replace("_#successCount#_", successCount.ToString()).Replace("_#practCount#_", practCount.ToString());
+
+                _Literal.Text = pageContent;
             }
 
             // _DataTable = _GetO365Data("SharepointTrainingContents", "<Where><Eq><FieldRef Name='ParentPage' LookupId='TRUE' /><Value Type='Text'>" + _PageId + "</Value> </Eq> </Where> <OrderBy>  <FieldRef Name='OrderBy'/></OrderBy>", "ID", "Title", "PageTitle", "Description", "MetaKey", "PageHeader", "PageImage", "summery");//_GetData("select  PAGEID,ID,TITLE,TitleType,LINK,POSITION,ISACTIVE ,Imagepath,DESCRIPTION from pagecontent where ISACTIVE=1 and PAGEID=" + _PageId + "  Order By Position");

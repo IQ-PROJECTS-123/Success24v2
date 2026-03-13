@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Data;
+using System.Globalization;
 using System.Text;
 using System.Web;
 using System.Web.UI;
-using System.Globalization;
+using System.Web.UI.WebControls;
 
 namespace Success24v2
 {
@@ -18,13 +19,39 @@ namespace Success24v2
                     GenerateNavigation();
 
                     DataTable navDt = Utility._GetDataTable24("Select * from SiteNavigation where Site = 'Success24' order by Orderby");
-                    var programInfo = GetProgramsChildInfo(navDt); // returns (pageSlugDisplay, pageTitle)
+                    var programInfo = GetProgramsChildInfo(navDt);
                     Utility._SetLocationsHome(_LiteralLocationAll, null, programInfo.Item1, programInfo.Item2);
+
+                    //try
+                    //{
+                    //DataTable ds = Utility._GetDataTable("SELECT * FROM Placement ORDER BY Batch DESC, OrderBy DESC");
+                    //int successCount = (ds != null) ? ds.Rows.Count : 0;
+
+                    //ds = Utility._GetDataTable("SELECT COUNT(ID) AS Active FROM student WHERE Active = 1");
+                    //int practCount = (ds != null && ds.Rows.Count > 0) ? Convert.ToInt32(ds.Rows[0][0]) : 0;
+
+                    //    //if (_LiteralSuccessMaster == null)
+                    //    //{
+                    //    Literal1.Text = successCount.ToString();
+                    //    //}
+
+                    //    //if (_LiteralPracMaster == null)
+                    //    //{
+                    //    Literal1.Text = practCount.ToString();
+                    //    //}
+                    //}
+                    //catch (Exception)
+                    //{
+                    //    if (_LiteralSuccessMaster1 != null) _LiteralSuccessMaster1.Text = "0";
+                    //    if (_LiteralPracMaster1 != null) _LiteralPracMaster1.Text = "0";
+                    //}
                 }
                 catch (Exception ex)
                 {
                     Response.Write("Error: " + Server.HtmlEncode(ex.Message));
                     _LiteralNavDesktop.Text = "";
+                    _LiteralNavMobile.Text = "";
+                    System.Diagnostics.Trace.WriteLine("24.Master.Page_Load outer exception: " + ex.ToString());
                 }
             }
         }
@@ -39,7 +66,6 @@ namespace Success24v2
                 if (navDt == null || navDt.Rows.Count == 0)
                     return Tuple.Create(defaultSlug, defaultTitle);
 
-                // Get City
                 string city = Convert.ToString(HttpContext.Current.Session["City"] ?? "").Trim();
                 if (string.IsNullOrEmpty(city))
                     city = Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["DefaultCity"] ?? "").Trim();
@@ -48,7 +74,6 @@ namespace Success24v2
 
                 string currentPath = HttpContext.Current.Request.Url.AbsolutePath.ToLowerInvariant();
 
-                // Find Programs parent
                 var parentRows = navDt.Select("ParentID IS NULL OR ParentID = 0");
                 DataRow programsParent = null;
 
@@ -67,14 +92,12 @@ namespace Success24v2
                 if (programsParent == null)
                     return Tuple.Create(defaultSlug, defaultTitle);
 
-                // Get children
                 string pid = Convert.ToString(programsParent["ID"] ?? "");
                 DataRow[] children = navDt.Select("ParentID = " + pid);
 
                 if (children.Length == 0)
                     return Tuple.Create(defaultSlug, defaultTitle);
 
-                // Default first child
                 DataRow selectedChild = children[0];
 
                 foreach (DataRow child in children)
@@ -91,12 +114,8 @@ namespace Success24v2
 
                 string rawTitle = Convert.ToString(selectedChild["Title"] ?? "");
 
-                // Footer link slug = {title}-Training-Institute-in-{city}
                 string slugPart = rawTitle.Replace(" ", "-");
-
                 string pageSlugDisplay = $"{slugPart}-Training-Institute";
-
-                // Footer title text = Title with spacing
                 string pageTitle = $"{rawTitle} Training Institute";
 
                 return Tuple.Create(pageSlugDisplay, pageTitle);
@@ -106,7 +125,6 @@ namespace Success24v2
                 return Tuple.Create(defaultSlug, defaultTitle);
             }
         }
-
 
         private void GenerateNavigation()
         {
@@ -164,7 +182,6 @@ namespace Success24v2
                         (!string.IsNullOrEmpty(title) && title.IndexOf("Programs", StringComparison.OrdinalIgnoreCase) >= 0)
                         || (!string.IsNullOrEmpty(parentNav) && parentNav.IndexOf("Programs", StringComparison.OrdinalIgnoreCase) >= 0);
 
-                    // -------------------- NO CHILD --------------------
                     if (children.Length == 0)
                     {
                         string url = BuildUrl(parentNav, includeCity: isProgramsParent);
@@ -179,10 +196,8 @@ namespace Success24v2
                             HttpUtility.HtmlAttributeEncode(url),
                             HttpUtility.HtmlEncode(title));
                     }
-                    // -------------------- HAS CHILD --------------------
                     else
                     {
-                        // ===== DESKTOP (UNCHANGED) =====
                         dsktp.Append("<li class='group relative inline-block'>");
                         dsktp.AppendFormat(
                             "<button class='hover:text-orange-400 flex items-center gap-1 font-medium text-black'>{0} <i class='fas fa-chevron-down text-[10px]'></i></button>",
@@ -259,5 +274,19 @@ namespace Success24v2
             }
         }
 
+        private int SafeGetCount(string sql)
+        {
+            try
+            {
+                DataTable dt = Utility._GetDataTable24(sql);
+                if (dt != null && dt.Rows.Count > 0 && dt.Rows[0][0] != DBNull.Value)
+                    return Convert.ToInt32(dt.Rows[0][0]);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine("SafeGetCount failed: " + ex.Message);
+            }
+            return 0;
+        }
     }
 }
