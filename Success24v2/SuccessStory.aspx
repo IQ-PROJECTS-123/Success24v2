@@ -152,21 +152,37 @@
         document.addEventListener("DOMContentLoaded", function () {
             const counters = document.querySelectorAll('.counter-up');
 
+            const getSafeNumber = (text) => {
+                const cleaned = (text || "").replace(/[^\d]/g, "").trim();
+                const value = parseInt(cleaned, 10);
+                return isNaN(value) ? 0 : value;
+            };
+
             const runCounter = (el) => {
-                const target = parseInt(el.innerText);
+                const target = getSafeNumber(el.textContent);
+
+                // If target is 0 or invalid, just show 0 and stop
+                if (target <= 0) {
+                    el.textContent = "0";
+                    return;
+                }
+
                 let count = 0;
-                const speed = 2000; // 2 seconds to finish
-                const increment = target / (speed / 16);
+                const duration = 2000;
+                const stepTime = 16;
+                const increment = target / (duration / stepTime);
 
                 const update = () => {
                     count += increment;
+
                     if (count < target) {
-                        el.innerText = Math.floor(count);
+                        el.textContent = Math.floor(count).toString();
                         requestAnimationFrame(update);
                     } else {
-                        el.innerText = target;
+                        el.textContent = target.toString();
                     }
                 };
+
                 update();
             };
 
@@ -179,7 +195,10 @@
                 });
             }, { threshold: 0.5 });
 
-            counters.forEach(c => observer.observe(c));
+            counters.forEach(c => {
+                c.textContent = getSafeNumber(c.textContent).toString();
+                observer.observe(c);
+            });
         });
     </script>
 </asp:Content>

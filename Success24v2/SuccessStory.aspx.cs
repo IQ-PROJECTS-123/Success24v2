@@ -16,16 +16,15 @@ namespace Success24v2
             {
                 try
                 {
-                    // read route value (if any)
+                    _LiteralSuccess.Text = "0";
+                    _LiteralPrac.Text = "0";
+
                     string slug = Page.RouteData.Values["Slug"] as string ?? string.Empty;
                     if (!string.IsNullOrEmpty(slug))
                     {
-                        // For debugging / diagnostics; replace with filtering logic as needed.
                         global::System.Diagnostics.Trace.WriteLine($"SuccessStory: route slug = '{slug}'");
-                        // TODO: use 'slug' to filter the placement query (e.g., WHERE SlugColumn = @slug)
                     }
 
-                    // Build URL helper using same logic as in 24.Master.cs
                     string host = Convert.ToString(ConfigurationManager.AppSettings["HostURL"] ?? "").TrimEnd('/');
                     string city = Convert.ToString(Session["City"] ?? "").Trim();
                     if (string.IsNullOrEmpty(city))
@@ -50,16 +49,21 @@ namespace Success24v2
                         return host + "/" + nav;
                     }
 
-                    // Load placement rows
-                    DataTable dt = Utility._GetDataTable("SELECT * FROM Placement ORDER BY Batch DESC, OrderBy DESC");
-                    int successCount = (dt != null) ? dt.Rows.Count : 0;
+                    DataTable dtPlacement = Utility._GetDataTable("SELECT * FROM Placement ORDER BY Batch DESC, OrderBy DESC");
+
+                    int successCount = 0;
+                    if (dtPlacement != null)
+                    {
+                        successCount = dtPlacement.Rows.Count;
+                    }
 
                     // Build cards
                     var sb = new StringBuilder();
-                    if (dt != null && dt.Rows.Count > 0)
+                    if (dtPlacement != null && dtPlacement.Rows.Count > 0)
                     {
                         int delayStep = 1;
-                        foreach (DataRow dr in dt.Rows)
+
+                        foreach (DataRow dr in dtPlacement.Rows)
                         {
                             string image = HttpUtility.HtmlEncode(Convert.ToString(dr["ImageURL"]));
                             if (string.IsNullOrWhiteSpace(image))
@@ -73,17 +77,16 @@ namespace Success24v2
                             if (string.IsNullOrWhiteSpace(location))
                                 location = "Unknown";
 
-                            // Use raw title for slug generation, display title uppercase
                             string rawTitle = Convert.ToString(dr["Title"] ?? "");
                             string title = HttpUtility.HtmlEncode(rawTitle).ToUpperInvariant();
                             string company = HttpUtility.HtmlEncode(Convert.ToString(dr["Company"]));
                             string batch = HttpUtility.HtmlEncode(Convert.ToString(dr["Batch"]));
 
-                            // generate slug using same Utility method pattern as master page
-                            string itemSlug = string.IsNullOrWhiteSpace(rawTitle) ? "placement" : Utility.GenerateSlug(rawTitle).ToLowerInvariant();
-                            string nav = $"Placements/{itemSlug}";
+                            string itemSlug = string.IsNullOrWhiteSpace(rawTitle)
+                                ? "placement"
+                                : Utility.GenerateSlug(rawTitle).ToLowerInvariant();
 
-                            // Build final absolute (or relative-to-host) URL
+                            string nav = $"Placements/{itemSlug}";
                             string placementUrl = BuildUrl(nav, includeCity: false);
                             string encodedPlacementUrl = HttpUtility.HtmlAttributeEncode(placementUrl);
 
@@ -120,9 +123,16 @@ namespace Success24v2
 
                     Literal1.Text = sb.ToString();
 
-                    dt = Utility._GetDataTable("SELECT COUNT(ID) AS Active FROM student WHERE Active = 1");
-                    int practCount = (dt != null && dt.Rows.Count > 0) ? Convert.ToInt32(dt.Rows[0][0]) : 0;
+                    // Load active student count safely
+                    int practCount = 0;
+                    DataTable dtStudent = Utility._GetDataTable("SELECT COUNT(ID) AS Active FROM student WHERE Active = 1");
 
+                    if (dtStudent != null && dtStudent.Rows.Count > 0)
+                    {
+                        int.TryParse(Convert.ToString(dtStudent.Rows[0]["Active"]), out practCount);
+                    }
+
+                    // Final assignment - always numeric only
                     _LiteralSuccess.Text = successCount.ToString();
                     _LiteralPrac.Text = practCount.ToString();
                 }
