@@ -64,8 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="24.Master" />
+    <Content Include="AdminDashboard.aspx" />
     <Content Include="404.aspx" />
+    <Content Include="AdminEditStudent.aspx" />
     <Content Include="AdminGallery.aspx" />
+    <Content Include="AdminLogin.aspx" />
     <Content Include="Android App.aspx" />
     <Content Include="Angular.aspx" />
     <Content Include="Automation.aspx" />
@@ -283,6 +286,13 @@
     <Compile Include="24.Master.designer.cs">
       <DependentUpon>24.Master</DependentUpon>
     </Compile>
+    <Compile Include="AdminDashboard.aspx.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminDashboard.aspx.designer.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="404.aspx.cs">
       <DependentUpon>404.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -290,12 +300,26 @@
     <Compile Include="404.aspx.designer.cs">
       <DependentUpon>404.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminEditStudent.aspx.cs">
+      <DependentUpon>AdminEditStudent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEditStudent.aspx.designer.cs">
+      <DependentUpon>AdminEditStudent.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminGallery.aspx.cs">
       <DependentUpon>AdminGallery.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminGallery.aspx.designer.cs">
       <DependentUpon>AdminGallery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminLogin.aspx.cs">
+      <DependentUpon>AdminLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminLogin.aspx.designer.cs">
+      <DependentUpon>AdminLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Android App.aspx.cs">
       <DependentUpon>Android App.aspx</DependentUpon>

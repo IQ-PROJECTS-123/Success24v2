@@ -43,7 +43,6 @@
                 object-fit: fill;
             }
 
-        /* Ensures numbers don't "jump" while counting */
         .counter-up {
             font-variant-numeric: tabular-nums;
         }
