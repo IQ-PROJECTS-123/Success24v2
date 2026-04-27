@@ -11,152 +11,44 @@ namespace Success24v2
 {
 
 
-    public partial class AdminEditStudent
+    public partial class AdminEdit
     {
 
         /// <summary>
-        /// lblStudentID control.
+        /// litStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStudentID;
+        protected global::System.Web.UI.WebControls.Literal litStatus;
 
         /// <summary>
-        /// imgPhoto control.
+        /// litPhoto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgPhoto;
+        protected global::System.Web.UI.WebControls.Literal litPhoto;
 
         /// <summary>
-        /// lblInitials control.
+        /// fuAdminPhoto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInitials;
+        protected global::System.Web.UI.WebControls.FileUpload fuAdminPhoto;
 
         /// <summary>
-        /// lblFullName control.
+        /// btnUploadPhoto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFullName;
-
-        /// <summary>
-        /// lblCourseLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCourseLabel;
-
-        /// <summary>
-        /// lbStatusToggle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbStatusToggle;
-
-        /// <summary>
-        /// togglePill control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl togglePill;
-
-        /// <summary>
-        /// lblStatusText control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStatusText;
-
-        /// <summary>
-        /// pnlUpload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlUpload;
-
-        /// <summary>
-        /// fuPhoto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuPhoto;
-
-        /// <summary>
-        /// pnlDeletePhoto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlDeletePhoto;
-
-        /// <summary>
-        /// btnDeletePhoto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDeletePhoto;
-
-        /// <summary>
-        /// lblIDValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIDValue;
-
-        /// <summary>
-        /// lblCreatedOn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCreatedOn;
-
-        /// <summary>
-        /// lblBatchInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBatchInfo;
-
-        /// <summary>
-        /// lblCourseInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCourseInfo;
+        protected global::System.Web.UI.WebControls.Button btnUploadPhoto;
 
         /// <summary>
         /// txtFirstName control.
@@ -177,15 +69,6 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.TextBox txtLastName;
 
         /// <summary>
-        /// txtDOB control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDOB;
-
-        /// <summary>
         /// txtFatherName control.
         /// </summary>
         /// <remarks>
@@ -195,22 +78,13 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.TextBox txtFatherName;
 
         /// <summary>
-        /// ddlCourse control.
+        /// txtBatchNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCourse;
-
-        /// <summary>
-        /// txtBatch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBatch;
+        protected global::System.Web.UI.WebControls.TextBox txtBatchNo;
 
         /// <summary>
         /// txtQualification control.
@@ -222,13 +96,31 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.TextBox txtQualification;
 
         /// <summary>
-        /// txtPassout control.
+        /// txtPassoutYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassout;
+        protected global::System.Web.UI.WebControls.TextBox txtPassoutYear;
+
+        /// <summary>
+        /// txtDOB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDOB;
+
+        /// <summary>
+        /// ddlCourse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCourse;
 
         /// <summary>
         /// txtPrimaryMobile control.
@@ -249,24 +141,6 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.TextBox txtSecondaryMobile;
 
         /// <summary>
-        /// txtWhatsapp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWhatsapp;
-
-        /// <summary>
-        /// txtParentMobile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtParentMobile;
-
-        /// <summary>
         /// txtEmail1 control.
         /// </summary>
         /// <remarks>
@@ -285,49 +159,76 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.TextBox txtEmail2;
 
         /// <summary>
-        /// txtAadhar control.
+        /// txtWhatsappNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAadhar;
+        protected global::System.Web.UI.WebControls.TextBox txtWhatsappNo;
 
         /// <summary>
-        /// txtPAN control.
+        /// txtParentNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPAN;
+        protected global::System.Web.UI.WebControls.TextBox txtParentNo;
 
         /// <summary>
-        /// txtVoter control.
+        /// txtAadharNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVoter;
+        protected global::System.Web.UI.WebControls.TextBox txtAadharNo;
 
         /// <summary>
-        /// txtPassport control.
+        /// txtPANNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassport;
+        protected global::System.Web.UI.WebControls.TextBox txtPANNo;
 
         /// <summary>
-        /// txtReference control.
+        /// txtPassportNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtReference;
+        protected global::System.Web.UI.WebControls.TextBox txtPassportNo;
+
+        /// <summary>
+        /// txtReferenceName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtReferenceName;
+
+        /// <summary>
+        /// ddlStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
+
+        /// <summary>
+        /// txtCompletionPercent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCompletionPercent;
 
         /// <summary>
         /// txtCurrentAddress control.
@@ -348,6 +249,195 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.TextBox txtPermanentAddress;
 
         /// <summary>
+        /// litPhotoCard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litPhotoCard;
+
+        /// <summary>
+        /// litAadharFront control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litAadharFront;
+
+        /// <summary>
+        /// fuAadharFrontAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuAadharFrontAdmin;
+
+        /// <summary>
+        /// btnUploadAadharFront control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploadAadharFront;
+
+        /// <summary>
+        /// litAadharBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litAadharBack;
+
+        /// <summary>
+        /// fuAadharBackAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuAadharBackAdmin;
+
+        /// <summary>
+        /// btnUploadAadharBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploadAadharBack;
+
+        /// <summary>
+        /// litPANCard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litPANCard;
+
+        /// <summary>
+        /// fuPANCardAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuPANCardAdmin;
+
+        /// <summary>
+        /// btnUploadPANCard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploadPANCard;
+
+        /// <summary>
+        /// litMarksheet10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litMarksheet10;
+
+        /// <summary>
+        /// fuMarksheet10Admin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuMarksheet10Admin;
+
+        /// <summary>
+        /// btnUploadMarksheet10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploadMarksheet10;
+
+        /// <summary>
+        /// litMarksheet12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litMarksheet12;
+
+        /// <summary>
+        /// fuMarksheet12Admin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuMarksheet12Admin;
+
+        /// <summary>
+        /// btnUploadMarksheet12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploadMarksheet12;
+
+        /// <summary>
+        /// litDegree control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litDegree;
+
+        /// <summary>
+        /// fuDegreeAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuDegreeAdmin;
+
+        /// <summary>
+        /// btnUploadDegree control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploadDegree;
+
+        /// <summary>
+        /// txtRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+
+        /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>
@@ -357,21 +447,21 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.Button btnSave;
 
         /// <summary>
-        /// hfShowToast control.
+        /// btnVerify control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfShowToast;
+        protected global::System.Web.UI.WebControls.Button btnVerify;
 
         /// <summary>
-        /// hfToastMsg control.
+        /// btnReject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfToastMsg;
+        protected global::System.Web.UI.WebControls.Button btnReject;
     }
 }

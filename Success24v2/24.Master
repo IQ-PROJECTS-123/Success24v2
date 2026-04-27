@@ -86,9 +86,9 @@
                         <!-- Apply (Desktop Only) -->
                         <div class="hidden md:block relative">
                             <asp:HyperLink ID="lnkApply" runat="server"
-                                NavigateUrl="~/RegistartionForm.aspx"
+                                NavigateUrl="~/Signup.aspx"
                                 CssClass="group inline-flex items-center justify-center w-64 rounded-full bg-gradient-to-r from-orange-500 to-red-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 transform transition-all duration-300 ease-in-out border-none">
-                               <span class="tracking-wide">APPLY NOW</span>
+                               <span class="tracking-wide">BECOME A STUDENT</span>
                                <div class="ml-3 bg-white/20 rounded-full p-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
                               </div>
                             </asp:HyperLink>

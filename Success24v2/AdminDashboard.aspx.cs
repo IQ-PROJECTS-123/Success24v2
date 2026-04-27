@@ -1,250 +1,233 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
 using System.IO;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Success24v2
 {
-    public partial class AdminDashboard : System.Web.UI.Page
+    public partial class AdminPanel : System.Web.UI.Page
     {
-        private string AdminUser => Session["AdminUser"]?.ToString() ?? "Admin";
+        private readonly string conStr = ConfigurationManager.ConnectionStrings["S24"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["IsAdmin"] == null || !(bool)Session["IsAdmin"])
+            if (Session["AdminID"] == null)
+            {
                 Response.Redirect("AdminLogin.aspx");
+                return;
+            }
 
             if (!IsPostBack)
             {
-                LoadBatchFilter();
+                LoadCourseDropdown();
+                LoadBatchDropdown();
                 LoadStats();
                 LoadGrid();
             }
         }
 
-        // ── Batch Dropdown ────────────────────────────────────────
-        private void LoadBatchFilter()
+        private void LoadCourseDropdown()
         {
-            using (SqlConnection con = new SqlConnection(
-                ConfigurationManager.ConnectionStrings["S24"].ConnectionString))
+            ddlCourse.Items.Clear();
+            ddlCourse.Items.Add(new ListItem("All Courses", ""));
+
+            using (SqlConnection con = new SqlConnection(conStr))
             {
-                SqlCommand cmd = new SqlCommand(
-                    @"SELECT DISTINCT BatchNo FROM StudentRegistration
-                      WHERE BatchNo IS NOT NULL AND BatchNo <> ''
-                      ORDER BY BatchNo", con);
-                con.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                    ddlBatchFilter.Items.Add(new ListItem(
-                        "Batch " + dr["BatchNo"].ToString(),
-                        dr["BatchNo"].ToString()));
+                string query = @"
+                    SELECT DISTINCT LTRIM(RTRIM(ISNULL(Course, ''))) AS Course
+                    FROM StudentRegistration
+                    WHERE ISNULL(LTRIM(RTRIM(Course)), '') <> ''
+                    ORDER BY Course";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            string course = Convert.ToString(dr["Course"]);
+                            ddlCourse.Items.Add(new ListItem(course, course));
+                        }
+                    }
+                }
             }
         }
 
-        // ── Stats ─────────────────────────────────────────────────
+        private void LoadBatchDropdown()
+        {
+            ddlBatch.Items.Clear();
+            ddlBatch.Items.Add(new ListItem("All Batches", ""));
+
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                string query = @"
+                    SELECT DISTINCT LTRIM(RTRIM(ISNULL(BatchNo, ''))) AS BatchNo
+                    FROM StudentRegistration
+                    WHERE ISNULL(LTRIM(RTRIM(BatchNo)), '') <> ''
+                    ORDER BY BatchNo";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            string batch = Convert.ToString(dr["BatchNo"]);
+                            ddlBatch.Items.Add(new ListItem(batch, batch));
+                        }
+                    }
+                }
+            }
+        }
+
         private void LoadStats()
         {
-            using (SqlConnection con = new SqlConnection(
-                ConfigurationManager.ConnectionStrings["S24"].ConnectionString))
+            using (SqlConnection con = new SqlConnection(conStr))
             {
                 con.Open();
 
-                lblTotal.Text = new SqlCommand(
-                    "SELECT COUNT(*) FROM StudentRegistration", con)
-                    .ExecuteScalar().ToString();
-
-                lblActive.Text = new SqlCommand(
-                    "SELECT COUNT(*) FROM StudentRegistration WHERE Active=1", con)
-                    .ExecuteScalar().ToString();
-
-                lblInactive.Text = new SqlCommand(
-                    "SELECT COUNT(*) FROM StudentRegistration WHERE Active=0", con)
-                    .ExecuteScalar().ToString();
-
-                lblThisMonth.Text = new SqlCommand(
-                    @"SELECT COUNT(*) FROM StudentRegistration
-                      WHERE MONTH(CreatedOn)=MONTH(GETDATE())
-                      AND YEAR(CreatedOn)=YEAR(GETDATE())", con)
-                    .ExecuteScalar().ToString();
-
-                lblCourses.Text = new SqlCommand( "SELECT COUNT(DISTINCT Course) FROM StudentRegistration WHERE Active = 1", con).ExecuteScalar().ToString();
+                litTotal.Text = ExecuteScalarCount(con, "SELECT COUNT(*) FROM StudentRegistration");
+                litActive.Text = ExecuteScalarCount(con, "SELECT COUNT(*) FROM StudentRegistration WHERE ISNULL(Active,0)=1");
+                litInactive.Text = ExecuteScalarCount(con, "SELECT COUNT(*) FROM StudentRegistration WHERE ISNULL(Active,0)=0");
+                litJoinedThisMonth.Text = ExecuteScalarCount(con, @"
+                    SELECT COUNT(*) FROM StudentRegistration
+                    WHERE YEAR(ISNULL(CreatedOn,GETDATE())) = YEAR(GETDATE())
+                      AND MONTH(ISNULL(CreatedOn,GETDATE())) = MONTH(GETDATE())");
+                litCoursesRunning.Text = ExecuteScalarCount(con, @"
+                    SELECT COUNT(DISTINCT Course) FROM StudentRegistration
+                    WHERE ISNULL(LTRIM(RTRIM(Course)),'') <> ''");
             }
         }
 
-        // ── Grid ──────────────────────────────────────────────────
+        private string ExecuteScalarCount(SqlConnection con, string query)
+        {
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                object result = cmd.ExecuteScalar();
+                return result == null || result == DBNull.Value ? "0" : Convert.ToString(result);
+            }
+        }
+
+        private DataTable GetStudentsData()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                string query = @"
+                    SELECT 
+                        ID,
+                        ISNULL(FirstName,'') AS FirstName,
+                        ISNULL(LastName,'') AS LastName,
+                        LTRIM(RTRIM(ISNULL(FirstName,'') + ' ' + ISNULL(LastName,''))) AS StudentName,
+                        ISNULL(Email1,'') AS Email1,
+                        ISNULL(Course,'') AS Course,
+                        ISNULL(BatchNo,'') AS BatchNo,
+                        ISNULL(PrimaryMobile,'') AS PrimaryMobile,
+                        ISNULL(FatherName,'') AS FatherName,
+                        ISNULL(AadharNo,'') AS AadharNo,
+                        CONVERT(VARCHAR(11), ISNULL(CreatedOn, GETDATE()), 106) AS RegisteredOn,
+                        ISNULL(VerificationStatus,'Draft') AS VerificationStatus,
+                        ISNULL(PhotoPath,'') AS PhotoPath,
+                        ISNULL(Active,0) AS Active
+                    FROM StudentRegistration
+                    WHERE 1=1";
+
+                if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+                    query += " AND (ISNULL(FirstName,'') + ' ' + ISNULL(LastName,'')) LIKE @Search";
+
+                if (!string.IsNullOrWhiteSpace(ddlCourse.SelectedValue))
+                    query += " AND ISNULL(Course,'') = @Course";
+
+                if (!string.IsNullOrWhiteSpace(ddlBatch.SelectedValue))
+                    query += " AND ISNULL(BatchNo,'') = @BatchNo";
+
+                if (!string.IsNullOrWhiteSpace(ddlStatus.SelectedValue))
+                    query += " AND ISNULL(VerificationStatus,'Draft') = @Status";
+
+                query += " ORDER BY ID DESC";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+                        cmd.Parameters.AddWithValue("@Search", "%" + txtSearch.Text.Trim() + "%");
+                    if (!string.IsNullOrWhiteSpace(ddlCourse.SelectedValue))
+                        cmd.Parameters.AddWithValue("@Course", ddlCourse.SelectedValue.Trim());
+                    if (!string.IsNullOrWhiteSpace(ddlBatch.SelectedValue))
+                        cmd.Parameters.AddWithValue("@BatchNo", ddlBatch.SelectedValue.Trim());
+                    if (!string.IsNullOrWhiteSpace(ddlStatus.SelectedValue))
+                        cmd.Parameters.AddWithValue("@Status", ddlStatus.SelectedValue.Trim());
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+
+            return dt;
+        }
+
         private void LoadGrid()
         {
-            string search = txtSearch.Text.Trim();
-            string statusVal = ddlStatusFilter.SelectedValue;
-            string batchVal = ddlBatchFilter.SelectedValue;
-
-            string query = @"SELECT ID, FirstName, LastName, FatherName, Course,
-                             BatchNo, PrimaryMobile, Email1, AadharNo,
-                             PhotoPath, CreatedOn, Active
-                             FROM StudentRegistration
-                             WHERE
-                             (@Search = '' OR
-                              FirstName     LIKE '%'+@Search+'%' OR
-                              LastName      LIKE '%'+@Search+'%' OR
-                              Email1        LIKE '%'+@Search+'%' OR
-                              PrimaryMobile LIKE '%'+@Search+'%' OR
-                              Course        LIKE '%'+@Search+'%')
-                             AND (@Status = 'All' OR CAST(Active AS VARCHAR) = @Status)
-                             AND (@Batch  = '0'   OR CAST(BatchNo AS VARCHAR) = @Batch)
-                             ORDER BY ID DESC";
-
-            using (SqlConnection con = new SqlConnection(
-                ConfigurationManager.ConnectionStrings["S24"].ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Search", search);
-                cmd.Parameters.AddWithValue("@Status", statusVal);
-                cmd.Parameters.AddWithValue("@Batch", batchVal);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                gvStudents.DataSource = dt;
-                gvStudents.DataBind();
-
-                // Update record count badge
-                lblRecordCount.Text = dt.Rows.Count + " record" + (dt.Rows.Count == 1 ? "" : "s");
-            }
+            DataTable dt = GetStudentsData();
+            gvStudents.DataSource = dt;
+            gvStudents.DataBind();
+            litRecordCount.Text = dt.Rows.Count.ToString();
         }
 
-        // ── Search ────────────────────────────────────────────────
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            gvStudents.PageIndex = 0;
             LoadGrid();
         }
 
-        // ── Clear ─────────────────────────────────────────────────
         protected void btnClear_Click(object sender, EventArgs e)
         {
-            txtSearch.Text = "";
-            ddlStatusFilter.SelectedIndex = 0;
-            ddlBatchFilter.SelectedIndex = 0;
-            gvStudents.PageIndex = 0;
-            LoadGrid();
-        }
-
-        // ── Paging ────────────────────────────────────────────────
-        protected void gvStudents_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvStudents.PageIndex = e.NewPageIndex;
-            LoadGrid();
-        }
-
-        // ── Toggle Active / Inactive ──────────────────────────────
-        protected void lbToggle_Click(object sender, EventArgs e)
-        {
-            LinkButton lb = (LinkButton)sender;
-            string[] parts = lb.CommandArgument.Split(',');
-            string id = parts[0];
-            bool current = parts[1] == "True" || parts[1] == "1";
-            bool newStatus = !current;
-
-            using (SqlConnection con = new SqlConnection(
-                ConfigurationManager.ConnectionStrings["S24"].ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    "UPDATE StudentRegistration SET Active=@Active WHERE ID=@ID", con);
-                cmd.Parameters.AddWithValue("@Active", newStatus);
-                cmd.Parameters.AddWithValue("@ID", id);
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
+            txtSearch.Text = string.Empty;
+            ddlCourse.SelectedIndex = 0;
+            ddlBatch.SelectedIndex = 0;
+            ddlStatus.SelectedIndex = 0;
 
             LoadStats();
             LoadGrid();
         }
 
-        // ── Soft Delete (reason via modal) ────────────────────────
-        protected void btnConfirmDelete_Click(object sender, EventArgs e)
+        protected void btnExportExcel_Click(object sender, EventArgs e)
         {
-            string id = hfDeleteID.Value.Trim();
-            string reason = hfDeleteReason.Value.Trim();
+            DataTable dt = GetStudentsData();
 
-            // ✅ Guard against empty values
-            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(reason))
+            if (dt.Rows.Count == 0)
             {
-                LoadStats();
                 LoadGrid();
                 return;
             }
 
-            using (SqlConnection con = new SqlConnection(
-                ConfigurationManager.ConnectionStrings["S24"].ConnectionString))
+            if (dt.Columns.Contains("PhotoPath")) dt.Columns.Remove("PhotoPath");
+            if (dt.Columns.Contains("FirstName")) dt.Columns.Remove("FirstName");
+            if (dt.Columns.Contains("LastName")) dt.Columns.Remove("LastName");
+
+            string fileName = "Student_Details_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".xls";
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment;filename=" + fileName);
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+
+            using (StringWriter sw = new StringWriter())
             {
-                SqlCommand cmd = new SqlCommand(
-                    "UPDATE StudentRegistration SET Active=0 WHERE ID=@ID", con);
-                cmd.Parameters.AddWithValue("@ID", id);
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
-
-            // ✅ Clear after use
-            hfDeleteID.Value = "";
-            hfDeleteReason.Value = "";
-
-            LoadStats();
-            LoadGrid();
-        }
-
-        // ── Row Deleting (physical delete disabled) ───────────────
-        protected void gvStudents_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            // Physical delete intentionally disabled — soft delete used instead
-        }
-
-        // ── Export Excel ──────────────────────────────────────────
-        protected void btnExcel_Click(object sender, EventArgs e)
-        {
-            string query = @"SELECT ID, FirstName, LastName, FatherName,
-                             Course, BatchNo, PrimaryMobile, Email1,
-                             Qualification, PassoutYear, AadharNo, PANNo,
-                             WhatsappNo, ParentNo, Email2,
-                             VoterID, PassportNo, ReferenceName,
-                             CurrentAddress, PermanentAddress, CreatedOn,
-                             CASE WHEN Active=1 THEN 'Active' ELSE 'Inactive' END AS Status
-                             FROM StudentRegistration ORDER BY ID DESC";
-
-            using (SqlConnection con = new SqlConnection(
-                ConfigurationManager.ConnectionStrings["S24"].ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, con);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                Response.Clear();
-                Response.Buffer = true;
-                Response.AddHeader("content-disposition",
-                    "attachment;filename=Students_" +
-                    DateTime.Now.ToString("yyyyMMdd_HHmm") + ".xls");
-                Response.Charset = "";
-                Response.ContentType = "application/vnd.ms-excel";
-
-                using (System.IO.StringWriter sw = new System.IO.StringWriter())
+                using (HtmlTextWriter hw = new HtmlTextWriter(sw))
                 {
-                    sw.WriteLine("<table border='1'>");
-                    sw.WriteLine("<tr style='background:#f97316;color:white;font-weight:bold;'>");
-                    foreach (DataColumn col in dt.Columns)
-                        sw.WriteLine($"<th>{col.ColumnName}</th>");
-                    sw.WriteLine("</tr>");
-
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        sw.WriteLine("<tr>");
-                        foreach (var item in row.ItemArray)
-                            sw.WriteLine($"<td>{item}</td>");
-                        sw.WriteLine("</tr>");
-                    }
-                    sw.WriteLine("</table>");
+                    GridView exportGrid = new GridView();
+                    exportGrid.DataSource = dt;
+                    exportGrid.AutoGenerateColumns = true;
+                    exportGrid.DataBind();
+                    exportGrid.RenderControl(hw);
 
                     Response.Output.Write(sw.ToString());
                     Response.Flush();
@@ -253,11 +236,102 @@ namespace Success24v2
             }
         }
 
-        // ── Logout ────────────────────────────────────────────────
-        protected void btnLogout_Click(object sender, EventArgs e)
+        protected void gvStudents_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            Session.Clear();
-            Response.Redirect("AdminLogin.aspx");
+            int studentId;
+            if (!int.TryParse(Convert.ToString(e.CommandArgument), out studentId))
+                return;
+
+            if (e.CommandName == "EditStudent")
+            {
+                Response.Redirect("AdminEdit.aspx?ID=" + studentId);
+                return;
+            }
+
+            if (e.CommandName == "QuickVerify")
+            {
+                UpdateStudentStatus(studentId, "Verified", 1, null);
+                LoadStats();
+                LoadGrid();
+                return;
+            }
+
+            if (e.CommandName == "QuickReject")
+            {
+                UpdateStudentStatus(studentId, "Rejected", 0, "Rejected by admin from dashboard.");
+                LoadStats();
+                LoadGrid();
+            }
+        }
+
+        private void UpdateStudentStatus(int studentId, string status, int active, string rejectionReason)
+        {
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                string query = @"
+                    UPDATE StudentRegistration
+                    SET VerificationStatus = @VerificationStatus,
+                        Active = @Active,
+                        RejectionReason = @RejectionReason,
+                        VerifiedBy = @VerifiedBy,
+                        VerifiedOn = GETDATE(),
+                        LastUpdatedOn = GETDATE()
+                    WHERE ID = @ID";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@VerificationStatus", status);
+                    cmd.Parameters.AddWithValue("@Active", active);
+                    cmd.Parameters.AddWithValue("@RejectionReason", (object)rejectionReason ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@VerifiedBy", Convert.ToString(Session["AdminName"]));
+                    cmd.Parameters.AddWithValue("@ID", studentId);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public string GetStatusHtml(string status)
+        {
+            string safeStatus = Convert.ToString(status).Trim();
+
+            if (safeStatus.Equals("Verified", StringComparison.OrdinalIgnoreCase))
+                return "<span class='status-badge status-verified'>● Verified</span>";
+
+            if (safeStatus.Equals("Rejected", StringComparison.OrdinalIgnoreCase))
+                return "<span class='status-badge status-rejected'>● Rejected</span>";
+
+            if (safeStatus.Equals("Pending", StringComparison.OrdinalIgnoreCase))
+                return "<span class='status-badge status-pending'>● Pending</span>";
+
+            return "<span class='status-badge status-draft'>● Draft</span>";
+        }
+
+        public string GetPhotoUrl(object photoPathObj)
+        {
+            string photoPath = Convert.ToString(photoPathObj);
+
+            if (string.IsNullOrWhiteSpace(photoPath))
+                return ResolveUrl("~/img/default-user.png");
+
+            return ResolveUrl(photoPath);
+        }
+
+        public string GetInitials(object firstNameObj, object lastNameObj)
+        {
+            string firstName = Convert.ToString(firstNameObj).Trim();
+            string lastName = Convert.ToString(lastNameObj).Trim();
+
+            string first = string.IsNullOrWhiteSpace(firstName) ? "" : firstName.Substring(0, 1).ToUpper();
+            string last = string.IsNullOrWhiteSpace(lastName) ? "" : lastName.Substring(0, 1).ToUpper();
+
+            string initials = (first + last).Trim();
+            return string.IsNullOrWhiteSpace(initials) ? "S" : initials;
+        }
+
+        public override void VerifyRenderingInServerForm(Control control)
+        {
         }
     }
 }

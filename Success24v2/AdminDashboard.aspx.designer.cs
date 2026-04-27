@@ -11,62 +11,53 @@ namespace Success24v2
 {
 
 
-    public partial class AdminDashboard
+    public partial class AdminPanel
     {
 
         /// <summary>
-        /// btnLogout control.
+        /// litTotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnLogout;
+        protected global::System.Web.UI.WebControls.Literal litTotal;
 
         /// <summary>
-        /// lblTotal control.
+        /// litActive control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotal;
+        protected global::System.Web.UI.WebControls.Literal litActive;
 
         /// <summary>
-        /// lblActive control.
+        /// litInactive control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblActive;
+        protected global::System.Web.UI.WebControls.Literal litInactive;
 
         /// <summary>
-        /// lblInactive control.
+        /// litJoinedThisMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInactive;
+        protected global::System.Web.UI.WebControls.Literal litJoinedThisMonth;
 
         /// <summary>
-        /// lblThisMonth control.
+        /// litCoursesRunning control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblThisMonth;
-
-        /// <summary>
-        /// lblCourses control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCourses;
+        protected global::System.Web.UI.WebControls.Literal litCoursesRunning;
 
         /// <summary>
         /// txtSearch control.
@@ -78,22 +69,31 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
-        /// ddlStatusFilter control.
+        /// ddlCourse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlStatusFilter;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCourse;
 
         /// <summary>
-        /// ddlBatchFilter control.
+        /// ddlBatch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlBatchFilter;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBatch;
+
+        /// <summary>
+        /// ddlStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
 
         /// <summary>
         /// btnSearch control.
@@ -114,22 +114,22 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.Button btnClear;
 
         /// <summary>
-        /// btnExcel control.
+        /// btnExportExcel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExcel;
+        protected global::System.Web.UI.WebControls.Button btnExportExcel;
 
         /// <summary>
-        /// lblRecordCount control.
+        /// litRecordCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRecordCount;
+        protected global::System.Web.UI.WebControls.Literal litRecordCount;
 
         /// <summary>
         /// gvStudents control.
@@ -139,32 +139,5 @@ namespace Success24v2
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvStudents;
-
-        /// <summary>
-        /// hfDeleteID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfDeleteID;
-
-        /// <summary>
-        /// hfDeleteReason control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfDeleteReason;
-
-        /// <summary>
-        /// btnConfirmDelete control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirmDelete;
     }
 }

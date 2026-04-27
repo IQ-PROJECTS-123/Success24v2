@@ -11,7 +11,7 @@ namespace Success24v2
 {
 
 
-    public partial class AdminLogin
+    public partial class Login
     {
 
         /// <summary>

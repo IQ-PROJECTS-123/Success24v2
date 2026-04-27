@@ -66,7 +66,7 @@
     <Content Include="24.Master" />
     <Content Include="AdminDashboard.aspx" />
     <Content Include="404.aspx" />
-    <Content Include="AdminEditStudent.aspx" />
+    <Content Include="AdminEdit.aspx" />
     <Content Include="AdminGallery.aspx" />
     <Content Include="AdminLogin.aspx" />
     <Content Include="Android App.aspx" />
@@ -76,6 +76,7 @@
     <Content Include="Big data Hadoop.aspx" />
     <Content Include="CloudComputing.aspx" />
     <Content Include="courses.aspx" />
+    <Content Include="CreateAdmin.aspx" />
     <Content Include="CS.aspx" />
     <Content Include="css\ds.css" />
     <Content Include="Databases.aspx" />
@@ -112,6 +113,7 @@
     <Content Include="Java.aspx" />
     <Content Include="lib\owlcarousel\LICENSE" />
     <Content Include="Linux Administration.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="Mobile Application Development.aspx" />
     <Content Include="NodeJs.aspx" />
     <Content Include="Office365SharePointOnline.aspx" />
@@ -204,6 +206,7 @@
     <Content Include="scss\bootstrap\scss\_variables.scss" />
     <None Include=".editorconfig" />
     <None Include="packages.config" />
+    <Content Include="Signup.aspx" />
     <Content Include="Site.Mobile.Master" />
     <Content Include="Success24v2.zip" />
     <None Include="Web.Debug.config">
@@ -300,12 +303,12 @@
     <Compile Include="404.aspx.designer.cs">
       <DependentUpon>404.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminEditStudent.aspx.cs">
-      <DependentUpon>AdminEditStudent.aspx</DependentUpon>
+    <Compile Include="AdminEdit.aspx.cs">
+      <DependentUpon>AdminEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminEditStudent.aspx.designer.cs">
-      <DependentUpon>AdminEditStudent.aspx</DependentUpon>
+    <Compile Include="AdminEdit.aspx.designer.cs">
+      <DependentUpon>AdminEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminGallery.aspx.cs">
       <DependentUpon>AdminGallery.aspx</DependentUpon>
@@ -377,6 +380,13 @@
     </Compile>
     <Compile Include="courses.aspx.designer.cs">
       <DependentUpon>courses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CreateAdmin.aspx.cs">
+      <DependentUpon>CreateAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateAdmin.aspx.designer.cs">
+      <DependentUpon>CreateAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="CS.aspx.cs">
       <DependentUpon>CS.aspx</DependentUpon>
@@ -486,6 +496,13 @@
     <Compile Include="Linux Administration.aspx.designer.cs">
       <DependentUpon>Linux Administration.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Mobile Application Development.aspx.cs">
       <DependentUpon>Mobile Application Development.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -543,6 +560,7 @@
     <Compile Include="SAP ERP.aspx.designer.cs">
       <DependentUpon>SAP ERP.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SecurityHelper.cs" />
     <Compile Include="SharePoint 2019 Designer.aspx.cs">
       <DependentUpon>SharePoint 2019 Designer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -556,6 +574,13 @@
     </Compile>
     <Compile Include="SharePoint2019Administration.aspx.designer.cs">
       <DependentUpon>SharePoint2019Administration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Signup.aspx.cs">
+      <DependentUpon>Signup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Signup.aspx.designer.cs">
+      <DependentUpon>Signup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
