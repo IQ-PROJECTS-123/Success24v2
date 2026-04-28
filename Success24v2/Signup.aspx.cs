@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace Success24v2
 {
@@ -20,12 +21,19 @@ namespace Success24v2
             string password = txtPassword.Text.Trim();
             string confirmPassword = txtConfirmPassword.Text.Trim();
 
-            // 🔹 BASIC VALIDATION
             if (string.IsNullOrWhiteSpace(fullName) ||
+                string.IsNullOrWhiteSpace(email) ||
                 string.IsNullOrWhiteSpace(mobile) ||
-                string.IsNullOrWhiteSpace(password))
+                string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(confirmPassword))
             {
                 ShowMessage("Please fill all required fields.", false);
+                return;
+            }
+
+            if (!IsValidEmail(email))
+            {
+                ShowMessage("Please enter a valid email address.", false);
                 return;
             }
 
@@ -35,7 +43,6 @@ namespace Success24v2
                 return;
             }
 
-            // 🔥 UPDATED PASSWORD RULE (MIN 8 + STRONG)
             if (!IsValidPassword(password))
             {
                 ShowMessage("Password must be at least 8 characters and include uppercase, lowercase, number, and special character.", false);
@@ -46,10 +53,11 @@ namespace Success24v2
             {
                 con.Open();
 
-                // 🔹 CHECK IF USER EXISTS
-                string checkQuery = @"SELECT COUNT(*) 
-                                      FROM StudentRegistration 
-                                      WHERE PrimaryMobile = @PrimaryMobile OR Email1 = @Email1";
+                string checkQuery = @"
+                    SELECT COUNT(*) 
+                    FROM StudentRegistration 
+                    WHERE PrimaryMobile = @PrimaryMobile 
+                       OR Email1 = @Email1";
 
                 using (SqlCommand checkCmd = new SqlCommand(checkQuery, con))
                 {
@@ -60,37 +68,34 @@ namespace Success24v2
 
                     if (exists > 0)
                     {
-                        ShowMessage("An account with this mobile number or email already exists.", false);
+                        ShowMessage("An account with this mobile number or email already exists. Please login.", false);
                         return;
                     }
                 }
 
-                // 🔹 PASSWORD HASHING
                 string salt = GenerateSalt();
                 string hash = HashPassword(password, salt);
 
-                // 🔹 SPLIT NAME
                 string[] parts = fullName.Split(new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
                 string firstName = parts.Length > 0 ? parts[0] : fullName;
                 string lastName = parts.Length > 1 ? parts[1] : "";
 
-                // 🔹 INSERT USER
                 string insertQuery = @"
-                INSERT INTO StudentRegistration
-                (
-                    FirstName, LastName, Email1, PrimaryMobile,
-                    PasswordHash, PasswordSalt, IsLoginActive,
-                    LoginCreatedOn, CurrentStep, CompletionPercent,
-                    IsProfileCompleted, CreatedOn, Active, VerificationStatus
-                )
-                VALUES
-                (
-                    @FirstName, @LastName, @Email1, @PrimaryMobile,
-                    @PasswordHash, @PasswordSalt, 1,
-                    GETDATE(), 1, 0,
-                    0, GETDATE(), 1, 'Draft'
-                );
-                SELECT SCOPE_IDENTITY();";
+                    INSERT INTO StudentRegistration
+                    (
+                        FirstName, LastName, Email1, PrimaryMobile,
+                        PasswordHash, PasswordSalt, IsLoginActive,
+                        LoginCreatedOn, CurrentStep, CompletionPercent,
+                        IsProfileCompleted, CreatedOn, Active, VerificationStatus
+                    )
+                    VALUES
+                    (
+                        @FirstName, @LastName, @Email1, @PrimaryMobile,
+                        @PasswordHash, @PasswordSalt, 1,
+                        GETDATE(), 1, 0,
+                        0, GETDATE(), 1, 'Draft'
+                    );
+                    SELECT SCOPE_IDENTITY();";
 
                 using (SqlCommand cmd = new SqlCommand(insertQuery, con))
                 {
@@ -111,7 +116,76 @@ namespace Success24v2
             }
         }
 
-        // 🔐 PASSWORD VALIDATION
+        private bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            email = email.Trim();
+
+            if (email.Length > 254)
+                return false;
+
+            try
+            {
+                var mail = new System.Net.Mail.MailAddress(email);
+
+                if (mail.Address != email)
+                    return false;
+
+                string[] parts = email.Split('@');
+
+                if (parts.Length != 2)
+                    return false;
+
+                string localPart = parts[0];
+                string domain = parts[1];
+
+                if (string.IsNullOrWhiteSpace(localPart) || string.IsNullOrWhiteSpace(domain))
+                    return false;
+
+                if (localPart.Length > 64)
+                    return false;
+
+                if (!domain.Contains("."))
+                    return false;
+
+                if (domain.StartsWith(".") || domain.EndsWith("."))
+                    return false;
+
+                if (domain.Contains(".."))
+                    return false;
+
+                string[] domainParts = domain.Split('.');
+
+                foreach (string part in domainParts)
+                {
+                    if (string.IsNullOrWhiteSpace(part))
+                        return false;
+
+                    if (part.StartsWith("-") || part.EndsWith("-"))
+                        return false;
+                }
+
+                string tld = domainParts[domainParts.Length - 1];
+
+                if (tld.Length < 2)
+                    return false;
+
+                foreach (char c in tld)
+                {
+                    if (!char.IsLetter(c))
+                        return false;
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private bool IsValidPassword(string password)
         {
             if (string.IsNullOrWhiteSpace(password) || password.Length < 8)
@@ -133,13 +207,11 @@ namespace Success24v2
             return hasUpper && hasLower && hasDigit && hasSpecial;
         }
 
-        // 🔐 SALT GENERATION
         private string GenerateSalt()
         {
             return Guid.NewGuid().ToString();
         }
 
-        // 🔐 HASH PASSWORD
         private string HashPassword(string password, string salt)
         {
             using (var sha256 = System.Security.Cryptography.SHA256.Create())
@@ -150,7 +222,6 @@ namespace Success24v2
             }
         }
 
-        // 🔔 MESSAGE DISPLAY
         private void ShowMessage(string text, bool success)
         {
             lblMessage.Text = text;
