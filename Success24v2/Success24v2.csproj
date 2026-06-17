@@ -208,7 +208,6 @@
     <None Include="packages.config" />
     <Content Include="Signup.aspx" />
     <Content Include="Site.Mobile.Master" />
-    <Content Include="Success24v2.zip" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -22,29 +22,6 @@ namespace Success24v2
                     var programInfo = GetProgramsChildInfo(navDt);
                     Utility._SetLocationsHome(_LiteralLocationAll, null, programInfo.Item1, programInfo.Item2);
 
-                    //try
-                    //{
-                    //DataTable ds = Utility._GetDataTable("SELECT * FROM Placement ORDER BY Batch DESC, OrderBy DESC");
-                    //int successCount = (ds != null) ? ds.Rows.Count : 0;
-
-                    //ds = Utility._GetDataTable("SELECT COUNT(ID) AS Active FROM student WHERE Active = 1");
-                    //int practCount = (ds != null && ds.Rows.Count > 0) ? Convert.ToInt32(ds.Rows[0][0]) : 0;
-
-                    //    //if (_LiteralSuccessMaster == null)
-                    //    //{
-                    //    Literal1.Text = successCount.ToString();
-                    //    //}
-
-                    //    //if (_LiteralPracMaster == null)
-                    //    //{
-                    //    Literal1.Text = practCount.ToString();
-                    //    //}
-                    //}
-                    //catch (Exception)
-                    //{
-                    //    if (_LiteralSuccessMaster1 != null) _LiteralSuccessMaster1.Text = "0";
-                    //    if (_LiteralPracMaster1 != null) _LiteralPracMaster1.Text = "0";
-                    //}
                 }
                 catch (Exception ex)
                 {
@@ -147,6 +124,23 @@ namespace Success24v2
                 StringBuilder dsktp = new StringBuilder();
                 StringBuilder mobileSb = new StringBuilder();
                 DataRow[] parents = dt.Select("ParentID IS NULL OR ParentID = 0");
+                // I added this line for security purpose to hide the placement page
+                bool showPlacementMenu = false;
+
+                if (Session["StudentID"] != null)
+                {
+                    string studentId = Session["StudentID"].ToString();
+
+                    DataTable dtVerify = Utility._GetDataTable24(
+                        "SELECT VerificationStatus FROM StudentRegistration WHERE ID = " + studentId);
+
+                    if (dtVerify != null && dtVerify.Rows.Count > 0)
+                    {
+                        showPlacementMenu =
+                            Convert.ToString(dtVerify.Rows[0]["VerificationStatus"])
+                            .Equals("Verified", StringComparison.OrdinalIgnoreCase);
+                    }
+                }
 
                 string BuildUrl(string rawNavUrl, bool includeCity)
                 {
@@ -170,6 +164,11 @@ namespace Success24v2
                 {
                     string idRaw = Convert.ToString(row["ID"] ?? "");
                     string title = Convert.ToString(row["Title"] ?? "").Replace("_#City#_", city);
+                    // Added this line also
+                    if (title.Equals("Placement", StringComparison.OrdinalIgnoreCase) && !showPlacementMenu)
+                    {
+                        continue;
+                    }
                     string parentNav = Convert.ToString(row["Navurl"] ?? "");
 
                     DataRow[] children;

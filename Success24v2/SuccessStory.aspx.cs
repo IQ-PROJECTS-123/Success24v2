@@ -16,6 +16,37 @@ namespace Success24v2
             {
                 try
                 {
+                    // Add this line for security purpose
+                    if (Session["StudentID"] == null)
+                    {
+                        Response.Redirect("~/Login.aspx");
+                        return;
+                    }
+
+                    string studentId = Session["StudentID"].ToString();
+
+                    DataTable dtVerify = Utility._GetDataTable24(
+                        "SELECT VerificationStatus FROM StudentRegistration WHERE ID = " + studentId);
+
+                    if (dtVerify == null || dtVerify.Rows.Count == 0)
+                    {
+                        Session["Message"] =
+                            "Your profile is not verified yet. Please contact support.";
+
+                        Response.Redirect("~/RegistrationForm.aspx");
+                        return;
+                    }
+
+                    string verificationStatus =
+                        Convert.ToString(dtVerify.Rows[0]["VerificationStatus"]).Trim();
+
+                    if (!verificationStatus.Equals("Verified", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Session["Message"] =
+                            "Your profile is not verified yet. Please contact support.";
+
+                        Response.Redirect("~/RegistrationForm.aspx"); return;
+                    }
                     _LiteralSuccess.Text = "0";
                     _LiteralPrac.Text = "0";
 
