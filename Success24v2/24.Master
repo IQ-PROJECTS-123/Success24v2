@@ -93,6 +93,15 @@
                               </div>
                             </asp:HyperLink>
                         </div>
+                         <!-- Logout -->
+                        <div class="hidden md:block relative" id="divLogout" runat="server">
+                            <asp:LinkButton ID="btnLogout"
+                                runat="server"
+                                OnClick="btnLogout_Click"
+                                CssClass="group inline-flex items-center justify-center w-40 rounded-full bg-gradient-to-r from-gray-700 to-black px-6 py-2.5 text-sm font-bold text-white">
+                                LOGOUT
+                            </asp:LinkButton>
+                        </div>
 
                         <!-- Mobile Toggle -->
                         <button type="button"
@@ -123,6 +132,21 @@
                     <ul class="flex flex-col gap-4 font-semibold">
                         <asp:Literal ID="_LiteralNavMobile" runat="server"></asp:Literal>
                     </ul>
+                    <div class="mt-5">
+                        <asp:HyperLink ID="lnkApplyMobile"
+                            runat="server"
+                            NavigateUrl="~/Signup.aspx"
+                            CssClass="block w-full text-center rounded-full bg-gradient-to-r from-orange-500 to-red-600 px-6 py-3 font-bold text-white">
+                            BECOME A STUDENT
+                        </asp:HyperLink>
+
+                        <asp:LinkButton ID="btnLogoutMobile"
+                            runat="server"
+                            OnClick="btnLogout_Click"
+                            CssClass="block w-full mt-3 text-center rounded-full bg-gray-800 px-6 py-3 font-bold text-white">
+                            LOGOUT
+                        </asp:LinkButton>
+                    </div>
 
                 </div>
             </div>

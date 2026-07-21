@@ -17,43 +17,23 @@ namespace Success24v2
                 try
                 {
                     // Add this line for security purpose
-                    if (Session["StudentID"] == null)
+                    bool isLoggedIn = Session["StudentID"] != null ||
+                  (Session["IsPlacementUser"] != null &&
+                   Convert.ToBoolean(Session["IsPlacementUser"]));
+
+                    if (!isLoggedIn)
                     {
                         Response.Redirect("~/Login.aspx");
                         return;
                     }
 
-                    string studentId = Session["StudentID"].ToString();
-
-                    DataTable dtVerify = Utility._GetDataTable24(
-                        "SELECT VerificationStatus FROM StudentRegistration WHERE ID = " + studentId);
-
-                    if (dtVerify == null || dtVerify.Rows.Count == 0)
-                    {
-                        Session["Message"] =
-                            "Your profile is not verified yet. Please contact support.";
-
-                        Response.Redirect("~/RegistrationForm.aspx");
-                        return;
-                    }
-
-                    string verificationStatus =
-                        Convert.ToString(dtVerify.Rows[0]["VerificationStatus"]).Trim();
-
-                    if (!verificationStatus.Equals("Verified", StringComparison.OrdinalIgnoreCase))
-                    {
-                        Session["Message"] =
-                            "Your profile is not verified yet. Please contact support.";
-
-                        Response.Redirect("~/RegistrationForm.aspx"); return;
-                    }
                     _LiteralSuccess.Text = "0";
                     _LiteralPrac.Text = "0";
 
                     string slug = Page.RouteData.Values["Slug"] as string ?? string.Empty;
                     if (!string.IsNullOrEmpty(slug))
                     {
-                        global::System.Diagnostics.Trace.WriteLine($"SuccessStory: route slug = '{slug}'");
+                        global::System.Diagnostics.Trace.WriteLine($"Success Story: route slug = '{slug}'");
                     }
 
                     string host = Convert.ToString(ConfigurationManager.AppSettings["HostURL"] ?? "").TrimEnd('/');
@@ -114,10 +94,10 @@ namespace Success24v2
                             string batch = HttpUtility.HtmlEncode(Convert.ToString(dr["Batch"]));
 
                             string itemSlug = string.IsNullOrWhiteSpace(rawTitle)
-                                ? "placement"
+                                ? "Success Story"
                                 : Utility.GenerateSlug(rawTitle).ToLowerInvariant();
 
-                            string nav = $"Placements/{itemSlug}";
+                            string nav = $"Success Story/{itemSlug}";
                             string placementUrl = BuildUrl(nav, includeCity: false);
                             string encodedPlacementUrl = HttpUtility.HtmlAttributeEncode(placementUrl);
 

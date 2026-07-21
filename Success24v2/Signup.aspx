@@ -178,6 +178,10 @@
                                 <span class="h-2 w-2 rounded-full bg-orange-500"></span>
                                 Student Signup
                             </div>
+                             <div class="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.20em] text-orange-600">
+                                 <span class="h-2 w-2 rounded-full bg-orange-500"></span>
+                                 <a href="Login.aspx">Student Login</a>
+                              </div>
 
                             <h2 class="mt-5 text-3xl font-black leading-tight text-orange-950 sm:text-4xl">
                                 Create Your Account

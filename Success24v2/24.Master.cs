@@ -12,12 +12,21 @@ namespace Success24v2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            bool isLoggedIn = Session["StudentID"] != null ||
+                       (Session["IsPlacementUser"] != null &&
+                        Convert.ToBoolean(Session["IsPlacementUser"]));
+
+            lnkApply.Visible = !isLoggedIn;
+            lnkApplyMobile.Visible = !isLoggedIn;
+
+            divLogout.Visible = isLoggedIn;
+            btnLogoutMobile.Visible = isLoggedIn;
             if (!IsPostBack)
             {
                 try
                 {
                     GenerateNavigation();
-
+                   
                     DataTable navDt = Utility._GetDataTable24("Select * from SiteNavigation where Site = 'Success24' order by Orderby");
                     var programInfo = GetProgramsChildInfo(navDt);
                     Utility._SetLocationsHome(_LiteralLocationAll, null, programInfo.Item1, programInfo.Item2);
@@ -125,24 +134,8 @@ namespace Success24v2
                 StringBuilder mobileSb = new StringBuilder();
                 DataRow[] parents = dt.Select("ParentID IS NULL OR ParentID = 0");
                 // I added this line for security purpose to hide the placement page
-                bool showPlacementMenu = false;
-
-                if (Session["StudentID"] != null)
-                {
-                    string studentId = Session["StudentID"].ToString();
-
-                    DataTable dtVerify = Utility._GetDataTable24(
-                        "SELECT VerificationStatus FROM StudentRegistration WHERE ID = " + studentId);
-
-                    if (dtVerify != null && dtVerify.Rows.Count > 0)
-                    {
-                        showPlacementMenu =
-                            Convert.ToString(dtVerify.Rows[0]["VerificationStatus"])
-                            .Equals("Verified", StringComparison.OrdinalIgnoreCase);
-                    }
-                }
-
-                string BuildUrl(string rawNavUrl, bool includeCity)
+                bool isPlacementUser = Session["IsPlacementUser"] != null &&
+                Convert.ToBoolean(Session["IsPlacementUser"]); string BuildUrl(string rawNavUrl, bool includeCity)
                 {
                     if (string.IsNullOrWhiteSpace(rawNavUrl))
                         return host + (includeCity && !string.IsNullOrEmpty(citySlug) ? "/" + citySlug : "");
@@ -165,10 +158,10 @@ namespace Success24v2
                     string idRaw = Convert.ToString(row["ID"] ?? "");
                     string title = Convert.ToString(row["Title"] ?? "").Replace("_#City#_", city);
                     // Added this line also
-                    if (title.Equals("Placement", StringComparison.OrdinalIgnoreCase) && !showPlacementMenu)
-                    {
-                        continue;
-                    }
+                    //if (title.Equals("Success Story", StringComparison.OrdinalIgnoreCase) && !isPlacementUser)
+                    //{
+                    //    continue;
+                    //}
                     string parentNav = Convert.ToString(row["Navurl"] ?? "");
 
                     DataRow[] children;
@@ -286,6 +279,20 @@ namespace Success24v2
                 System.Diagnostics.Trace.WriteLine("SafeGetCount failed: " + ex.Message);
             }
             return 0;
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+
+            if (Request.Cookies["ASP.NET_SessionId"] != null)
+            {
+                Response.Cookies["ASP.NET_SessionId"].Value = "";
+                Response.Cookies["ASP.NET_SessionId"].Expires = DateTime.Now.AddDays(-1);
+            }
+
+            Response.Redirect("~/Login.aspx");
         }
     }
 }

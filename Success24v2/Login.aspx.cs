@@ -10,6 +10,11 @@ namespace Success24v2
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                Session.Clear();
+                Session.Abandon();
+            }
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -20,6 +25,18 @@ namespace Success24v2
             if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
             {
                 ShowMessage("Please enter your login details.", false);
+                return;
+            }
+
+            // Special Placement Login
+            if (userName.Equals("success24", StringComparison.OrdinalIgnoreCase)
+                && password == "success24")
+            {
+                Session["StudentID"] = "success24";
+                Session["StudentName"] = "Placement User";
+                Session["IsPlacementUser"] = true;
+
+                Response.Redirect("SuccessStory.aspx");
                 return;
             }
 

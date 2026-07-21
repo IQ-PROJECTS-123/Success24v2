@@ -51,6 +51,24 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.HyperLink lnkApply;
 
         /// <summary>
+        /// divLogout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLogout;
+
+        /// <summary>
+        /// btnLogout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnLogout;
+
+        /// <summary>
         /// _LiteralNavMobile control.
         /// </summary>
         /// <remarks>
@@ -58,6 +76,24 @@ namespace Success24v2
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal _LiteralNavMobile;
+
+        /// <summary>
+        /// lnkApplyMobile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkApplyMobile;
+
+        /// <summary>
+        /// btnLogoutMobile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnLogoutMobile;
 
         /// <summary>
         /// ContentPlaceHolder1 control.

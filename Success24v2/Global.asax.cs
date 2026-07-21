@@ -46,7 +46,7 @@ namespace Success24v2
             );
 
             routes.MapPageRoute("SuccessStoryRoot", "SuccessStory", "~/SuccessStory.aspx");
-            routes.MapPageRoute("SuccessStory", "SuccessStory/{Page}", "~/SuccessStory.aspx",
+            routes.MapPageRoute("SuccesszStory", "SuccessStory/{Page}", "~/SuccessStory.aspx",
                 false,
                 new RouteValueDictionary { { "Page", "" } }
             );
