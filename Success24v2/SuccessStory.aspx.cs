@@ -17,11 +17,11 @@ namespace Success24v2
                 try
                 {
                     // Add this line for security purpose
-                    bool isLoggedIn = Session["StudentID"] != null ||
-                  (Session["IsPlacementUser"] != null &&
-                   Convert.ToBoolean(Session["IsPlacementUser"]));
+                    bool isPlacementUser =
+                       Session["IsPlacementUser"] != null &&
+                       Convert.ToBoolean(Session["IsPlacementUser"]);
 
-                    if (!isLoggedIn)
+                    if (!isPlacementUser)
                     {
                         Response.Redirect("~/Login.aspx");
                         return;

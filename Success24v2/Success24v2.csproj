@@ -111,10 +111,13 @@
     <Content Include="img\p.png" />
     <Content Include="img\Share_11.jpg" />
     <Content Include="Java.aspx" />
+    <Content Include="LeadCall.aspx" />
+    <Content Include="LeadManagement.aspx" />
     <Content Include="lib\owlcarousel\LICENSE" />
     <Content Include="Linux Administration.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Mobile Application Development.aspx" />
+    <Content Include="MyLeads.aspx" />
     <Content Include="NodeJs.aspx" />
     <Content Include="Office365SharePointOnline.aspx" />
     <Content Include="PHP.aspx" />
@@ -488,6 +491,20 @@
     <Compile Include="Java.aspx.designer.cs">
       <DependentUpon>Java.aspx</DependentUpon>
     </Compile>
+    <Compile Include="LeadCall.aspx.cs">
+      <DependentUpon>LeadCall.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LeadCall.aspx.designer.cs">
+      <DependentUpon>LeadCall.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LeadManagement.aspx.cs">
+      <DependentUpon>LeadManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LeadManagement.aspx.designer.cs">
+      <DependentUpon>LeadManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Linux Administration.aspx.cs">
       <DependentUpon>Linux Administration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -508,6 +525,13 @@
     </Compile>
     <Compile Include="Mobile Application Development.aspx.designer.cs">
       <DependentUpon>Mobile Application Development.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MyLeads.aspx.cs">
+      <DependentUpon>MyLeads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyLeads.aspx.designer.cs">
+      <DependentUpon>MyLeads.aspx</DependentUpon>
     </Compile>
     <Compile Include="NodeJs.aspx.cs">
       <DependentUpon>NodeJs.aspx</DependentUpon>
