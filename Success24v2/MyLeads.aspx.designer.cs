@@ -24,15 +24,6 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.Label lblUserName;
 
         /// <summary>
-        /// btnLogout control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogout;
-
-        /// <summary>
         /// lblTotal control.
         /// </summary>
         /// <remarks>
@@ -51,6 +42,15 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.Label lblAssigned;
 
         /// <summary>
+        /// btnFollowUps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnFollowUps;
+
+        /// <summary>
         /// lblFollowUp control.
         /// </summary>
         /// <remarks>
@@ -67,5 +67,23 @@ namespace Success24v2
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvMyLeads;
+
+        /// <summary>
+        /// pnlFollowUps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlFollowUps;
+
+        /// <summary>
+        /// gvFollowUps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvFollowUps;
     }
 }

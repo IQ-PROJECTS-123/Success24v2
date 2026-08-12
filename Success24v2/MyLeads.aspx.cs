@@ -18,7 +18,7 @@ namespace Success24v2
             // User login nahi hai to Login page par bhejo
             if (Session["UserID"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("AdminLogin.aspx");
                 return;
             }
 
@@ -39,7 +39,7 @@ namespace Success24v2
         {
             if (Session["UserID"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("AdminLogin.aspx");
                 return 0;
             }
 
@@ -58,40 +58,7 @@ namespace Success24v2
             using (SqlConnection con =
                 new SqlConnection(connectionString))
             {
-                string query = @"
-
-                    SELECT
-
-                        L.ID,
-                        L.Name,
-                        L.Email,
-                        L.Phone,
-                        L.Qualification,
-                        L.Stream,
-                        L.PassingYear,
-                        L.Status,
-
-                        LA.AssignedOn,
-
-                        M.Name AS AssignedTo
-
-                    FROM LeadAssignment LA
-
-                    INNER JOIN Leads L
-                        ON LA.LeadID = L.ID
-
-                    INNER JOIN Members M
-                        ON LA.AssignedTo = M.ID
-
-                    WHERE
-                        LA.AssignedTo = @UserID
-
-                    AND
-                        LA.IsActive = 1
-
-                    ORDER BY
-                        LA.AssignedOn DESC,
-                        L.ID DESC";
+                string query = @"SELECT L.ID, L.Name, L.Email, L.Phone, L.Qualification, L.Stream, L.PassingYear, L.Status, LA.AssignedOn, M.Name AS AssignedTo FROM LeadAssignment LA INNER JOIN Leads L ON LA.LeadID = L.ID INNER JOIN Members M ON LA.AssignedTo = M.ID WHERE LA.AssignedTo = @UserID AND LA.IsActive = 1 ORDER BY LA.AssignedOn DESC, L.ID DESC";
 
 
                 using (SqlCommand cmd =
@@ -140,38 +107,7 @@ namespace Success24v2
             using (SqlConnection con =
                 new SqlConnection(connectionString))
             {
-                string query = @"
-
-                    SELECT
-
-                        COUNT(*) AS TotalLeads,
-
-                        SUM(
-                            CASE
-                                WHEN L.Status = 'Assigned'
-                                THEN 1
-                                ELSE 0
-                            END
-                        ) AS Assigned,
-
-                        SUM(
-                            CASE
-                                WHEN L.Status = 'Follow Up'
-                                THEN 1
-                                ELSE 0
-                            END
-                        ) AS FollowUps
-
-                    FROM LeadAssignment LA
-
-                    INNER JOIN Leads L
-                        ON LA.LeadID = L.ID
-
-                    WHERE
-                        LA.AssignedTo = @UserID
-
-                    AND
-                        LA.IsActive = 1";
+                string query = @"SELECT COUNT(*) AS TotalLeads, SUM(CASE WHEN L.Status = 'Assigned' THEN 1 ELSE 0 END) AS Assigned,SUM(CASE WHEN L.Status = 'Follow Up' THEN 1 ELSE 0 END) AS FollowUps FROM LeadAssignment LA INNER JOIN Leads L ON LA.LeadID = L.ID WHERE LA.AssignedTo = @UserID AND LA.IsActive = 1";
 
 
                 using (SqlCommand cmd =
@@ -245,12 +181,92 @@ namespace Success24v2
             }
         }
 
-        protected void btnLogout_Click(object sender, EventArgs e)
+        protected void btnFollowUps_Click(object sender, EventArgs e)
         {
-            Session.Clear();
-            Session.Abandon();
+            pnlFollowUps.Visible = true;
 
-            Response.Redirect("Login.aspx");
+            LoadFollowUps();
+        }
+
+        private void LoadFollowUps()
+        {
+            int userID = GetCurrentUserID();
+
+            using (SqlConnection con =
+                new SqlConnection(connectionString))
+            {
+                string query = @"
+
+            SELECT
+
+                L.ID,
+                L.Name,
+                L.Phone,
+                L.Email,
+                L.Status,
+
+                LF.FollowUpDate,
+
+                LF.Feedback AS LastFeedback
+
+            FROM Leads L
+
+            INNER JOIN LeadAssignment LA
+                ON LA.LeadID = L.ID
+
+            INNER JOIN LeadFeedback LF
+                ON LF.LeadID = L.ID
+                AND LF.AssignedTo = @UserID
+
+            WHERE
+
+                LA.AssignedTo = @UserID
+
+                AND LA.IsActive = 1
+
+                AND LF.Status = 'Follow Up'
+
+                AND LF.FollowUpDate IS NOT NULL
+
+            ORDER BY
+
+                LF.FollowUpDate ASC,
+                L.ID DESC
+        ";
+
+
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@UserID",
+                        SqlDbType.Int
+                    ).Value = userID;
+
+
+                    using (SqlDataAdapter da =
+                        new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt =
+                            new DataTable();
+
+                        da.Fill(dt);
+
+                        gvFollowUps.DataSource = dt;
+
+                        gvFollowUps.DataBind();
+                    }
+                }
+            }
+        }
+
+        protected void gvFollowUps_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvFollowUps.PageIndex =  e.NewPageIndex;
+
+            pnlFollowUps.Visible = true;
+
+            LoadFollowUps();
         }
     }
 }

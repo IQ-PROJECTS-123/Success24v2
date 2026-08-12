@@ -77,6 +77,7 @@
     <Content Include="CloudComputing.aspx" />
     <Content Include="courses.aspx" />
     <Content Include="CreateAdmin.aspx" />
+    <Content Include="CreateLead.aspx" />
     <Content Include="CS.aspx" />
     <Content Include="css\ds.css" />
     <Content Include="Databases.aspx" />
@@ -124,6 +125,7 @@
     <Content Include="Python Programing.aspx" />
     <Content Include="QA.aspx" />
     <Content Include="RegistartionForm.aspx" />
+    <Content Include="Register.aspx" />
     <Content Include="SAP ERP.aspx" />
     <Content Include="scss\bootstrap.scss" />
     <Content Include="scss\bootstrap\scss\bootstrap-grid.scss" />
@@ -208,6 +210,7 @@
     <Content Include="scss\bootstrap\scss\_utilities.scss" />
     <Content Include="scss\bootstrap\scss\_variables.scss" />
     <None Include=".editorconfig" />
+    <Content Include="Admin.Master" />
     <None Include="packages.config" />
     <Content Include="Signup.aspx" />
     <Content Include="Site.Mobile.Master" />
@@ -290,6 +293,13 @@
     </Compile>
     <Compile Include="24.Master.designer.cs">
       <DependentUpon>24.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin.Master.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.Master.designer.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
     </Compile>
     <Compile Include="AdminDashboard.aspx.cs">
       <DependentUpon>AdminDashboard.aspx</DependentUpon>
@@ -389,6 +399,13 @@
     </Compile>
     <Compile Include="CreateAdmin.aspx.designer.cs">
       <DependentUpon>CreateAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CreateLead.aspx.cs">
+      <DependentUpon>CreateLead.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateLead.aspx.designer.cs">
+      <DependentUpon>CreateLead.aspx</DependentUpon>
     </Compile>
     <Compile Include="CS.aspx.cs">
       <DependentUpon>CS.aspx</DependentUpon>
@@ -575,6 +592,13 @@
     </Compile>
     <Compile Include="RegistartionForm.aspx.designer.cs">
       <DependentUpon>RegistartionForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
     <Compile Include="SAP ERP.aspx.cs">
       <DependentUpon>SAP ERP.aspx</DependentUpon>

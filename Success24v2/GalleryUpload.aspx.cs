@@ -49,7 +49,7 @@ namespace Success24v2
 
                 // Create a unique filename to prevent overwriting
                 string uniqueFileName = Guid.NewGuid().ToString() + extension;
-                string folderPath = Server.MapPath("~/Uploads/Gallery/");
+                string folderPath = Server.MapPath("https://success24.in/Uploads/Gallery/");
 
                 // Create directory if it doesn't exist
                 if (!Directory.Exists(folderPath))
@@ -58,7 +58,7 @@ namespace Success24v2
                 }
 
                 string savePath = Path.Combine(folderPath, uniqueFileName);
-                string dbRelativePath = "Uploads/Gallery/" + uniqueFileName;
+                string dbRelativePath = "https://success24.in/Uploads/Gallery/" + uniqueFileName;
 
                 // 3. Save to Disk
                 fuImage.SaveAs(savePath);

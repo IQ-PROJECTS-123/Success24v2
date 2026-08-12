@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="LeadCall.aspx.cs" Inherits="Success24v2.LeadCall" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="LeadCall.aspx.cs" Inherits="Success24v2.LeadCall" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
         <style>
 
@@ -297,13 +297,7 @@
 
     </a>
 
-             <asp:Button
-        ID="btnLogout"
-        runat="server"
-        Text="Logout"
-        CssClass="btn-logout"
-        OnClick="btnLogout_Click" />
-
+           
     <div class="page-title">
 
         <h1>Call & Feedback</h1>
@@ -587,7 +581,7 @@
                     <asp:TextBox
                         ID="txtFollowUpDate"
                         runat="server"
-                        TextMode="Date"
+                        TextMode="DateTimeLocal"
                         CssClass="form-control">
                     </asp:TextBox>
 

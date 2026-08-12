@@ -21,7 +21,7 @@ namespace Success24v2
             // ADD THIS
             if (Session["UserID"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("AdminLogin.aspx");
                 return;
             }
             if (!IsPostBack)
@@ -58,7 +58,7 @@ namespace Success24v2
         {
             if (Session["UserID"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("AdminLogin.aspx");
                 return 0;
             }
 
@@ -322,7 +322,7 @@ namespace Success24v2
                 }
 
 
-                if (parsedDate.Date < DateTime.Today)
+                if (parsedDate < DateTime.Today)
                 {
                     lblMessage.Text =
                         "Follow up date cannot be in the past.";
@@ -335,7 +335,7 @@ namespace Success24v2
 
 
                 followUpDate =
-                    parsedDate.Date;
+                    parsedDate;
             }
 
 
@@ -380,7 +380,7 @@ namespace Success24v2
                         VALUES
                         (
                             @LeadID,
-                            @UserID,
+                            @ID,
                             GETDATE(),
                             @Feedback,
                             @Status,
@@ -401,7 +401,7 @@ namespace Success24v2
 
 
                         cmd.Parameters.Add(
-                            "@UserID",
+                            "@ID",
                             SqlDbType.Int
                         ).Value = userID;
 
@@ -517,6 +517,7 @@ namespace Success24v2
 
         private void LoadFeedbackHistory(int leadID)
         {
+            int userID = GetCurrentUserID();
             using (SqlConnection con =
                 new SqlConnection(connectionString))
             {
@@ -530,14 +531,15 @@ namespace Success24v2
                         LF.Status,
                         LF.FollowUpDate,
 
-                        U.Name AS CallerName
+                        M.Name AS CallerName
 
                     FROM LeadFeedback LF
 
                     INNER JOIN Members M
-                        ON LF.UserID = M.ID
+                    ON LF.AssignedTo = M.ID
 
-                    WHERE LF.LeadID = @LeadID
+                   WHERE LF.LeadID = @LeadID
+                    AND LF.AssignedTo = @UserID
 
                     ORDER BY
                         LF.FeedbackOn DESC";
@@ -551,6 +553,10 @@ namespace Success24v2
                         SqlDbType.Int
                     ).Value = leadID;
 
+                    cmd.Parameters.Add(
+                        "@UserID",
+                        SqlDbType.Int
+                    ).Value = userID;
 
                     using (SqlDataAdapter da =
                         new SqlDataAdapter(cmd))
@@ -575,12 +581,6 @@ namespace Success24v2
             }
         }
 
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-            Session.Clear();
-            Session.Abandon();
-
-            Response.Redirect("Login.aspx");
-        }
+       
     }
 }

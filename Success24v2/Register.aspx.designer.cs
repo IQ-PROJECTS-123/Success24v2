@@ -11,160 +11,196 @@ namespace Success24v2
 {
 
 
-    public partial class _24
+    public partial class Register
     {
 
         /// <summary>
-        /// head control.
+        /// txtFirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.TextBox txtFirstName;
 
         /// <summary>
-        /// form1 control.
+        /// txtLastName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.TextBox txtLastName;
 
         /// <summary>
-        /// _LiteralNavDesktop control.
+        /// txtDOB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal _LiteralNavDesktop;
+        protected global::System.Web.UI.WebControls.TextBox txtDOB;
 
         /// <summary>
-        /// lnkApply control.
+        /// txtGraduation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lnkApply;
+        protected global::System.Web.UI.WebControls.TextBox txtGraduation;
 
         /// <summary>
-        /// lnkStudentLogin control.
+        /// txtGraduationYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkStudentLogin;
+        protected global::System.Web.UI.WebControls.TextBox txtGraduationYear;
 
         /// <summary>
-        /// lnkAdminLogin control.
+        /// txtMasters control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkAdminLogin;
+        protected global::System.Web.UI.WebControls.TextBox txtMasters;
 
         /// <summary>
-        /// lnkRegisterStudent control.
+        /// txtMastersYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkRegisterStudent;
+        protected global::System.Web.UI.WebControls.TextBox txtMastersYear;
 
         /// <summary>
-        /// divLogout control.
+        /// txtPrimaryMobile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLogout;
+        protected global::System.Web.UI.WebControls.TextBox txtPrimaryMobile;
 
         /// <summary>
-        /// btnLogout control.
+        /// txtWhatsApp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnLogout;
+        protected global::System.Web.UI.WebControls.TextBox txtWhatsApp;
 
         /// <summary>
-        /// _LiteralNavMobile control.
+        /// txtSecondaryMobile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal _LiteralNavMobile;
+        protected global::System.Web.UI.WebControls.TextBox txtSecondaryMobile;
 
         /// <summary>
-        /// lnkApplyMobile control.
+        /// txtPrimaryEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lnkApplyMobile;
+        protected global::System.Web.UI.WebControls.TextBox txtPrimaryEmail;
 
         /// <summary>
-        /// lnkStudentLoginMobile control.
+        /// txtSecondaryEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkStudentLoginMobile;
+        protected global::System.Web.UI.WebControls.TextBox txtSecondaryEmail;
 
         /// <summary>
-        /// lnkAdminLoginMobile control.
+        /// txtFatherName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkAdminLoginMobile;
+        protected global::System.Web.UI.WebControls.TextBox txtFatherName;
 
         /// <summary>
-        /// lnkRegisterStudentMobile control.
+        /// txtGuardianName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkRegisterStudentMobile;
+        protected global::System.Web.UI.WebControls.TextBox txtGuardianName;
 
         /// <summary>
-        /// btnLogoutMobile control.
+        /// txtGuardianRelationship control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnLogoutMobile;
+        protected global::System.Web.UI.WebControls.TextBox txtGuardianRelationship;
 
         /// <summary>
-        /// ContentPlaceHolder1 control.
+        /// txtGuardianContact control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.TextBox txtGuardianContact;
 
         /// <summary>
-        /// _LiteralLocationAll control.
+        /// txtCurrentAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal _LiteralLocationAll;
+        protected global::System.Web.UI.WebControls.TextBox txtCurrentAddress;
+
+        /// <summary>
+        /// txtPermanentAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPermanentAddress;
+
+        /// <summary>
+        /// txtReference control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtReference;
+
+        /// <summary>
+        /// btnRegister control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRegister;
+
+        /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
     }
 }

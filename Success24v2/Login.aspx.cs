@@ -28,104 +28,13 @@ namespace Success24v2
                 return;
             }
 
-            // Special Placement Login
-            if (userName.Equals("iqindia", StringComparison.OrdinalIgnoreCase)
-                && password == "iqindia123#")
-            {
-                Session["StudentID"] = "success24";
-                Session["StudentName"] = "Placement User";
-                Session["IsPlacementUser"] = true;
-
-                Response.Redirect("SuccessStory.aspx");
-                return;
-            }
-
-            // ==========================================
-            // STATIC ADMIN LOGIN
-            // ==========================================
-            if (userName == "admin" && password == "Shri@123")
-            {
-                Session["UserID"] = 0;
-                Session["UserName"] = "Admin";
-                Session["Role"] = "Admin";
-
-                Response.Redirect("LeadManagement.aspx");
-                return;
-            }
-            // ==========================================
-            // Caller / Admin Login - Users Table
-            // ==========================================
-            using (SqlConnection userCon = new SqlConnection(conStr))
-            {
-                userCon.Open();
-
-                string userQuery = @"
-        SELECT ID, Name, Email, Password, Role, IsActive
-        FROM Members
-        WHERE Email = @UserName";
-
-                using (SqlCommand userCmd = new SqlCommand(userQuery, userCon))
-                {
-                    userCmd.Parameters.AddWithValue("@UserName", userName);
-
-                    using (SqlDataReader userDr = userCmd.ExecuteReader())
-                    {
-                        if (userDr.Read())
-                        {
-                            bool isActive = Convert.ToBoolean(userDr["IsActive"]);
-
-                            if (!isActive)
-                            {
-                                ShowMessage("Your account is inactive.", false);
-                                return;
-                            }
-
-                            string storedPassword =
-                                Convert.ToString(userDr["Password"]);
-
-                            if (password == storedPassword)
-                            {
-                                // ADD CALLER SESSION
-                                Session["UserID"] =
-                                    Convert.ToInt32(userDr["ID"]);
-
-                                Session["UserName"] =
-                                    Convert.ToString(userDr["Name"]);
-
-                                Session["Role"] =
-                                    Convert.ToString(userDr["Role"]);
-
-                                string role =
-                                    Convert.ToString(userDr["Role"]);
-
-                                if (role.Equals(
-                                    "Admin",
-                                    StringComparison.OrdinalIgnoreCase))
-                                {
-                                    Response.Redirect("LeadManagement.aspx");
-                                }
-                                else
-                                {
-                                    Response.Redirect("MyLeads.aspx");
-                                }
-
-                                return;
-                            }
-
-                            ShowMessage("Invalid password.", false);
-                            return;
-                        }
-                    }
-                }
-            }
+           
             //use it in fututre it is commented by me
             using (SqlConnection con = new SqlConnection(conStr))
             {
                 con.Open();
 
-                string query = @"SELECT ID, FirstName, LastName, PasswordHash, PasswordSalt, IsLoginActive
-                                 FROM StudentRegistration
-                                 WHERE (PrimaryMobile = @UserName OR Email1 = @UserName)";
+                string query = @"SELECT ID, FirstName, LastName, PasswordHash, PasswordSalt, IsLoginActive FROM StudentRegistration WHERE (PrimaryMobile = @UserName OR Email1 = @UserName)";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {

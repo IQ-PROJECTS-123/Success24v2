@@ -18,7 +18,7 @@ namespace Success24v2
         {
             if (Session["UserID"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("AdminLogin.aspx");
                 return;
             }
 
@@ -27,7 +27,7 @@ namespace Success24v2
                     "Admin",
                     StringComparison.OrdinalIgnoreCase))
             {
-                Response.Redirect("MyLeads.aspx");
+                Response.Redirect("AdminLogin.aspx");
                 return;
             }
 
@@ -43,14 +43,7 @@ namespace Success24v2
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = @"
-            SELECT
-                ID,
-                Name
-            FROM Members
-            WHERE IsActive = 1
-            AND Role = 'Caller'
-            ORDER BY Name";
+                string query = @"SELECT ID, Name FROM Members WHERE IsActive = 1 AND Role = 'Caller' ORDER BY Name";
 
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
@@ -84,29 +77,7 @@ namespace Success24v2
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = @"
-                    SELECT
-                        L.ID,
-                        L.Name,
-                        L.Email,
-                        L.Phone,
-                        L.Qualification,
-                        L.Stream,
-                        L.PassingYear,
-                        L.Status,
-
-                        ISNULL(M.Name, 'Not Assigned') AS AssignTo
-
-                    FROM Leads L
-
-                    LEFT JOIN LeadAssignment LA
-                        ON L.ID = LA.LeadID
-                        AND LA.IsActive = 1
-
-                    LEFT JOIN Members M
-                        ON LA.AssignedTo = M.ID
-
-                    ORDER BY L.ID DESC";
+                string query = @"SELECT L.ID, L.Name, L.Email,L.Phone, L.Qualification, L.Stream, L.PassingYear, L.Status, ISNULL(M.Name, 'Not Assigned') AS AssignTo FROM Leads L LEFT JOIN LeadAssignment LA ON L.ID = LA.LeadID AND LA.IsActive = 1 LEFT JOIN Members M ON LA.AssignedTo = M.ID  ORDER BY L.ID DESC";
 
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
@@ -133,37 +104,7 @@ namespace Success24v2
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = @"
-
-                    SELECT
-
-                    COUNT(*) AS TotalLeads,
-
-                    SUM(
-                        CASE
-                            WHEN Status = 'New'
-                            THEN 1
-                            ELSE 0
-                        END
-                    ) AS NewLeads,
-
-                    SUM(
-                        CASE
-                            WHEN Status = 'Assigned'
-                            THEN 1
-                            ELSE 0
-                        END
-                    ) AS AssignedLeads,
-
-                    SUM(
-                        CASE
-                            WHEN Status = 'Follow Up'
-                            THEN 1
-                            ELSE 0
-                        END
-                    ) AS FollowUps
-
-                    FROM Leads";
+                string query = @"SELECT COUNT(*) AS TotalLeads, SUM(CASE WHEN Status = 'New' THEN 1 ELSE 0 END) AS NewLeads, SUM(CASE WHEN Status = 'Assigned' THEN 1 ELSE 0 END) AS AssignedLeads,SUM(CASE WHEN Status = 'Follow Up' THEN 1 ELSE 0 END) AS FollowUps FROM Leads";
 
 
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -208,38 +149,7 @@ namespace Success24v2
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = @"
-
-                    SELECT
-                        L.ID,
-                        L.Name,
-                        L.Email,
-                        L.Phone,
-                        L.Qualification,
-                        L.Stream,
-                        L.PassingYear,
-                        L.Status,
-
-                        ISNULL(U.Name, 'Not Assigned') AS AssignTo
-
-                    FROM Leads L
-
-                    LEFT JOIN LeadAssignment LA
-                        ON L.ID = LA.LeadID
-                        AND LA.IsActive = 1
-
-                    LEFT JOIN Members U
-                        ON LA.AssignedTo = U.ID
-
-                    WHERE
-
-                    L.Name LIKE @Search
-                    OR L.Email LIKE @Search
-                    OR L.Phone LIKE @Search
-
-                    ORDER BY L.ID DESC";
-
-
+                string query = @"SELECT L.ID, L.Name, L.Email, L.Phone, L.Qualification, L.Stream, L.PassingYear, L.Status, ISNULL(U.Name, 'Not Assigned') AS AssignTo FROM Leads L LEFT JOIN LeadAssignment LA ON L.ID = LA.LeadID AND LA.IsActive = 1 LEFT JOIN Members U ON LA.AssignedTo = U.ID WHERE L.Name LIKE @Search OR L.Email LIKE @Search OR L.Phone LIKE @Search ORDER BY L.ID DESC";
                 SqlCommand cmd =
                     new SqlCommand(query, con);
 
@@ -338,26 +248,7 @@ namespace Success24v2
                     // Find available leads
                     // ==========================================
 
-                    string selectQuery = @"
-
-                SELECT TOP (@LeadCount)
-                    L.ID
-
-                FROM Leads L
-
-                WHERE L.Status = 'New'
-
-                AND NOT EXISTS
-                (
-                    SELECT 1
-
-                    FROM LeadAssignment LA
-
-                    WHERE LA.LeadID = L.ID
-                    AND LA.IsActive = 1
-                )
-
-                ORDER BY L.ID";
+                    string selectQuery = @"SELECT TOP (@LeadCount) L.ID FROM Leads L WHERE L.Status = 'New' AND NOT EXISTS (SELECT 1 FROM LeadAssignment LA WHERE LA.LeadID = L.ID AND LA.IsActive = 1) ORDER BY L.ID";
 
 
                     List<int> leadIDs = new List<int>();
@@ -407,23 +298,7 @@ namespace Success24v2
 
                     foreach (int leadID in leadIDs)
                     {
-                        string insertQuery = @"
-
-                    INSERT INTO LeadAssignment
-                    (
-                        LeadID,
-                        AssignedTo,
-                        AssignedOn,
-                        IsActive
-                    )
-
-                    VALUES
-                    (
-                        @LeadID,
-                        @UserID,
-                        GETDATE(),
-                        1
-                    )";
+                        string insertQuery = @"INSERT INTO LeadAssignment(LeadID,AssignedTo,AssignedOn,IsActive) VALUES (@LeadID,@UserID,GETDATE(),1)";
 
 
                         using (SqlCommand cmdInsert =
@@ -452,14 +327,7 @@ namespace Success24v2
                         // Update Lead Status
                         // ======================================
 
-                        string updateQuery = @"
-
-                    UPDATE Leads
-
-                    SET Status = 'Assigned'
-
-                    WHERE ID = @LeadID";
-
+                        string updateQuery = @"UPDATE Leads SET Status = 'Assigned' WHERE ID = @LeadID";
 
                         using (SqlCommand cmdUpdate =
                             new SqlCommand(
@@ -512,14 +380,7 @@ namespace Success24v2
             LoadStatistics();
         }
 
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-            Session.Clear();
-            Session.Abandon();
 
-            Response.Redirect("Login.aspx");
-
-        }
     }
     
 }
