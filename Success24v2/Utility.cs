@@ -54,34 +54,55 @@ namespace Success24v2
             gv.DataSource = _dt;
             gv.DataBind();
         }
-        static public void _SendEmail(string _To, string _Ccs, string _Subject, string _MSG)
+        static public bool _SendEmail(string _To,string _Ccs,string _Subject,string _MSG)
         {
             try
             {
                 MailMessage message = new MailMessage();
-                SmtpClient smtp = new SmtpClient();
 
-                message.From = new MailAddress("info@iq-india.com", "Success24");
-                message.To.Add(_To);
-                message.Subject = _Subject;
-                message.Body = _MSG;
-                message.IsBodyHtml = true;
-
-                smtp.Host = "email-smtp.ap-south-1.amazonaws.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential(
-                    "AKIAVY75UURZKY6JOY5L",
-                    "BCgGVIOe8wFp+mlL7bknwTcFkX0BnsQe+tsKoRZ+hZ9R"
+                message.From = new MailAddress(
+                    "varunravindra2143@gmail.com",
+                    "Success24"
                 );
 
+                message.To.Add(_To);
+
+                message.Subject = _Subject;
+
+                message.Body = _MSG;
+
+                message.IsBodyHtml = true;
+
+
+                SmtpClient smtp = new SmtpClient();
+
+                smtp.Host = "smtp.gmail.com";
+
+                smtp.Port = 587;
+
+                smtp.EnableSsl = true;
+
+                smtp.UseDefaultCredentials = false;
+
+                smtp.Credentials =
+                    new NetworkCredential(
+                        "varunravindra2143@gmail.com",
+                        "ujxtwxwhzhvtgkro"
+                    );
+
                 smtp.Send(message);
+
+                return true;
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Response.Write("Email Error: " + ex.Message);
+                throw new Exception(
+                    "Email Error: " + ex.Message,
+                    ex
+                );
             }
         }
+
         static public System.Data.DataTable _GetDataTable(String _Query)
         {
             SqlDataAdapter adapter = new SqlDataAdapter(_Query, System.Configuration.ConfigurationManager.ConnectionStrings["Capis"].ConnectionString);

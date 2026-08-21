@@ -823,6 +823,23 @@ body {
     background: #16a34a;
 }
 
+.btn-send-report {
+    background: #16a34a;
+    color: #fff;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.btn-send-report:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(22, 163, 74, .25);
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -847,20 +864,33 @@ body {
         </div>
     </div>
 
-
+     <asp:Button
+        ID="btnSendReport"
+        runat="server"
+        Text="📧 Send Report"
+        CssClass="btn-send-report"
+        OnClick="btnSendReport_Click" />
 
 </div>
             <hr class="green-line" />
             <div class="lead-filters">
 
-    <asp:LinkButton
-        ID="btnAllLeads"
-        runat="server"
-        Text="My Leads"
-        CommandArgument="All"
-        OnCommand="LeadFilter_Command"
-        CssClass="lead-filter active">
-    </asp:LinkButton>
+  <asp:LinkButton
+    ID="btnTodayLeads"
+    runat="server"
+    Text="Today's Leads"
+    CommandArgument="Today"
+    OnCommand="LeadFilter_Command"
+    CssClass="lead-filter active">
+</asp:LinkButton>
+ <asp:LinkButton
+    ID="btnAllLeads"
+    runat="server"
+    Text="All Leads"
+    CommandArgument="All"
+    OnCommand="LeadFilter_Command"
+    CssClass="lead-filter">
+</asp:LinkButton>
 
     <asp:LinkButton
         ID="btnFollowUp"

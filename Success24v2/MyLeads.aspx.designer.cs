@@ -24,6 +24,24 @@ namespace Success24v2
         protected global::System.Web.UI.WebControls.Label lblUserName;
 
         /// <summary>
+        /// btnSendReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSendReport;
+
+        /// <summary>
+        /// btnTodayLeads control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnTodayLeads;
+
+        /// <summary>
         /// btnAllLeads control.
         /// </summary>
         /// <remarks>
