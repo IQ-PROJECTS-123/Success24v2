@@ -24,13 +24,29 @@ namespace Success24v2
 
             if (!IsPostBack)
             {
-                // Login user ka name show karo
-                lblUserName.Text = Convert.ToString(Session["UserName"]);
 
-                LoadMyLeads();
+                GetCurrentUserID();
+
+                CurrentFilter = "All";
+
+                SetActiveFilter(CurrentFilter);
+
+                ShowMyLeads();
+
                 LoadStatistics();
+
             }
         }
+
+        private void ShowMyLeads()
+        {
+            pnlMyLeads.Visible = true;
+            pnlFollowUps.Visible = false;
+            pnlConverted.Visible = false;
+
+            LoadMyLeads();
+        } 
+       
         // =====================================
         // Temporary User ID
         // =====================================
@@ -58,9 +74,20 @@ namespace Success24v2
             using (SqlConnection con =
                 new SqlConnection(connectionString))
             {
-                string query = @"SELECT L.ID, L.Name, L.Email, L.Phone, L.Qualification, L.Stream, L.PassingYear, L.Status, LA.AssignedOn, M.Name AS AssignedTo FROM LeadAssignment LA INNER JOIN Leads L ON LA.LeadID = L.ID INNER JOIN Members M ON LA.AssignedTo = M.ID WHERE LA.AssignedTo = @UserID AND LA.IsActive = 1 ORDER BY LA.AssignedOn DESC, L.ID DESC";
+                string query = @"SELECT L.ID, L.Name, L.Email, L.Phone, L.Qualification, L.Stream, L.PassingYear, L.Status, LA.AssignedOn, M.Name AS AssignedTo FROM LeadAssignment LA INNER JOIN Leads L ON LA.LeadID = L.ID INNER JOIN Members M ON LA.AssignedTo = M.ID WHERE LA.AssignedTo = @UserID AND LA.IsActive = 1 ";
 
+                if (CurrentFilter != "All")
+                {
+                    query += @"
+                        AND L.Status = @Status
+                    ";
+                                }
 
+                    query += @"
+                    ORDER BY
+                        LA.AssignedOn DESC,
+                        L.ID DESC
+                ";
                 using (SqlCommand cmd =
                     new SqlCommand(query, con))
                 {
@@ -68,6 +95,15 @@ namespace Success24v2
                         "@UserID",
                         SqlDbType.Int
                     ).Value = userID;
+
+                    if (CurrentFilter != "All")
+                    {
+                        cmd.Parameters.Add(
+                            "@Status",
+                            SqlDbType.VarChar,
+                            50
+                        ).Value = CurrentFilter;
+                    }
 
 
                     using (SqlDataAdapter da =
@@ -146,8 +182,9 @@ namespace Success24v2
 
         protected void gvMyLeads_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvMyLeads.PageIndex =
-               e.NewPageIndex;
+            gvMyLeads.PageIndex = e.NewPageIndex;
+
+            Session["MyLeadsPageIndex"] = e.NewPageIndex;
 
             LoadMyLeads();
         }
@@ -183,7 +220,9 @@ namespace Success24v2
 
         protected void btnFollowUps_Click(object sender, EventArgs e)
         {
+            pnlMyLeads.Visible = false;
             pnlFollowUps.Visible = true;
+            pnlConverted.Visible = false;
 
             LoadFollowUps();
         }
@@ -268,5 +307,202 @@ namespace Success24v2
 
             LoadFollowUps();
         }
+        private void LoadConverted()
+        {
+            int userID = GetCurrentUserID();
+
+            using (SqlConnection con =
+                new SqlConnection(connectionString))
+            {
+                string query = @"
+
+            SELECT
+
+                L.ID,
+                L.Name,
+                L.Phone,
+                L.Email,
+                L.Status,
+
+                LF.FollowUpDate,
+
+                LF.Feedback AS LastFeedback
+
+            FROM Leads L
+
+            INNER JOIN LeadAssignment LA
+                ON LA.LeadID = L.ID
+
+            INNER JOIN LeadFeedback LF
+                ON LF.LeadID = L.ID
+                AND LF.AssignedTo = @UserID
+
+            WHERE
+
+                LA.AssignedTo = @UserID
+
+                AND LA.IsActive = 1
+
+                AND LF.Status = 'Converted'
+
+                AND LF.FollowUpDate IS NOT NULL
+
+            ORDER BY
+
+                LF.FollowUpDate ASC,
+                L.ID DESC
+        ";
+
+
+                using (SqlCommand cmd =
+                    new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add(
+                        "@UserID",
+                        SqlDbType.Int
+                    ).Value = userID;
+
+
+                    using (SqlDataAdapter da =
+                        new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt =
+                            new DataTable();
+
+                        da.Fill(dt);
+
+                        gvConverted.DataSource = dt;
+
+                        gvConverted.DataBind();
+                    }
+                }
+            }
+        }
+
+
+        protected void btnconverted_Click(object sender, EventArgs e)
+        {
+            pnlMyLeads.Visible = false;
+            pnlFollowUps.Visible = false;
+            pnlConverted.Visible = true;
+
+            LoadConverted();
+        }
+
+        protected void gvConverted_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvConverted.PageIndex = e.NewPageIndex;
+            pnlMyLeads.Visible = false;
+            pnlFollowUps.Visible = false;
+            pnlConverted.Visible = true;
+
+            LoadConverted();
+        }
+
+        private string CurrentFilter
+        {
+            get
+            {
+                return ViewState["LeadFilter"] == null
+                    ? "All"
+                    : ViewState["LeadFilter"].ToString();
+            }
+            set
+            {
+                ViewState["LeadFilter"] = value;
+            }
+        }
+
+        private void SetActiveFilter(string filter)
+        {
+            btnAllLeads.CssClass = "lead-filter";
+            btnFollowUp.CssClass = "lead-filter";
+            btnConvertedFilter.CssClass = "lead-filter";
+            btnInterested.CssClass = "lead-filter";
+            btnWorking.CssClass = "lead-filter";
+            btnNotInterested.CssClass = "lead-filter";
+
+            switch (filter)
+            {
+                case "Follow Up":
+
+                    btnFollowUp.CssClass =
+                        "lead-filter active";
+
+                    lblLeadGridTitle.Text =
+                        "My Follow Up Leads";
+
+                    break;
+
+
+                case "Converted":
+
+                    btnConvertedFilter.CssClass =
+                        "lead-filter active";
+
+                    lblLeadGridTitle.Text =
+                        "My Converted Leads";
+
+                    break;
+
+
+                case "Interested":
+
+                    btnInterested.CssClass =
+                        "lead-filter active";
+
+                    lblLeadGridTitle.Text =
+                        "My Interested Leads";
+
+                    break;
+
+
+                case "Working":
+
+                    btnWorking.CssClass =
+                        "lead-filter active";
+
+                    lblLeadGridTitle.Text =
+                        "My Working Leads";
+
+                    break;
+
+
+                case "Not Interested":
+
+                    btnNotInterested.CssClass =
+                        "lead-filter active";
+
+                    lblLeadGridTitle.Text =
+                        "My Not Interested Leads";
+
+                    break;
+
+
+                default:
+
+                    btnAllLeads.CssClass =
+                        "lead-filter active";
+
+                    lblLeadGridTitle.Text =
+                        "My Assigned Leads";
+
+                    break;
+            }
+        }
+
+        protected void LeadFilter_Command(object sender, CommandEventArgs e)
+        {
+            CurrentFilter = e.CommandArgument.ToString();
+
+            gvMyLeads.PageIndex = 0;
+
+            SetActiveFilter(CurrentFilter);
+
+            ShowMyLeads();
+
+            LoadStatistics();
+        }
     }
+    
 }

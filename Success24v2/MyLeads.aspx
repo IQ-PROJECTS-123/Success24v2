@@ -135,7 +135,7 @@ body {
 .stats {
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 
     gap: 22px;
 
@@ -784,11 +784,49 @@ body {
     }
 
 }
+.lead-filters {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.lead-filter {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 18px;
+    border-radius: 7px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    color: #4b5563;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.lead-filter:hover {
+    background: #fff7f2;
+    color: #f65a18;
+    border-color: #f65a18;
+}
+
+.lead-filter.active {
+    background: #f65a18;
+    color: #fff;
+    border-color: #f65a18;
+}
+.green-line {
+    border: 0;
+    height: 2px;
+    background: #16a34a;
+}
 
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div>
+    
         <div class="container">
 
 
@@ -812,6 +850,62 @@ body {
 
 
 </div>
+            <hr class="green-line" />
+            <div class="lead-filters">
+
+    <asp:LinkButton
+        ID="btnAllLeads"
+        runat="server"
+        Text="My Leads"
+        CommandArgument="All"
+        OnCommand="LeadFilter_Command"
+        CssClass="lead-filter active">
+    </asp:LinkButton>
+
+    <asp:LinkButton
+        ID="btnFollowUp"
+        runat="server"
+        Text="Follow Up"
+        CommandArgument="Follow Up"
+        OnCommand="LeadFilter_Command"
+        CssClass="lead-filter">
+    </asp:LinkButton>
+
+    <asp:LinkButton
+        ID="btnConvertedFilter"
+        runat="server"
+        Text="Converted"
+        CommandArgument="Converted"
+        OnCommand="LeadFilter_Command"
+        CssClass="lead-filter">
+    </asp:LinkButton>
+ <asp:LinkButton
+     ID="btnInterested"
+     runat="server"
+     Text="Interested"
+     CommandArgument="Interested"
+     OnCommand="LeadFilter_Command"
+     CssClass="lead-filter">
+ </asp:LinkButton>
+ <asp:LinkButton
+     ID="btnWorking"
+     runat="server"
+     Text="Working"
+     CommandArgument="Working"
+     OnCommand="LeadFilter_Command"
+     CssClass="lead-filter">
+ </asp:LinkButton>
+  <asp:LinkButton
+     ID="btnNotInterested"
+     runat="server"
+     Text="Not Interested"
+     CommandArgument="Not Interested"
+     OnCommand="LeadFilter_Command"
+     CssClass="lead-filter">
+ </asp:LinkButton>
+
+</div>
+            <hr class="green-line" />
 
     <!-- Statistics -->
 
@@ -880,125 +974,155 @@ body {
 
 </asp:LinkButton>
 
+    <asp:LinkButton
+    ID="btnconverted"
+    runat="server"
+    CssClass="stat-card followup-card"
+    OnClick="btnconverted_Click">
+
+    <div class="stat-title">
+        Converted
+        <span class="view-followups">
+            View →
+        </span>
+    </div>
+
+    <div class="stat-number">
+
+        <asp:Label
+            ID="lblconverted"
+            runat="server"
+            Text="0">
+        </asp:Label>
+
+    </div>
+
+</asp:LinkButton>
+
     </div>
 
 
     <!-- Leads -->
 
-    <div class="card">
+  <asp:Panel
+    ID="pnlMyLeads"
+    runat="server"
+    Visible="true"
+    CssClass="card">
 
-        <div class="card-header">
+    <div class="card-header">
 
-            <h2>My Assigned Leads</h2>
-
-        </div>
-
-
-        <div class="grid-wrapper">
-
-            <asp:GridView
-                ID="gvMyLeads"
-                runat="server"
-                AutoGenerateColumns="False"
-                CssClass="lead-grid"
-                GridLines="None"
-                AllowPaging="True"
-                PageSize="10"
-                OnPageIndexChanging="gvMyLeads_PageIndexChanging"
-                EmptyDataText="No leads assigned to you.">
-
-                <Columns>
-
-
-                    <asp:BoundField
-                        DataField="ID"
-                        HeaderText="ID" />
-
-
-                    <asp:BoundField
-                        DataField="Name"
-                        HeaderText="Name" />
-
-
-                    <asp:BoundField
-                        DataField="Email"
-                        HeaderText="Email" />
-
-
-                    <asp:BoundField
-                        DataField="Phone"
-                        HeaderText="Phone" />
-
-
-                    <asp:BoundField
-                        DataField="Qualification"
-                        HeaderText="Qualification" />
-
-
-                    <asp:BoundField
-                        DataField="Stream"
-                        HeaderText="Stream" />
-
-
-                    <asp:BoundField
-                        DataField="PassingYear"
-                        HeaderText="Passing Year" />
-
-
-                    <asp:TemplateField HeaderText="Status">
-
-                        <ItemTemplate>
-
-                            <span class='status <%# GetStatusClass(Eval("Status")) %>'>
-
-                                <%# Eval("Status") %>
-
-                            </span>
-
-                        </ItemTemplate>
-
-                    </asp:TemplateField>
-
-
-                    <asp:BoundField
-                        DataField="AssignedOn"
-                        HeaderText="Assigned On"
-                        DataFormatString="{0:dd-MMM-yyyy}" />
-
-
-                    <asp:TemplateField HeaderText="Action">
-
-                        <ItemTemplate>
-
-                            <asp:HyperLink
-                                ID="lnkCall"
-                                runat="server"
-                                CssClass="btn-call"
-
-                                NavigateUrl='<%#
-                                    "LeadCall.aspx?id=" +
-                                    Eval("ID")
-                                %>'
-
-                                Text="Call / Feedback">
-
-                            </asp:HyperLink>
-
-                        </ItemTemplate>
-
-                    </asp:TemplateField>
-
-
-                </Columns>
-
-            </asp:GridView>
-
-        </div>
+       <h2>
+    <asp:Label
+        ID="lblLeadGridTitle"
+        runat="server"
+        Text="My Assigned Leads">
+    </asp:Label>
+</h2>
 
     </div>
 
+    <div class="grid-wrapper">
 
-</div>
+         <asp:GridView
+     ID="gvMyLeads"
+     runat="server"
+     AutoGenerateColumns="False"
+     CssClass="lead-grid"
+     GridLines="None"
+     AllowPaging="True"
+     PageSize="50"
+     OnPageIndexChanging="gvMyLeads_PageIndexChanging"
+     EmptyDataText="No leads assigned to you.">
+
+              <Columns>
+
+
+     <asp:BoundField
+         DataField="ID"
+         HeaderText="ID" />
+
+
+     <asp:BoundField
+         DataField="Name"
+         HeaderText="Name" />
+
+
+     <asp:BoundField
+         DataField="Email"
+         HeaderText="Email" />
+
+
+     <asp:BoundField
+         DataField="Phone"
+         HeaderText="Phone" />
+
+
+     <asp:BoundField
+         DataField="Qualification"
+         HeaderText="Qualification" />
+
+
+     <asp:BoundField
+         DataField="Stream"
+         HeaderText="Stream" />
+
+
+     <asp:BoundField
+         DataField="PassingYear"
+         HeaderText="Passing Year" />
+
+
+     <asp:TemplateField HeaderText="Status">
+
+         <ItemTemplate>
+
+             <span class='status <%# GetStatusClass(Eval("Status")) %>'>
+
+                 <%# Eval("Status") %>
+
+             </span>
+
+         </ItemTemplate>
+
+     </asp:TemplateField>
+
+
+     <asp:BoundField
+         DataField="AssignedOn"
+         HeaderText="Assigned On"
+         DataFormatString="{0:dd-MMM-yyyy}" />
+
+
+     <asp:TemplateField HeaderText="Action">
+
+         <ItemTemplate>
+
+           <asp:HyperLink
+                ID="lnkCall"
+                runat="server"
+                CssClass="btn-call"
+
+               NavigateUrl='<%#"LeadCall.aspx?id=" +Eval("ID")%>'
+
+                Text="Call / Feedback">
+            </asp:HyperLink>
+
+         </ItemTemplate>
+
+     </asp:TemplateField>
+
+
+ </Columns>
+
+        </asp:GridView>
+
+    </div>
+
+</asp:Panel>
+
+     
+
         <!-- =====================================================
      FOLLOW UP LEADS
 ====================================================== -->
@@ -1033,7 +1157,7 @@ body {
             CssClass="lead-grid"
             GridLines="None"
             AllowPaging="True"
-            PageSize="10"
+            PageSize="50"
             OnPageIndexChanging="gvFollowUps_PageIndexChanging"
             EmptyDataText="No follow-ups available.">
 
@@ -1085,10 +1209,118 @@ body {
                             runat="server"
                             CssClass="btn-call"
 
-                            NavigateUrl='<%#
-                                "LeadCall.aspx?id=" +
-                                Eval("ID")
-                            %>'
+                           NavigateUrl='<%#
+                            "LeadCall.aspx?id=" +
+                            Eval("ID")
+                        %>'
+
+                            Text="Call / Feedback">
+
+                        </asp:HyperLink>
+
+                    </ItemTemplate>
+
+                </asp:TemplateField>
+
+
+            </Columns>
+
+        </asp:GridView>
+
+    </div>
+
+</asp:Panel>
+
+                <!-- =====================================================
+     FOLLOW UP LEADS
+====================================================== -->
+
+<asp:Panel
+    ID="pnlConverted"
+    runat="server"
+    Visible="false"
+    CssClass="card followup-section">
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>My Converted Leads</h2>
+
+            <p class="followup-subtitle">
+                Leads that have been converted.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="grid-wrapper">
+
+        <asp:GridView
+            ID="gvConverted"
+            runat="server"
+            AutoGenerateColumns="False"
+            CssClass="lead-grid"
+            GridLines="None"
+            AllowPaging="True"
+            PageSize="50"
+            OnPageIndexChanging="gvConverted_PageIndexChanging"
+            EmptyDataText="No converted leads available.">
+
+            <Columns>
+
+
+                <asp:BoundField
+                    DataField="ID"
+                    HeaderText="ID" />
+
+
+                <asp:BoundField
+                    DataField="Name"
+                    HeaderText="Name" />
+
+
+                <asp:BoundField
+                    DataField="Phone"
+                    HeaderText="Phone" />
+
+
+                <asp:BoundField
+                    DataField="Email"
+                    HeaderText="Email" />
+
+
+                <asp:BoundField
+                    DataField="Status"
+                    HeaderText="Status" />
+
+
+                <asp:BoundField
+                    DataField="FollowUpDate"
+                    HeaderText="Follow Up Date"
+                    DataFormatString="{0:dd-MMM-yyyy hh:mm tt}" />
+
+
+                <asp:BoundField
+                    DataField="LastFeedback"
+                    HeaderText="Last Feedback" />
+
+
+                <asp:TemplateField HeaderText="Action">
+
+                    <ItemTemplate>
+
+                        <asp:HyperLink
+                            ID="lnkFollowUpCall"
+                            runat="server"
+                            CssClass="btn-call"
+
+                           NavigateUrl='<%#
+                            "LeadCall.aspx?id=" +
+                            Eval("ID")
+                        %>'
 
                             Text="Call / Feedback">
 

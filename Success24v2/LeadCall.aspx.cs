@@ -36,13 +36,11 @@ namespace Success24v2
                     return;
                 }
 
-
                 if (!IsLeadAssignedToCurrentUser(leadID))
                 {
                     Response.Redirect("MyLeads.aspx");
                     return;
                 }
-
 
                 LoadLeadDetails(leadID);
 
