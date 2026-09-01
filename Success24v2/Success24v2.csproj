@@ -69,6 +69,7 @@
     <Content Include="AdminEdit.aspx" />
     <Content Include="AdminGallery.aspx" />
     <Content Include="AdminLogin.aspx" />
+    <Content Include="AdminPanel.aspx" />
     <Content Include="Android App.aspx" />
     <Content Include="Angular.aspx" />
     <Content Include="Automation.aspx" />
@@ -280,6 +281,7 @@
     <Content Include="SharePoint2019Administration.aspx" />
     <Content Include="Software Testing.aspx" />
     <Content Include="SPD.aspx" />
+    <Content Include="StudentDetails.aspx" />
     <Content Include="SuccessStory.aspx" />
     <Content Include="test.aspx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -335,6 +337,13 @@
     </Compile>
     <Compile Include="AdminLogin.aspx.designer.cs">
       <DependentUpon>AdminLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel.aspx.cs">
+      <DependentUpon>AdminPanel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel.aspx.designer.cs">
+      <DependentUpon>AdminPanel.aspx</DependentUpon>
     </Compile>
     <Compile Include="Android App.aspx.cs">
       <DependentUpon>Android App.aspx</DependentUpon>
@@ -649,6 +658,13 @@
     </Compile>
     <Compile Include="SPD.aspx.designer.cs">
       <DependentUpon>SPD.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StudentDetails.aspx.cs">
+      <DependentUpon>StudentDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentDetails.aspx.designer.cs">
+      <DependentUpon>StudentDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="SuccessStory.aspx.cs">
       <DependentUpon>SuccessStory.aspx</DependentUpon>

@@ -53,6 +53,19 @@ namespace Success24v2
                 Response.Redirect("LeadManagement.aspx");
                 return;
             }
+
+            // ==========================================
+            // STATIC ADMIN LOGIN
+            // ==========================================
+            if (userName == "admin" && password == "Success24@123")
+            {
+                Session["UserID"] = 0;
+                Session["UserName"] = "Admin";
+                Session["Role"] = "Admin";
+
+                Response.Redirect("AdminPanel.aspx");
+                return;
+            }
             // ==========================================
             // Caller / Admin Login - Users Table
             // ==========================================

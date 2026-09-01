@@ -298,8 +298,21 @@ namespace Success24v2
 
                     foreach (int leadID in leadIDs)
                     {
-                        string insertQuery = @"INSERT INTO LeadAssignment(LeadID,AssignedTo,AssignedOn,IsActive) VALUES (@LeadID,@UserID,GETDATE(),1)";
-
+                        string insertQuery = @"
+                            INSERT INTO LeadAssignment
+                            (
+                                LeadID,
+                                AssignedTo,
+                                AssignedOn,
+                                IsActive
+                            )
+                            VALUES
+                            (
+                                @LeadID,
+                                @UserID,
+                                GETDATE(),
+                                1
+                            )";
 
                         using (SqlCommand cmdInsert =
                             new SqlCommand(

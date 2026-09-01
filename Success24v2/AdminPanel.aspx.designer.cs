@@ -11,142 +11,124 @@ namespace Success24v2
 {
 
 
-    public partial class AdminPanel
+    public partial class AdminPanel1
     {
 
         /// <summary>
-        /// btnLogout control.
+        /// ddlCaller control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogout;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCaller;
 
         /// <summary>
-        /// litTotal control.
+        /// ddlReportType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litTotal;
+        protected global::System.Web.UI.WebControls.DropDownList ddlReportType;
 
         /// <summary>
-        /// litActive control.
+        /// txtReportDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litActive;
+        protected global::System.Web.UI.WebControls.TextBox txtReportDate;
 
         /// <summary>
-        /// litInactive control.
+        /// btnFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litInactive;
+        protected global::System.Web.UI.WebControls.Button btnFilter;
 
         /// <summary>
-        /// litJoinedThisMonth control.
+        /// lblTotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litJoinedThisMonth;
+        protected global::System.Web.UI.WebControls.Label lblTotal;
 
         /// <summary>
-        /// litCoursesRunning control.
+        /// lblAssigned control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litCoursesRunning;
+        protected global::System.Web.UI.WebControls.Label lblAssigned;
 
         /// <summary>
-        /// txtSearch control.
+        /// lblFollowUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearch;
+        protected global::System.Web.UI.WebControls.Label lblFollowUp;
 
         /// <summary>
-        /// ddlCourse control.
+        /// lblWorking control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCourse;
+        protected global::System.Web.UI.WebControls.Label lblWorking;
 
         /// <summary>
-        /// ddlBatch control.
+        /// lblInterested control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlBatch;
+        protected global::System.Web.UI.WebControls.Label lblInterested;
 
         /// <summary>
-        /// ddlStatus control.
+        /// lblNotInterested control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
+        protected global::System.Web.UI.WebControls.Label lblNotInterested;
 
         /// <summary>
-        /// btnSearch control.
+        /// lblConverted control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::System.Web.UI.WebControls.Label lblConverted;
 
         /// <summary>
-        /// btnClear control.
+        /// lblStudents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClear;
+        protected global::System.Web.UI.WebControls.Label lblStudents;
 
         /// <summary>
-        /// btnExportExcel control.
+        /// gvCallerSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportExcel;
-
-        /// <summary>
-        /// litRecordCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litRecordCount;
-
-        /// <summary>
-        /// gvStudents control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvStudents;
+        protected global::System.Web.UI.WebControls.GridView gvCallerSummary;
     }
 }

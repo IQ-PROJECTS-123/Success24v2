@@ -63,6 +63,7 @@ namespace Success24v2
 
                 // Admin doesn't need caller page
                 lnkMyLeads.Visible = false;
+                lnkStudentDetails.Visible = true;
             }
 
             // Caller
@@ -73,6 +74,7 @@ namespace Success24v2
                 lnkLeadManagement.Visible = false;
 
                 lnkMyLeads.Visible = true;
+                lnkStudentDetails.Visible = false;
             }
 
             else
@@ -80,6 +82,7 @@ namespace Success24v2
                 lnkLeadManagement.Visible = false;
 
                 lnkMyLeads.Visible = false;
+                lnkStudentDetails.Visible = false;
             }
         }
 

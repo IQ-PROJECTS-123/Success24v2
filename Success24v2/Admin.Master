@@ -642,6 +642,14 @@
                 Gallery Upload
 
                 </asp:HyperLink>
+             <asp:HyperLink
+              ID="lnkStudentDetails"
+              runat="server"
+              NavigateUrl="~/StudentDetails.aspx">
+
+              Registered Students Details
+
+             </asp:HyperLink>
 
 
         </div>

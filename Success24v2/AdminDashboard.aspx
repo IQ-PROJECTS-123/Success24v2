@@ -67,7 +67,12 @@
 
                     <div class="flex flex-wrap items-center gap-3">
                         <span class="soft-chip">⚡ Admin</span>
-                        <a href="AdminLogout.aspx" class="soft-btn">Sign out →</a>
+                         <asp:Button
+                         ID="btnLogout"
+                         runat="server"
+                         Text="Logout"
+                         CssClass="soft-btn"
+                         OnClick="btnLogout_Click" />
                     </div>
                 </div>
             </div>

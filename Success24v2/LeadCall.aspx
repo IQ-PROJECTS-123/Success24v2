@@ -289,14 +289,6 @@
     <div>
         <div class="container">
 
-
-<a href="MyLeads.aspx"
-   class="back-link">
-    ← Back to My Leads
-</a>
-
-   
-
            
     <div class="page-title">
 

@@ -879,32 +879,47 @@ body {
     ID="btnTodayLeads"
     runat="server"
     Text="Today's Leads"
+    pagesize="50"
     CommandArgument="Today"
     OnCommand="LeadFilter_Command"
     CssClass="lead-filter active">
 </asp:LinkButton>
  <asp:LinkButton
-    ID="btnAllLeads"
-    runat="server"
-    Text="All Leads"
-    CommandArgument="All"
-    OnCommand="LeadFilter_Command"
-    CssClass="lead-filter">
+     ID="btnAllLeads"
+     runat="server"
+     Text="All Leads"
+     pagesize="100"
+     CommandArgument="All"
+     OnCommand="LeadFilter_Command"
+     CssClass="lead-filter">
 </asp:LinkButton>
 
     <asp:LinkButton
         ID="btnFollowUp"
         runat="server"
         Text="Follow Up"
+        pagesize="100"
         CommandArgument="Follow Up"
         OnCommand="LeadFilter_Command"
         CssClass="lead-filter">
     </asp:LinkButton>
 
     <asp:LinkButton
+    ID="btnTodayFollowup"
+    runat="server"
+    Text="Today's Follow Ups"
+    pagesize="50"
+    CommandName="LeadFilter"
+    CommandArgument="TodayFollowup"
+    OnCommand="LeadFilter_Command"
+    CssClass="lead-filter">
+</asp:LinkButton>
+
+    <asp:LinkButton
         ID="btnConvertedFilter"
         runat="server"
         Text="Converted"
+        pagesize="50"
         CommandArgument="Converted"
         OnCommand="LeadFilter_Command"
         CssClass="lead-filter">
@@ -913,6 +928,7 @@ body {
      ID="btnInterested"
      runat="server"
      Text="Interested"
+     pagesize="50"
      CommandArgument="Interested"
      OnCommand="LeadFilter_Command"
      CssClass="lead-filter">
@@ -921,17 +937,19 @@ body {
      ID="btnWorking"
      runat="server"
      Text="Working"
+     pagesize="50"
      CommandArgument="Working"
      OnCommand="LeadFilter_Command"
      CssClass="lead-filter">
  </asp:LinkButton>
   <asp:LinkButton
-     ID="btnNotInterested"
-     runat="server"
-     Text="Not Interested"
-     CommandArgument="Not Interested"
-     OnCommand="LeadFilter_Command"
-     CssClass="lead-filter">
+      ID="btnNotInterested"
+      runat="server"
+      Text="Not Interested"
+      pagesize="50"
+      CommandArgument="Not Interested"
+      OnCommand="LeadFilter_Command"
+      CssClass="lead-filter">
  </asp:LinkButton>
 
 </div>
@@ -1131,6 +1149,7 @@ body {
            <asp:HyperLink
                 ID="lnkCall"
                 runat="server"
+               Target="_blank"
                 CssClass="btn-call"
 
                NavigateUrl='<%#"LeadCall.aspx?id=" +Eval("ID")%>'
@@ -1238,12 +1257,11 @@ body {
                             ID="lnkFollowUpCall"
                             runat="server"
                             CssClass="btn-call"
-
-                           NavigateUrl='<%#
+                            Target="_blank"
+                            NavigateUrl='<%#
                             "LeadCall.aspx?id=" +
                             Eval("ID")
                         %>'
-
                             Text="Call / Feedback">
 
                         </asp:HyperLink>
@@ -1262,7 +1280,7 @@ body {
 </asp:Panel>
 
                 <!-- =====================================================
-     FOLLOW UP LEADS
+    CONVERTED LEADS
 ====================================================== -->
 
 <asp:Panel
@@ -1345,13 +1363,12 @@ body {
                         <asp:HyperLink
                             ID="lnkFollowUpCall"
                             runat="server"
+                            Target="_blank"
                             CssClass="btn-call"
-
-                           NavigateUrl='<%#
+                            NavigateUrl='<%#
                             "LeadCall.aspx?id=" +
                             Eval("ID")
                         %>'
-
                             Text="Call / Feedback">
 
                         </asp:HyperLink>

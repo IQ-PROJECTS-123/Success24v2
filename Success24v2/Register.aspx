@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="Success24v2.Register" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <style>
 
         * {
             box-sizing: border-box;
@@ -352,7 +352,7 @@
 
               <label>
                   Last Name
-                  <span class="required">*</span>
+                  
               </label>
 
               <asp:TextBox
@@ -402,6 +402,28 @@
 
                 </div>
 
+                 <!-- Course -->
+                <div class="form-group">
+
+                    <label>
+                        Course
+                        <span class="required">*</span>
+                    </label>
+
+                    <asp:DropDownList
+                        ID="ddlCourse"
+                        runat="server"
+                        CssClass="form-control">
+                        <asp:ListItem Value="" Text="Select Course"></asp:ListItem>
+                        <asp:ListItem Value="Data Engineer" Text="Data Engineer"></asp:ListItem>
+                        <asp:ListItem Value="Data Scientist" Text="Data Scientist"></asp:ListItem>
+                        <asp:ListItem Value="Cyber Security" Text="Cyber Security"></asp:ListItem>
+                        <asp:ListItem Value="Cloud Computing" Text="Cloud Computing"></asp:ListItem>
+                        <asp:ListItem Value="DevOps Engineer" Text="DevOps Engineer"></asp:ListItem>
+                        <asp:ListItem Value="Software Test Engineer" Text="Software Testing"></asp:ListItem>
+                    </asp:DropDownList>
+
+                </div>
 
                 <!-- GRADUATION PASSOUT -->
 
@@ -585,6 +607,7 @@
 
                     <label>
                         Guardian Name
+                        <span class="required">*</span>
                     </label>
 
                     <asp:TextBox
@@ -603,6 +626,7 @@
 
                     <label>
                         Guardian Relationship
+                        <span class="required">*</span>
                     </label>
 
                     <asp:TextBox
@@ -621,6 +645,7 @@
 
                     <label>
                         Guardian Contact Number
+                        <span class="required">*</span>
                     </label>
 
                     <asp:TextBox
@@ -680,6 +705,7 @@
 
                     <label>
                         Reference
+                        <span class="required">*</span>
                     </label>
 
                     <asp:TextBox

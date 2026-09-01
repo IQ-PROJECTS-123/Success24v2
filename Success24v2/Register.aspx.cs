@@ -38,6 +38,8 @@ namespace Success24v2
 
             string dob =
                 txtDOB.Text.Trim();
+            string course =
+                ddlCourse.SelectedValue;
 
             string graduation =
                 txtGraduation.Text.Trim();
@@ -100,15 +102,7 @@ namespace Success24v2
 
                 return;
             }
-            if (string.IsNullOrWhiteSpace(lastname))
-            {
-                ShowMessage(
-                    "Please enter your last name.",
-                    false);
-
-                return;
-            }
-
+           
 
             if (string.IsNullOrWhiteSpace(primaryMobile))
             {
@@ -144,6 +138,23 @@ namespace Success24v2
             {
                 ShowMessage(
                     "Please enter your graduation passout year.",
+                    false);
+
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(course))
+            {
+                ShowMessage(
+                    "Please select a course.",
+                    false);
+
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(reference))
+            {
+                ShowMessage(
+                    "Please enter your reference.",
                     false);
 
                 return;
@@ -251,6 +262,7 @@ namespace Success24v2
                             FirstName,
                             LastName,
                             DOB,
+                            Course,
 
                             Qualification,
                             PassoutYear,
@@ -281,6 +293,7 @@ namespace Success24v2
                             @FirstName,
                             @LastName,  
                             @DOB,
+                            @Course,
 
                             @Qualification,
                             @PassoutYear,
@@ -333,6 +346,11 @@ namespace Success24v2
                                 ? (object)DBNull.Value
                                 : DateTime.Parse(dob);
 
+                        // Course
+                        cmd.Parameters.Add("@Course",
+                            SqlDbType.VarChar,
+                            100
+                        ).Value = course;
 
                         // Graduation
                         cmd.Parameters.Add(
@@ -480,8 +498,7 @@ namespace Success24v2
                             SqlDbType.VarChar,
                             -1
                         ).Value =
-                            string.IsNullOrWhiteSpace(
-                                currentAddress)
+                            string.IsNullOrWhiteSpace(currentAddress)
                                 ? (object)DBNull.Value
                                 : currentAddress;
 
@@ -492,8 +509,7 @@ namespace Success24v2
                             SqlDbType.VarChar,
                             -1
                         ).Value =
-                            string.IsNullOrWhiteSpace(
-                                permanentAddress)
+                            string.IsNullOrWhiteSpace(permanentAddress)
                                 ? (object)DBNull.Value
                                 : permanentAddress;
 
@@ -504,19 +520,31 @@ namespace Success24v2
                             SqlDbType.VarChar,
                             250
                         ).Value =
-                            string.IsNullOrWhiteSpace(
-                                reference)
+                            string.IsNullOrWhiteSpace(reference)
                                 ? (object)DBNull.Value
                                 : reference;
 
 
-                         ShowMessage(
-                            "Registration completed successfully. "
-                            ,
-                            true);
+                        // ==========================================
+                        // EXECUTE INSERT
+                        // ==========================================
 
+                        int rowsAffected = cmd.ExecuteNonQuery();
 
-                        ClearForm();
+                        if (rowsAffected > 0)
+                        {
+                            ShowMessage(
+                                "Registration completed successfully.",
+                                true);
+
+                            ClearForm();
+                        }
+                        else
+                        {
+                            ShowMessage(
+                                "Registration failed. No data was inserted.",
+                                false);
+                        }
                     }
                 }
             }
@@ -553,7 +581,9 @@ namespace Success24v2
 
             txtLastName.Text = "";
 
-            txtDOB.Text = "";
+            txtDOB.Text = ""; 
+            
+            ddlCourse.SelectedIndex = 0;
 
             txtGraduation.Text = "";
 
@@ -593,16 +623,35 @@ namespace Success24v2
         // MESSAGE
         // ==========================================
 
-        private void ShowMessage(
-            string message,
-            bool success)
+        private void ShowMessage(string message, bool success)
         {
-            lblMessage.Text = message;
+            string safeMessage =
+                HttpUtility.JavaScriptStringEncode(message);
 
-            lblMessage.CssClass =
+            string icon =
+                success ? "success" : "error";
+
+            string title =
                 success
-                    ? "message success-message"
-                    : "message error-message";
+                    ? "Registration Successful!"
+                    : "Registration Failed!";
+
+            string script = $@"
+        Swal.fire({{
+            icon: '{icon}',
+            title: '{title}',
+            text: '{safeMessage}',
+            confirmButtonText: 'OK'
+        }});
+    ";
+
+            ScriptManager.RegisterStartupScript(
+                this,
+                this.GetType(),
+                "RegistrationMessage",
+                script,
+                true
+            );
         }
     }
 }

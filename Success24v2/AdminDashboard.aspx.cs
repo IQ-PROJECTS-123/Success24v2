@@ -333,5 +333,16 @@ namespace Success24v2
         public override void VerifyRenderingInServerForm(Control control)
         {
         }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+
+            Session.Abandon();
+
+            Response.Redirect(
+                "~/AdminLogin.aspx"
+            );
+        }
     }
 }
