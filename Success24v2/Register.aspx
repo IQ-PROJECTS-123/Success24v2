@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/24.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="Success24v2.Register" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+    <style>
 
         * {
             box-sizing: border-box;
@@ -19,10 +20,6 @@
             max-width: 1100px;
             margin: 30px auto 50px;
         }
-
-        /* ==============================
-           HEADER
-        ============================== */
 
         .page-title {
             margin-bottom: 25px;
@@ -45,23 +42,12 @@
             font-size: 15px;
         }
 
-
-        /* ==============================
-           FORM CARD
-        ============================== */
-
         .form-card {
             background: #ffffff;
             border-radius: 12px;
             padding: 30px;
-            box-shadow:
-                0 4px 18px rgba(0,0,0,.06);
+            box-shadow: 0 4px 18px rgba(0,0,0,.06);
         }
-
-
-        /* ==============================
-           SECTION
-        ============================== */
 
         .section-title {
             font-size: 20px;
@@ -73,11 +59,6 @@
         .section-title span {
             color: #ef4168;
         }
-
-
-        /* ==============================
-           FORM GRID
-        ============================== */
 
         .form-grid {
             display: grid;
@@ -105,40 +86,23 @@
             color: #ef4168;
         }
 
-
-        /* ==============================
-           INPUTS
-        ============================== */
-
         .form-control {
             width: 100%;
             height: 50px;
-
             padding: 0 14px;
-
             border: 1px solid #d1d5db;
             border-radius: 8px;
-
             background: #ffffff;
-
             color: #1f2937;
-
             font-size: 14px;
-
             outline: none;
-
-            transition:
-                border-color .2s ease,
-                box-shadow .2s ease;
+            transition: border-color .2s ease, box-shadow .2s ease;
         }
 
         .form-control:focus {
             border-color: #f65a18;
-
-            box-shadow:
-                0 0 0 3px rgba(246,90,24,.10);
+            box-shadow: 0 0 0 3px rgba(246,90,24,.10);
         }
-
 
         textarea.form-control {
             height: 110px;
@@ -146,39 +110,22 @@
             resize: vertical;
         }
 
-
         select.form-control {
             cursor: pointer;
         }
-
-
-        /* ==============================
-           ADDRESS
-        ============================== */
 
         .address-box {
             min-height: 110px;
         }
 
-
-        /* ==============================
-           NOTE
-        ============================== */
-
         .form-note {
             margin-top: 25px;
             padding: 15px 18px;
-
             background: #fff7f2;
-
             border-left: 4px solid #f65a18;
-
             border-radius: 6px;
-
             color: #4b5563;
-
             font-size: 14px;
-
             line-height: 1.6;
         }
 
@@ -186,55 +133,28 @@
             color: #111827;
         }
 
-
-        /* ==============================
-           BUTTON
-        ============================== */
-
         .button-area {
             margin-top: 25px;
-
             display: flex;
             justify-content: flex-end;
         }
 
         .btn-submit {
             border: none;
-
             padding: 13px 30px;
-
             border-radius: 7px;
-
-            background: linear-gradient(
-                135deg,
-                #ff641b,
-                #e92d36
-            );
-
+            background: linear-gradient(135deg, #ff641b, #e92d36);
             color: #ffffff;
-
             font-size: 15px;
-
             font-weight: 700;
-
             cursor: pointer;
-
-            transition:
-                transform .2s ease,
-                box-shadow .2s ease;
+            transition: transform .2s ease, box-shadow .2s ease;
         }
 
         .btn-submit:hover {
             transform: translateY(-2px);
-
-            box-shadow:
-                0 8px 20px rgba(233,45,54,.20);
+            box-shadow: 0 8px 20px rgba(233,45,54,.20);
         }
-
-
-        /* ==============================
-           MESSAGE
-        ============================== */
 
         .message {
             display: block;
@@ -251,17 +171,13 @@
             color: #dc2626;
         }
 
-
-        /* ==============================
-           MOBILE
-        ============================== */
-
         @media(max-width:768px) {
 
             .registration-container {
                 width: 94%;
                 margin-top: 20px;
             }
+
 
             .page-title h1 {
                 font-size: 32px;
@@ -287,19 +203,15 @@
             .btn-submit {
                 width: 100%;
             }
-
         }
 
     </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <div class="registration-container">
+    <div class="registration-container">
 
-
-        <!-- ==============================
-             PAGE HEADER
-        ============================== -->
-         <div>
+        <!-- PAGE HEADER -->
 
         <div class="page-title">
 
@@ -314,12 +226,9 @@
         </div>
 
 
-        <!-- ==============================
-             FORM
-        ============================== -->
+        <!-- FORM -->
 
         <div class="form-card">
-
 
             <h2 class="section-title">
                 Required <span>Details</span>
@@ -329,7 +238,7 @@
             <div class="form-grid">
 
 
-                <!-- First Name -->
+                <!-- FIRST NAME -->
 
                 <div class="form-group">
 
@@ -342,27 +251,30 @@
                         ID="txtFirstName"
                         runat="server"
                         CssClass="form-control"
-                        placeholder="Enter your first name">
+                        placeholder="Enter your first name"
+                        MaxLength="50">
                     </asp:TextBox>
 
                 </div>
-                  <!-- Last NAME -->
 
-          <div class="form-group">
 
-              <label>
-                  Last Name
-                  
-              </label>
+                <!-- LAST NAME -->
 
-              <asp:TextBox
-                  ID="txtLastName"
-                  runat="server"
-                  CssClass="form-control"
-                  placeholder="Enter your last name">
-              </asp:TextBox>
+                <div class="form-group">
 
-          </div>
+                    <label>
+                        Last Name
+                    </label>
+
+                    <asp:TextBox
+                        ID="txtLastName"
+                        runat="server"
+                        CssClass="form-control"
+                        placeholder="Enter your last name"
+                        MaxLength="50">
+                    </asp:TextBox>
+
+                </div>
 
 
                 <!-- DATE OF BIRTH -->
@@ -377,8 +289,11 @@
                     <asp:TextBox
                         ID="txtDOB"
                         runat="server"
-                        TextMode="Date"
-                        CssClass="form-control">
+                        TextMode="SingleLine"
+                        CssClass="form-control"
+                        placeholder="DD/MM/YYYY"
+                        MaxLength="10"
+                        inputmode="numeric">
                     </asp:TextBox>
 
                 </div>
@@ -402,7 +317,9 @@
 
                 </div>
 
-                 <!-- Course -->
+
+                <!-- COURSE -->
+
                 <div class="form-group">
 
                     <label>
@@ -414,16 +331,46 @@
                         ID="ddlCourse"
                         runat="server"
                         CssClass="form-control">
-                        <asp:ListItem Value="" Text="Select Course"></asp:ListItem>
-                        <asp:ListItem Value="Data Engineer" Text="Data Engineer"></asp:ListItem>
-                        <asp:ListItem Value="Data Scientist" Text="Data Scientist"></asp:ListItem>
-                        <asp:ListItem Value="Cyber Security" Text="Cyber Security"></asp:ListItem>
-                        <asp:ListItem Value="Cloud Computing" Text="Cloud Computing"></asp:ListItem>
-                        <asp:ListItem Value="DevOps Engineer" Text="DevOps Engineer"></asp:ListItem>
-                        <asp:ListItem Value="Software Test Engineer" Text="Software Testing"></asp:ListItem>
+
+                        <asp:ListItem
+                            Value=""
+                            Text="Select Course">
+                        </asp:ListItem>
+
+                        <asp:ListItem
+                            Value="Data Engineer"
+                            Text="Data Engineer">
+                        </asp:ListItem>
+
+                        <asp:ListItem
+                            Value="Data Scientist"
+                            Text="Data Scientist">
+                        </asp:ListItem>
+
+                        <asp:ListItem
+                            Value="Cyber Security"
+                            Text="Cyber Security">
+                        </asp:ListItem>
+
+                        <asp:ListItem
+                            Value="Cloud Computing"
+                            Text="Cloud Computing">
+                        </asp:ListItem>
+
+                        <asp:ListItem
+                            Value="DevOps Engineer"
+                            Text="DevOps Engineer">
+                        </asp:ListItem>
+
+                        <asp:ListItem
+                            Value="Software Test Engineer"
+                            Text="Software Testing">
+                        </asp:ListItem>
+
                     </asp:DropDownList>
 
                 </div>
+
 
                 <!-- GRADUATION PASSOUT -->
 
@@ -439,7 +386,8 @@
                         runat="server"
                         TextMode="Number"
                         CssClass="form-control"
-                        placeholder="e.g. 2024">
+                        placeholder="e.g. 2024"
+                        MaxLength="4">
                     </asp:TextBox>
 
                 </div>
@@ -476,7 +424,8 @@
                         runat="server"
                         TextMode="Number"
                         CssClass="form-control"
-                        placeholder="If applicable">
+                        placeholder="If applicable"
+                        MaxLength="4">
                     </asp:TextBox>
 
                 </div>
@@ -494,14 +443,14 @@
                     <asp:TextBox
                         ID="txtPrimaryMobile"
                         runat="server"
-                        TextMode="Phone"
+                        TextMode="SingleLine"
                         CssClass="form-control"
-                        placeholder="Enter primary mobile number">
+                        placeholder="Enter 10 digit mobile number"
+                        MaxLength="10"
+                        inputmode="numeric">
                     </asp:TextBox>
 
                 </div>
-
-                
 
 
                 <!-- WHATSAPP -->
@@ -516,9 +465,11 @@
                     <asp:TextBox
                         ID="txtWhatsApp"
                         runat="server"
-                        TextMode="Phone"
+                        TextMode="SingleLine"
                         CssClass="form-control"
-                        placeholder="Enter WhatsApp number">
+                        placeholder="Enter 10 digit WhatsApp number"
+                        MaxLength="10"
+                        inputmode="numeric">
                     </asp:TextBox>
 
                 </div>
@@ -535,9 +486,11 @@
                     <asp:TextBox
                         ID="txtSecondaryMobile"
                         runat="server"
-                        TextMode="Phone"
+                        TextMode="SingleLine"
                         CssClass="form-control"
-                        placeholder="If applicable">
+                        placeholder="If applicable"
+                        MaxLength="10"
+                        inputmode="numeric">
                     </asp:TextBox>
 
                 </div>
@@ -557,7 +510,7 @@
                         runat="server"
                         TextMode="Email"
                         CssClass="form-control"
-                        placeholder="Enter primary email address">
+                        placeholder="example@gmail.com">
                     </asp:TextBox>
 
                 </div>
@@ -576,7 +529,7 @@
                         runat="server"
                         TextMode="Email"
                         CssClass="form-control"
-                        placeholder="If applicable">
+                        placeholder="example@yahoo.com">
                     </asp:TextBox>
 
                 </div>
@@ -595,7 +548,8 @@
                         ID="txtFatherName"
                         runat="server"
                         CssClass="form-control"
-                        placeholder="Enter father's name">
+                        placeholder="Enter father's name"
+                        MaxLength="100">
                     </asp:TextBox>
 
                 </div>
@@ -614,7 +568,8 @@
                         ID="txtGuardianName"
                         runat="server"
                         CssClass="form-control"
-                        placeholder="Enter guardian name">
+                        placeholder="Enter guardian name"
+                        MaxLength="100">
                     </asp:TextBox>
 
                 </div>
@@ -633,7 +588,8 @@
                         ID="txtGuardianRelationship"
                         runat="server"
                         CssClass="form-control"
-                        placeholder="e.g. Uncle, Brother">
+                        placeholder="e.g. Uncle, Brother"
+                        MaxLength="50">
                     </asp:TextBox>
 
                 </div>
@@ -651,9 +607,11 @@
                     <asp:TextBox
                         ID="txtGuardianContact"
                         runat="server"
-                        TextMode="Phone"
+                        TextMode="SingleLine"
                         CssClass="form-control"
-                        placeholder="Enter guardian contact number">
+                        placeholder="Enter 10 digit contact number"
+                        MaxLength="10"
+                        inputmode="numeric">
                     </asp:TextBox>
 
                 </div>
@@ -717,13 +675,10 @@
 
                 </div>
 
-
             </div>
 
 
-            <!-- ==============================
-                 WHATSAPP NOTE
-            ============================== -->
+            <!-- WHATSAPP NOTE -->
 
             <div class="form-note">
 
@@ -733,13 +688,10 @@
                 After completing the registration, the required
                 details will be used for registration verification.
 
-              
             </div>
 
 
-            <!-- ==============================
-                 BUTTON
-            ============================== -->
+            <!-- BUTTON -->
 
             <div class="button-area">
 
@@ -759,9 +711,148 @@
                 CssClass="message">
             </asp:Label>
 
-
         </div>
 
     </div>
-         </div>
+
+     <!-- ==========================================
+         FORM INPUT VALIDATION JAVASCRIPT
+    =========================================== -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // ==========================================
+            // MOBILE NUMBERS - ONLY 10 DIGITS
+            // ==========================================
+
+            var mobileFields = [
+                "<%= txtPrimaryMobile.ClientID %>",
+                "<%= txtWhatsApp.ClientID %>",
+                "<%= txtSecondaryMobile.ClientID %>",
+                "<%= txtGuardianContact.ClientID %>"
+            ];
+
+            mobileFields.forEach(function (id) {
+
+                var input = document.getElementById(id);
+
+                if (input) {
+
+                    input.setAttribute("maxlength", "10");
+                    input.setAttribute("inputmode", "numeric");
+
+                    input.addEventListener("input", function () {
+
+                        // Remove everything except numbers
+                        this.value = this.value.replace(/[^0-9]/g, "");
+
+                        // Maximum 10 digits
+                        if (this.value.length > 10) {
+                            this.value = this.value.substring(0, 10);
+                        }
+
+                    });
+
+                }
+
+            });
+
+
+            // ==========================================
+            // NAME FIELDS - ONLY ALPHABETS AND SPACE
+            // ==========================================
+
+            var nameFields = [
+                "<%= txtFirstName.ClientID %>",
+                "<%= txtLastName.ClientID %>",
+                "<%= txtFatherName.ClientID %>",
+                "<%= txtGuardianName.ClientID %>",
+                "<%= txtGuardianRelationship.ClientID %>"
+            ];
+
+            nameFields.forEach(function (id) {
+
+                var input = document.getElementById(id);
+
+                if (input) {
+
+                    input.addEventListener("input", function () {
+
+                        // Allow A-Z, a-z and spaces only
+                        this.value = this.value.replace(/[^A-Za-z ]/g, "");
+
+                    });
+
+                }
+
+            });
+
+
+            // ==========================================
+            // DOB - DD/MM/YYYY
+            // ==========================================
+
+            var dobInput = document.getElementById(
+                "<%= txtDOB.ClientID %>"
+            );
+
+            if (dobInput) {
+
+                dobInput.setAttribute("maxlength", "10");
+                dobInput.setAttribute("placeholder", "DD/MM/YYYY");
+                dobInput.setAttribute("inputmode", "numeric");
+
+                dobInput.addEventListener("input", function () {
+
+                    // Only numbers and /
+                    this.value = this.value.replace(/[^0-9/]/g, "");
+
+                    // Maximum 10 characters
+                    if (this.value.length > 10) {
+                        this.value = this.value.substring(0, 10);
+                    }
+
+                });
+
+            }
+
+            // ==========================================
+            // PASSOUT YEAR - ONLY 4 DIGITS
+            // ==========================================
+
+            var yearFields = [
+                "<%= txtGraduationYear.ClientID %>",
+                "<%= txtMastersYear.ClientID %>"
+            ];
+
+            yearFields.forEach(function(id) {
+
+                var input = document.getElementById(id);
+
+                if (input) {
+
+                    input.setAttribute("maxlength", "4");
+                    input.setAttribute("inputmode", "numeric");
+
+                    input.addEventListener("input", function() {
+
+                        // Allow numbers only
+                        this.value = this.value.replace(/[^0-9]/g, "");
+
+                        // Maximum 4 digits
+                        if (this.value.length > 4) {
+                            this.value = this.value.substring(0, 4);
+                        }
+
+                    });
+
+                }
+
+            });
+
+        });
+
+    </script>
 </asp:Content>

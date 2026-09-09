@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.Services;
+using System.Web.Script.Services;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -45,6 +47,17 @@ namespace Success24v2
             }
         }
 
+        private static DateTime GetIndiaNow()
+        {
+            TimeZoneInfo indiaTimeZone =
+                TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+
+            return TimeZoneInfo.ConvertTimeFromUtc(
+                DateTime.UtcNow,
+                indiaTimeZone
+            );
+        }
+
         // ==========================================
         // TEMPORARY Current User
         // ==========================================
@@ -60,7 +73,224 @@ namespace Success24v2
             return Convert.ToInt32(Session["UserID"]);
         }
 
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static object GetDueFollowUp()
+        {
+            try
+            {
+                HttpContext context =
+                    HttpContext.Current;
 
+                if (context.Session["UserID"] == null)
+                {
+                    return new
+                    {
+                        success = false,
+                        message = "Session expired."
+                    };
+                }
+
+                int userID =
+                    Convert.ToInt32(
+                        context.Session["UserID"]
+                    );
+
+                string connectionString =
+                    ConfigurationManager
+                        .ConnectionStrings["S24"]
+                        .ConnectionString;
+
+                using (SqlConnection con =
+                    new SqlConnection(connectionString))
+                {
+                    string query = @"
+                SELECT TOP 1
+
+                    LF.ID AS FeedbackID,
+                    L.ID AS LeadID,
+                    L.Name,
+                    L.Phone,
+                    L.Email,
+                    LF.Feedback,
+                    LF.FollowUpDate
+
+                FROM LeadFeedback LF
+
+                INNER JOIN Leads L
+                    ON L.ID = LF.LeadID
+
+                INNER JOIN LeadAssignment LA
+                    ON LA.LeadID = L.ID
+
+                WHERE
+                    LF.AssignedTo = @UserID
+                    AND LA.AssignedTo = @UserID
+                    AND LA.IsActive = 1
+
+                    AND LF.Status = 'Follow Up'
+
+                    AND LF.FollowUpDate IS NOT NULL
+
+                    AND LF.FollowUpDate <= @CurrentIndiaTime
+
+                    AND LF.ReminderShown = 0
+
+                ORDER BY
+                    LF.FollowUpDate ASC,
+                    LF.ID ASC
+            ";
+
+                    using (SqlCommand cmd =
+                        new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.Add(
+                            "@UserID",
+                            SqlDbType.Int
+                        ).Value = userID;
+                        cmd.Parameters.Add("@CurrentIndiaTime", SqlDbType.DateTime).Value = GetIndiaNow();
+
+                        con.Open();
+
+                        using (SqlDataReader reader =
+                            cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return new
+                                {
+                                    success = true,
+
+                                    feedbackID =
+                                        Convert.ToInt32(
+                                            reader["FeedbackID"]
+                                        ),
+
+                                    leadID =
+                                        Convert.ToInt32(
+                                            reader["LeadID"]
+                                        ),
+
+                                    name =
+                                        Convert.ToString(
+                                            reader["Name"]
+                                        ),
+
+                                    phone =
+                                        Convert.ToString(
+                                            reader["Phone"]
+                                        ),
+
+                                    email =
+                                        Convert.ToString(
+                                            reader["Email"]
+                                        ),
+
+                                    feedback =
+                                        Convert.ToString(
+                                            reader["Feedback"]
+                                        ),
+
+                                    followUpDate =
+                                        Convert.ToDateTime(
+                                            reader["FollowUpDate"]
+                                        ).ToString(
+                                            "dd-MMM-yyyy hh:mm tt"
+                                        )
+                                };
+                            }
+                        }
+                    }
+                }
+
+                return new
+                {
+                    success = true,
+                    data = (object)null
+                };
+            }
+            catch (Exception ex)
+            {
+                return new
+                {
+                    success = false,
+                    message = ex.Message
+                };
+            }
+        }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static object MarkReminderShown(int feedbackID)
+        {
+            try
+            {
+                HttpContext context =
+                    HttpContext.Current;
+
+                if (context.Session["UserID"] == null)
+                {
+                    return new
+                    {
+                        success = false
+                    };
+                }
+
+                int userID =
+                    Convert.ToInt32(
+                        context.Session["UserID"]
+                    );
+
+                string connectionString =
+                    ConfigurationManager
+                        .ConnectionStrings["S24"]
+                        .ConnectionString;
+
+                using (SqlConnection con =
+                    new SqlConnection(connectionString))
+                {
+                    string query = @"
+                UPDATE LeadFeedback
+
+                SET ReminderShown = 1
+
+                WHERE
+                    ID = @FeedbackID
+                    AND AssignedTo = @UserID
+            ";
+
+                    using (SqlCommand cmd =
+                        new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.Add(
+                            "@FeedbackID",
+                            SqlDbType.Int
+                        ).Value = feedbackID;
+
+                        cmd.Parameters.Add(
+                            "@UserID",
+                            SqlDbType.Int
+                        ).Value = userID;
+
+                        con.Open();
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                return new
+                {
+                    success = true
+                };
+            }
+            catch
+            {
+                return new
+                {
+                    success = false
+                };
+            }
+        }
 
         // ==========================================
         // Security Check
@@ -175,7 +405,7 @@ namespace Success24v2
                     return;
                 }
 
-                if (parsedDate < DateTime.Today)
+                if (parsedDate < DateTime.Now)
                 {
                     lblMessage.Text ="Follow up date cannot be in the past.";
                     lblMessage.CssClass ="message-error";
@@ -198,11 +428,13 @@ namespace Success24v2
                     // ==============================
                     // Insert Feedback
                     // ==============================
-                    string insertQuery = @"INSERT INTO LeadFeedback(LeadID,AssignedTo,FeedbackOn,Feedback,Status,FollowUpDate) VALUES (@LeadID,@ID,GETDATE(),@Feedback,@Status,@FollowUpDate)";
+                    string insertQuery = @"INSERT INTO LeadFeedback(LeadID,AssignedTo,FeedbackOn,Feedback,Status,FollowUpDate,ReminderShown) VALUES (@LeadID,@ID,@FeedbackOn,@Feedback,@Status,@FollowUpDate,0)";
+                    DateTime indiaNow = GetIndiaNow(); 
                     using (SqlCommand cmd =new SqlCommand(insertQuery,con,transaction))
                     {
                         cmd.Parameters.Add("@LeadID",SqlDbType.Int).Value = leadID;
                         cmd.Parameters.Add("@ID",SqlDbType.Int).Value = userID;
+                        cmd.Parameters.Add("@FeedbackOn", SqlDbType.DateTime).Value = indiaNow;
                         cmd.Parameters.Add("@Feedback",SqlDbType.NVarChar,-1).Value = feedback;
                         cmd.Parameters.Add("@Status",SqlDbType.NVarChar,50).Value = status;
                         cmd.Parameters.Add("@FollowUpDate",SqlDbType.DateTime).Value =followUpDate.HasValue? (object)followUpDate.Value: DBNull.Value;
@@ -251,6 +483,7 @@ namespace Success24v2
             }
         }
 
+      
         // ==========================================
         // Feedback History
         // ==========================================

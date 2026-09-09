@@ -564,12 +564,8 @@
                 </div>
 
 
-                <div
-                    class="form-group"
-                    id="followUpSection"
-                    style="display:none;">
-
-                    <label>Follow Up Date *</label>
+               <div class="form-group">
+                    <label>Follow Up Date & Time</label>
 
                     <asp:TextBox
                         ID="txtFollowUpDate"
@@ -577,7 +573,6 @@
                         TextMode="DateTimeLocal"
                         CssClass="form-control">
                     </asp:TextBox>
-
                 </div>
 
 

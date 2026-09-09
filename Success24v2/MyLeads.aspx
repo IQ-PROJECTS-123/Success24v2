@@ -70,6 +70,148 @@ body {
     );
 }
 
+/* =========================================================
+   SEARCH BOX
+========================================================= */
+
+.lead-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+}
+
+.search-input {
+    width: 320px;
+    height: 42px;
+    padding: 0 14px;
+
+    background: #ffffff;
+    color: #1f2937;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 7px;
+
+    font-size: 13px;
+    outline: none;
+
+    transition: all .2s ease;
+}
+
+.search-input::placeholder {
+    color: #9ca3af;
+}
+
+.search-input:focus {
+    border-color: #f65a18;
+
+    box-shadow:
+        0 0 0 3px rgba(246, 90, 24, .10);
+}
+
+
+/* =========================================================
+   SEARCH BUTTON
+========================================================= */
+
+.btn-search {
+    height: 42px;
+
+    padding: 0 20px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: linear-gradient(
+        90deg,
+        #ff6411,
+        #ef2d32
+    );
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 10px rgba(239, 45, 50, .18);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.btn-search:hover {
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 15px rgba(239, 45, 50, .28);
+}
+
+.btn-search:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   CLEAR BUTTON
+========================================================= */
+
+.btn-clear-search {
+    height: 42px;
+
+    padding: 0 18px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #6b7280;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
+}
+
+.btn-clear-search:hover {
+    background: #f9fafb;
+
+    color: #ef4b25;
+
+    border-color: #f65a18;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   MOBILE SEARCH
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .lead-search {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .btn-search,
+    .btn-clear-search {
+        flex: 1;
+    }
+}
 
 /* =========================================================
    WELCOME TEXT
@@ -864,6 +1006,31 @@ body {
         </div>
     </div>
 
+   <div class="lead-search">
+
+    <asp:TextBox
+        ID="txtSearch"
+        runat="server"
+        CssClass="search-input"
+        placeholder="Search Name / Phone / Email">
+    </asp:TextBox>
+
+    <asp:Button
+        ID="btnSearch"
+        runat="server"
+        Text="Search"
+        CssClass="btn-search"
+        OnClick="btnSearch_Click" />
+
+    <asp:Button
+        ID="btnClearSearch"
+        runat="server"
+        Text="Clear"
+        CssClass="btn-clear-search"
+        OnClick="btnClearSearch_Click" />
+
+</div>
+
      <asp:Button
         ID="btnSendReport"
         runat="server"
@@ -871,6 +1038,9 @@ body {
         CssClass="btn-send-report"
         OnClick="btnSendReport_Click" />
 
+
+
+</div>
 </div>
             <hr class="green-line" />
             <div class="lead-filters">
@@ -951,6 +1121,8 @@ body {
       OnCommand="LeadFilter_Command"
       CssClass="lead-filter">
  </asp:LinkButton>
+                <asp:LinkButton ID="btnCallback" runat="server" Text="Call back" pagesize="50" CommandArgument="Call back" OnCommand="LeadFilter_Command" CssClass="lead-filter"></asp:LinkButton>
+                <asp:LinkButton ID="btnNoAnswer" runat="server" Text="No Answer" pagesize="50" CommandArgument="No Answer" OnCommand="LeadFilter_Command" CssClass="lead-filter"></asp:LinkButton>
 
 </div>
             <hr class="green-line" />
@@ -1386,5 +1558,4 @@ body {
 
 </asp:Panel>
 
-    </div>
 </asp:Content>

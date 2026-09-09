@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Success24v2
 {
     public partial class Register : System.Web.UI.Page
     {
-        private readonly string connectionString =
-            ConfigurationManager
-                .ConnectionStrings["S24"]
-                .ConnectionString;
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["S24"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -33,11 +29,13 @@ namespace Success24v2
 
             string firstname =
                 txtFirstName.Text.Trim();
+
             string lastname =
                 txtLastName.Text.Trim();
 
             string dob =
                 txtDOB.Text.Trim();
+
             string course =
                 ddlCourse.SelectedValue;
 
@@ -91,7 +89,7 @@ namespace Success24v2
 
 
             // ==========================================
-            // BASIC VALIDATION
+            // BASIC REQUIRED FIELD VALIDATION
             // ==========================================
 
             if (string.IsNullOrWhiteSpace(firstname))
@@ -102,7 +100,17 @@ namespace Success24v2
 
                 return;
             }
-           
+
+
+            if (string.IsNullOrWhiteSpace(dob))
+            {
+                ShowMessage(
+                    "Please enter your date of birth.",
+                    false);
+
+                return;
+            }
+
 
             if (string.IsNullOrWhiteSpace(primaryMobile))
             {
@@ -143,6 +151,7 @@ namespace Success24v2
                 return;
             }
 
+
             if (string.IsNullOrWhiteSpace(course))
             {
                 ShowMessage(
@@ -151,6 +160,8 @@ namespace Success24v2
 
                 return;
             }
+
+
             if (string.IsNullOrWhiteSpace(reference))
             {
                 ShowMessage(
@@ -160,6 +171,253 @@ namespace Success24v2
                 return;
             }
 
+
+            // ==========================================
+            // NAME VALIDATION
+            // ONLY A-Z AND SPACE
+            // ==========================================
+
+            if (!Regex.IsMatch(
+                    firstname,
+                    @"^[A-Za-z ]+$"))
+            {
+                ShowMessage(
+                    "First name should contain alphabets only.",
+                    false);
+
+                return;
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(lastname) &&
+                !Regex.IsMatch(
+                    lastname,
+                    @"^[A-Za-z ]+$"))
+            {
+                ShowMessage(
+                    "Last name should contain alphabets only.",
+                    false);
+
+                return;
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(fatherName) &&
+                !Regex.IsMatch(
+                    fatherName,
+                    @"^[A-Za-z ]+$"))
+            {
+                ShowMessage(
+                    "Father name should contain alphabets only.",
+                    false);
+
+                return;
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(guardianName) &&
+                !Regex.IsMatch(
+                    guardianName,
+                    @"^[A-Za-z ]+$"))
+            {
+                ShowMessage(
+                    "Guardian name should contain alphabets only.",
+                    false);
+
+                return;
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(guardianRelationship) &&
+                !Regex.IsMatch(
+                    guardianRelationship,
+                    @"^[A-Za-z ]+$"))
+            {
+                ShowMessage(
+                    "Guardian relationship should contain alphabets only.",
+                    false);
+
+                return;
+            }
+
+
+            // ==========================================
+            // MOBILE NUMBER VALIDATION
+            // EXACTLY 10 DIGITS
+            // ==========================================
+
+            if (!Regex.IsMatch(
+                    primaryMobile,
+                    @"^[0-9]{10}$"))
+            {
+                ShowMessage(
+                    "Primary mobile number must contain exactly 10 digits.",
+                    false);
+
+                return;
+            }
+
+
+            if (!Regex.IsMatch(
+                    whatsApp,
+                    @"^[0-9]{10}$"))
+            {
+                ShowMessage(
+                    "WhatsApp number must contain exactly 10 digits.",
+                    false);
+
+                return;
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(secondaryMobile) &&
+                !Regex.IsMatch(
+                    secondaryMobile,
+                    @"^[0-9]{10}$"))
+            {
+                ShowMessage(
+                    "Secondary mobile number must contain exactly 10 digits.",
+                    false);
+
+                return;
+            }
+
+
+            if (!Regex.IsMatch(
+                    guardianContact,
+                    @"^[0-9]{10}$"))
+            {
+                ShowMessage(
+                    "Guardian contact number must contain exactly 10 digits.",
+                    false);
+
+                return;
+            }
+
+
+            // ==========================================
+            // EMAIL VALIDATION
+            // ==========================================
+
+            string emailPattern =
+                @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
+
+
+            if (!Regex.IsMatch(
+                    primaryEmail,
+                    emailPattern))
+            {
+                ShowMessage(
+                    "Please enter a valid primary email address. Example: example@gmail.com",
+                    false);
+
+                return;
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(secondaryEmail) &&
+                !Regex.IsMatch(
+                    secondaryEmail,
+                    emailPattern))
+            {
+                ShowMessage(
+                    "Please enter a valid secondary email address.",
+                    false);
+
+                return;
+            }
+
+
+            // ==========================================
+            // DATE OF BIRTH VALIDATION
+            // FORMAT: DD/MM/YYYY
+            // ==========================================
+
+            DateTime parsedDOB;
+
+
+            if (!DateTime.TryParseExact(
+                    dob,
+                    "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out parsedDOB))
+            {
+                ShowMessage(
+                    "Date of birth must be in DD/MM/YYYY format. Example: 01/01/2000",
+                    false);
+
+                return;
+            }
+
+
+            // DOB cannot be future date
+
+            if (parsedDOB > DateTime.Today)
+            {
+                ShowMessage(
+                    "Date of birth cannot be a future date.",
+                    false);
+
+                return;
+            }
+
+
+            // ==========================================
+            // GRADUATION YEAR VALIDATION
+            // ==========================================
+
+            if (!Regex.IsMatch(graduationYear, @"^[0-9]{4}$"))
+            {
+                ShowMessage(
+                    "Graduation passout year must be exactly 4 digits. Example: 2020",
+                    false);
+
+                return;
+            }
+
+            int parsedGraduationYear = Convert.ToInt32(graduationYear);
+
+            if (parsedGraduationYear < 1900 ||
+                parsedGraduationYear > DateTime.Now.Year + 1)
+            {
+                ShowMessage(
+                    "Please enter a valid graduation passout year.",
+                    false);
+
+                return;
+            }
+
+
+            // ==========================================
+            // MASTERS YEAR VALIDATION
+            // ==========================================
+
+            int parsedMastersYear = 0;
+
+            if (!string.IsNullOrWhiteSpace(mastersYear))
+            {
+                if (!Regex.IsMatch(mastersYear, @"^[0-9]{4}$"))
+                {
+                    ShowMessage(
+                        "Masters passout year must be exactly 4 digits. Example: 2020",
+                        false);
+
+                    return;
+                }
+
+                parsedMastersYear = Convert.ToInt32(mastersYear);
+
+                if (parsedMastersYear < 1900 ||
+                    parsedMastersYear > DateTime.Now.Year + 1)
+                {
+                    ShowMessage(
+                        "Please enter a valid masters passout year.",
+                        false);
+
+                    return;
+                }
+            }
 
             // ==========================================
             // DATABASE
@@ -180,12 +438,13 @@ namespace Success24v2
                     string checkQuery = @"
                         SELECT COUNT(*)
                         FROM StudentRegistration
-                        WHERE PrimaryMobile = @PrimaryMobile
-                    ";
+                        WHERE PrimaryMobile = @PrimaryMobile";
 
 
                     using (SqlCommand checkCmd =
-                        new SqlCommand(checkQuery, con))
+                        new SqlCommand(
+                            checkQuery,
+                            con))
                     {
                         checkCmd.Parameters.Add(
                             "@PrimaryMobile",
@@ -196,8 +455,7 @@ namespace Success24v2
 
                         int existing =
                             Convert.ToInt32(
-                                checkCmd.ExecuteScalar()
-                            );
+                                checkCmd.ExecuteScalar());
 
 
                         if (existing > 0)
@@ -218,8 +476,7 @@ namespace Success24v2
                     string emailCheckQuery = @"
                         SELECT COUNT(*)
                         FROM StudentRegistration
-                        WHERE Email1 = @Email
-                    ";
+                        WHERE Email1 = @Email";
 
 
                     using (SqlCommand emailCmd =
@@ -236,8 +493,7 @@ namespace Success24v2
 
                         int existingEmail =
                             Convert.ToInt32(
-                                emailCmd.ExecuteScalar()
-                            );
+                                emailCmd.ExecuteScalar());
 
 
                         if (existingEmail > 0)
@@ -285,13 +541,13 @@ namespace Success24v2
                             CurrentAddress,
                             PermanentAddress,
 
-                            ReferenceName                           
+                            ReferenceName
                         )
 
                         VALUES
                         (
                             @FirstName,
-                            @LastName,  
+                            @LastName,
                             @DOB,
                             @Course,
 
@@ -316,43 +572,66 @@ namespace Success24v2
                             @CurrentAddress,
                             @PermanentAddress,
 
-                            @Reference                           
-                    )";
+                            @Reference
+                        )";
 
 
                     using (SqlCommand cmd =
-                        new SqlCommand(query, con))
+                        new SqlCommand(
+                            query,
+                            con))
                     {
-                        // Full Name
+
+                        // ==========================================
+                        // FIRST NAME
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@FirstName",
                             SqlDbType.VarChar,
                             250
                         ).Value = firstname;
 
+
+                        // ==========================================
+                        // LAST NAME
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@LastName",
                             SqlDbType.VarChar,
                             250
-                        ).Value = lastname;
+                        ).Value =
+                            string.IsNullOrWhiteSpace(lastname)
+                                ? (object)DBNull.Value
+                                : lastname;
 
 
-                        // Date of Birth
+                        // ==========================================
+                        // DATE OF BIRTH
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@DOB",
                             SqlDbType.Date
-                        ).Value =
-                            string.IsNullOrWhiteSpace(dob)
-                                ? (object)DBNull.Value
-                                : DateTime.Parse(dob);
+                        ).Value = parsedDOB;
 
-                        // Course
-                        cmd.Parameters.Add("@Course",
+
+                        // ==========================================
+                        // COURSE
+                        // ==========================================
+
+                        cmd.Parameters.Add(
+                            "@Course",
                             SqlDbType.VarChar,
                             100
                         ).Value = course;
 
-                        // Graduation
+
+                        // ==========================================
+                        // GRADUATION
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@Qualification",
                             SqlDbType.VarChar,
@@ -360,18 +639,20 @@ namespace Success24v2
                         ).Value = graduation;
 
 
-                        // Graduation Year
+                        // ==========================================
+                        // GRADUATION YEAR
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@PassoutYear",
                             SqlDbType.Int
-                        ).Value =
-                            string.IsNullOrWhiteSpace(graduationYear)
-                                ? (object)DBNull.Value
-                                : Convert.ToInt32(
-                                    graduationYear);
+                        ).Value = parsedGraduationYear;
 
 
-                        // Masters
+                        // ==========================================
+                        // MASTERS
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@MastersQualification",
                             SqlDbType.VarChar,
@@ -382,18 +663,23 @@ namespace Success24v2
                                 : masters;
 
 
-                        // Masters Year
+                        // ==========================================
+                        // MASTERS YEAR
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@MastersPassoutYear",
                             SqlDbType.Int
                         ).Value =
                             string.IsNullOrWhiteSpace(mastersYear)
                                 ? (object)DBNull.Value
-                                : Convert.ToInt32(
-                                    mastersYear);
+                                : parsedMastersYear;
 
 
-                        // Primary Mobile
+                        // ==========================================
+                        // PRIMARY MOBILE
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@PrimaryMobile",
                             SqlDbType.VarChar,
@@ -401,18 +687,21 @@ namespace Success24v2
                         ).Value = primaryMobile;
 
 
-                        // WhatsApp
+                        // ==========================================
+                        // WHATSAPP
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@WhatsappNo",
                             SqlDbType.VarChar,
                             20
-                        ).Value =
-                            string.IsNullOrWhiteSpace(whatsApp)
-                                ? (object)DBNull.Value
-                                : whatsApp;
+                        ).Value = whatsApp;
 
 
-                        // Secondary Mobile
+                        // ==========================================
+                        // SECONDARY MOBILE
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@SecondaryMobile",
                             SqlDbType.VarChar,
@@ -424,7 +713,10 @@ namespace Success24v2
                                 : secondaryMobile;
 
 
-                        // Primary Email
+                        // ==========================================
+                        // PRIMARY EMAIL
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@Email1",
                             SqlDbType.VarChar,
@@ -432,7 +724,10 @@ namespace Success24v2
                         ).Value = primaryEmail;
 
 
-                        // Secondary Email
+                        // ==========================================
+                        // SECONDARY EMAIL
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@Email2",
                             SqlDbType.VarChar,
@@ -444,7 +739,10 @@ namespace Success24v2
                                 : secondaryEmail;
 
 
-                        // Father
+                        // ==========================================
+                        // FATHER
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@FatherName",
                             SqlDbType.VarChar,
@@ -456,7 +754,10 @@ namespace Success24v2
                                 : fatherName;
 
 
-                        // Guardian
+                        // ==========================================
+                        // GUARDIAN
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@GuardianName",
                             SqlDbType.VarChar,
@@ -468,7 +769,10 @@ namespace Success24v2
                                 : guardianName;
 
 
-                        // Guardian Relationship
+                        // ==========================================
+                        // GUARDIAN RELATIONSHIP
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@GuardianRelationship",
                             SqlDbType.VarChar,
@@ -480,56 +784,65 @@ namespace Success24v2
                                 : guardianRelationship;
 
 
-                        // Guardian Contact
+                        // ==========================================
+                        // GUARDIAN CONTACT
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@ParentNo",
                             SqlDbType.VarChar,
                             20
-                        ).Value =
-                            string.IsNullOrWhiteSpace(
-                                guardianContact)
-                                ? (object)DBNull.Value
-                                : guardianContact;
+                        ).Value = guardianContact;
 
 
-                        // Current Address
+                        // ==========================================
+                        // CURRENT ADDRESS
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@CurrentAddress",
                             SqlDbType.VarChar,
                             -1
                         ).Value =
-                            string.IsNullOrWhiteSpace(currentAddress)
+                            string.IsNullOrWhiteSpace(
+                                currentAddress)
                                 ? (object)DBNull.Value
                                 : currentAddress;
 
 
-                        // Permanent Address
+                        // ==========================================
+                        // PERMANENT ADDRESS
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@PermanentAddress",
                             SqlDbType.VarChar,
                             -1
                         ).Value =
-                            string.IsNullOrWhiteSpace(permanentAddress)
+                            string.IsNullOrWhiteSpace(
+                                permanentAddress)
                                 ? (object)DBNull.Value
                                 : permanentAddress;
 
 
-                        // Reference
+                        // ==========================================
+                        // REFERENCE
+                        // ==========================================
+
                         cmd.Parameters.Add(
                             "@Reference",
                             SqlDbType.VarChar,
                             250
-                        ).Value =
-                            string.IsNullOrWhiteSpace(reference)
-                                ? (object)DBNull.Value
-                                : reference;
+                        ).Value = reference;
 
 
                         // ==========================================
                         // EXECUTE INSERT
                         // ==========================================
 
-                        int rowsAffected = cmd.ExecuteNonQuery();
+                        int rowsAffected =
+                            cmd.ExecuteNonQuery();
+
 
                         if (rowsAffected > 0)
                         {
@@ -548,12 +861,20 @@ namespace Success24v2
                     }
                 }
             }
+
+
+            // ==========================================
+            // EXCEPTIONS
+            // ==========================================
+
             catch (FormatException)
             {
                 ShowMessage(
                     "Please enter valid date and year values.",
                     false);
             }
+
+
             catch (SqlException ex)
             {
                 ShowMessage(
@@ -561,6 +882,8 @@ namespace Success24v2
                     + ex.Message,
                     false);
             }
+
+
             catch (Exception ex)
             {
                 ShowMessage(
@@ -581,8 +904,8 @@ namespace Success24v2
 
             txtLastName.Text = "";
 
-            txtDOB.Text = ""; 
-            
+            txtDOB.Text = "";
+
             ddlCourse.SelectedIndex = 0;
 
             txtGraduation.Text = "";
@@ -620,38 +943,46 @@ namespace Success24v2
 
 
         // ==========================================
-        // MESSAGE
+        // SHOW MESSAGE
         // ==========================================
 
-        private void ShowMessage(string message, bool success)
+        private void ShowMessage(
+            string message,
+            bool success)
         {
             string safeMessage =
-                HttpUtility.JavaScriptStringEncode(message);
+                HttpUtility.JavaScriptStringEncode(
+                    message);
+
 
             string icon =
-                success ? "success" : "error";
+                success
+                    ? "success"
+                    : "error";
+
 
             string title =
                 success
                     ? "Registration Successful!"
                     : "Registration Failed!";
 
+
             string script = $@"
-        Swal.fire({{
-            icon: '{icon}',
-            title: '{title}',
-            text: '{safeMessage}',
-            confirmButtonText: 'OK'
-        }});
-    ";
+                Swal.fire({{
+                    icon: '{icon}',
+                    title: '{title}',
+                    text: '{safeMessage}',
+                    confirmButtonText: 'OK'
+                }});
+            ";
+
 
             ScriptManager.RegisterStartupScript(
                 this,
                 this.GetType(),
                 "RegistrationMessage",
                 script,
-                true
-            );
+                true);
         }
     }
 }

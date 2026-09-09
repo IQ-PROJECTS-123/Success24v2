@@ -59,6 +59,12 @@ namespace Success24v2
             return Convert.ToInt32(Session["UserID"]);
         }
 
+        // date in India timezone
+        private DateTime GetIndiaToday()
+        {
+            TimeZoneInfo indiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+            return TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,indiaTimeZone).Date;
+        }
 
         // =====================================
         // Load only current user's leads
@@ -67,9 +73,11 @@ namespace Success24v2
         private void LoadMyLeads()
         {
             int userID = GetCurrentUserID();
-            using (SqlConnection con = new SqlConnection(connectionString))
+
+            using (SqlConnection con =
+                new SqlConnection(connectionString))
             {
-                string query = @"SELECT L.ID,L.Name,L.Email,L.Phone,L.Qualification,L.Stream,L.PassingYear,L.Status,LA.AssignedOn,M.Name AS AssignedTo FROM LeadAssignment LA INNER JOIN Leads L ON LA.LeadID = L.ID INNER JOIN Members M ON LA.AssignedTo = M.ID WHERE LA.AssignedTo = @UserID AND LA.IsActive = 1";
+                string query = @" SELECT L.ID, L.Name, L.Email, L.Phone, L.Qualification, L.Stream, L.PassingYear, L.Status, LA.AssignedOn, M.Name AS AssignedTo FROM LeadAssignment LA INNER JOIN Leads L ON LA.LeadID = L.ID INNER JOIN Members M ON LA.AssignedTo = M.ID  WHERE LA.AssignedTo = @UserID AND LA.IsActive = 1 ";
 
                 // =====================================
                 // TODAY'S ASSIGNED LEADS
@@ -78,8 +86,7 @@ namespace Success24v2
                 if (CurrentFilter == "Today")
                 {
                     query += @"
-                    AND LA.AssignedOn >= CAST(GETDATE() AS DATE)
-                    AND LA.AssignedOn < DATEADD(DAY, 1, CAST(GETDATE() AS DATE))";
+                    AND LA.AssignedOn >= @TodayStart AND LA.AssignedOn < @TodayEnd";
                 }
 
                 // =====================================
@@ -88,17 +95,33 @@ namespace Success24v2
 
                 else if (CurrentFilter == "TodayFollowup")
                 {
-                    query += @"AND L.Status = 'Follow Up' AND EXISTS(SELECT 1 FROM (SELECT LF.LeadID,LF.AssignedTo,LF.Status,LF.FollowUpDate,ROW_NUMBER() OVER(PARTITION BY LF.LeadID, LF.AssignedTo ORDER BY LF.FeedbackOn DESC, LF.ID DESC) AS RN FROM LeadFeedback LF WHERE LF.AssignedTo = @UserID) LatestFeedback WHERE LatestFeedback.LeadID = L.ID AND LatestFeedback.RN = 1 AND LatestFeedback.Status = 'Follow Up' AND LatestFeedback.FollowUpDate IS NOT NULL AND CAST(LatestFeedback.FollowUpDate AS DATE)= CAST(GETDATE() AS DATE))";
+                    query += @"AND L.Status = 'Follow Up' AND EXISTS (SELECT 1 FROM (SELECT LF.LeadID,LF.AssignedTo,LF.Status,LF.FollowUpDate,ROW_NUMBER() OVER (PARTITION BY LF.LeadID, LF.AssignedTo ORDER BY LF.FeedbackOn DESC, LF.ID DESC) AS RN FROM LeadFeedback LF WHERE LF.AssignedTo = @UserID) LatestFeedback WHERE LatestFeedback.LeadID = L.ID AND LatestFeedback.RN = 1 AND LatestFeedback.Status = 'Follow Up' AND LatestFeedback.FollowUpDate IS NOT NULL AND LatestFeedback.FollowUpDate >= @TodayStart AND LatestFeedback.FollowUpDate < @TodayEnd)";
                 }
+
                 // =====================================
                 // STATUS FILTER
                 // =====================================
 
                 else if (CurrentFilter != "All")
                 {
-                    query += @" 
-                            AND L.Status = @Status
-                            ";
+                    query += @"
+                    AND L.Status = @Status ";
+                }
+
+                // =====================================
+                // SEARCH
+                // =====================================
+
+                if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+                {
+                    query += @"
+                        AND
+                        (
+                            L.Name LIKE @Search
+                            OR L.Phone LIKE @Search
+                            OR L.Email LIKE @Search
+                        )
+                    ";
                 }
 
                 // =====================================
@@ -106,15 +129,36 @@ namespace Success24v2
                 // =====================================
 
                 query += @"
-                        ORDER BY LA.AssignedOn DESC,L.ID DESC
-                        ";
+                ORDER BY LA.AssignedOn DESC,L.ID DESC";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     // =====================================
                     // USER ID
                     // =====================================
-
                     cmd.Parameters.Add("@UserID",SqlDbType.Int).Value = userID;
+
+                    // =====================================
+                    // SEARCH PARAMETER
+                    // =====================================
+
+                    if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+                    {
+                        cmd.Parameters.Add(
+                            "@Search",
+                            SqlDbType.NVarChar,
+                            200
+                        ).Value = "%" + txtSearch.Text.Trim() + "%";
+                    }
+                    // =====================================
+                    // INDIA TODAY
+                    // =====================================
+
+                    if (CurrentFilter == "Today" || CurrentFilter == "TodayFollowup")
+                    {
+                        DateTime indiaToday = GetIndiaToday();
+                        cmd.Parameters.Add("@TodayStart",SqlDbType.DateTime).Value = indiaToday;
+                        cmd.Parameters.Add("@TodayEnd",SqlDbType.DateTime).Value = indiaToday.AddDays(1);
+                    }
 
                     // =====================================
                     // STATUS PARAMETER
@@ -122,7 +166,7 @@ namespace Success24v2
 
                     if (CurrentFilter != "All" && CurrentFilter != "Today" && CurrentFilter != "TodayFollowup")
                     {
-                        cmd.Parameters.Add("@Status", SqlDbType.VarChar,50).Value = CurrentFilter;
+                        cmd.Parameters.Add("@Status",SqlDbType.VarChar,50).Value = CurrentFilter;
                     }
 
                     // =====================================
@@ -135,11 +179,6 @@ namespace Success24v2
                         da.Fill(dt);
                         gvMyLeads.DataSource = dt;
                         gvMyLeads.DataBind();
-
-                        // =====================================
-                        // USER NAME
-                        // =====================================
-
                         if (dt.Rows.Count > 0)
                         {
                             lblUserName.Text = dt.Rows[0]["AssignedTo"].ToString();
@@ -255,7 +294,7 @@ namespace Success24v2
             int userID = GetCurrentUserID();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = @"SELECT L.ID,L.Name,L.Phone,L.Email,L.Status,LF.FeedbackOn,LF.FollowUpDate,LF.Feedback AS LastFeedback FROM Leads L INNER JOIN LeadAssignment LA ON LA.LeadID = L.ID OUTER APPLY (SELECT TOP 1 F.FeedbackOn,LF.FollowUpDate,LF.Feedback FROM LeadFeedback LF WHERE LF.LeadID = L.ID AND LF.AssignedTo = @UserID ORDER BY LF.FeedbackOn DESC,LF.ID DESC) LF WHERE LA.AssignedTo = @UserID AND LA.IsActive = 1 AND L.Status = 'Converted' ORDER BY LF.FeedbackOn DESC,L.ID DESC";
+                string query = @"SELECT L.ID,L.Name,L.Phone,L.Email,L.Status,LF.FeedbackOn,LF.FollowUpDate,LF.Feedback AS LastFeedback FROM Leads L INNER JOIN LeadAssignment LA ON LA.LeadID = L.ID OUTER APPLY (SELECT TOP 1 LF1.FeedbackOn,LF1.FollowUpDate,LF1.Feedback FROM LeadFeedback LF1 WHERE LF1.LeadID = L.ID AND LF1.AssignedTo = @UserID ORDER BY LF1.FeedbackOn DESC,LF1.ID DESC) LF WHERE LA.AssignedTo = @UserID AND LA.IsActive = 1 AND L.Status = 'Converted' ORDER BY LF.FeedbackOn DESC,L.ID DESC";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.Add("@UserID",SqlDbType.Int).Value = userID;
@@ -312,6 +351,8 @@ namespace Success24v2
             btnInterested.CssClass = "lead-filter";
             btnWorking.CssClass = "lead-filter";
             btnNotInterested.CssClass = "lead-filter";
+            btnCallback.CssClass = "lead-filter";
+            btnNoAnswer.CssClass = "lead-filter";
 
             switch (filter)
             {
@@ -394,6 +435,16 @@ namespace Success24v2
                         "My Not Interested Leads";
 
                     break;
+
+                case "No Answer":
+                    btnNoAnswer.CssClass = "lead-filter active";
+                    lblLeadGridTitle.Text = "My No Answer Leads";
+                    break;
+
+                case "Call back":
+                    btnCallback.CssClass = "lead-filter active";
+                    lblLeadGridTitle.Text = "My Call back Leads";
+                    break;
             }
         }
         private class LeadReport
@@ -411,6 +462,10 @@ namespace Success24v2
             public int FollowUp { get; set; }
 
             public int Converted { get; set; }
+
+            public int NoAnswer { get; set; }
+
+            public int Callback { get; set; }
         }
 
         private LeadReport GetTodayLeadReport(int userID)
@@ -436,6 +491,9 @@ namespace Success24v2
                             report.Working =reader["Working"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Working"]);
                             report.FollowUp =reader["FollowUp"] == DBNull.Value ? 0 : Convert.ToInt32(reader["FollowUp"]);
                             report.Converted =reader["Converted"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Converted"]);
+                            report.Callback = reader["Call back"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Call back"]);
+                            report.Callback = reader["No Answer"] == DBNull.Value ? 0 : Convert.ToInt32(reader["No Answer"]);
+
                         }
                     }
                 }
@@ -564,6 +622,22 @@ namespace Success24v2
             {
                 ScriptManager.RegisterStartupScript(this,this.GetType(),"EmailError","alert('Unable to send email: " + HttpUtility.JavaScriptStringEncode(ex.Message) + "');",true);
             }
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            gvMyLeads.PageIndex = 0;
+
+            LoadMyLeads();
+        }
+
+        protected void btnClearSearch_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = "";
+
+            gvMyLeads.PageIndex = 0;
+
+            LoadMyLeads();
         }
     }
 }
