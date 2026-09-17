@@ -17,7 +17,13 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Choose File</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2"> Description </label>
+
+                    <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" Rows="5" MaxLength="1000" CssClass="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none resize-none"></asp:TextBox>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Choose Image</label>
                     <asp:FileUpload ID="fuImage" runat="server" AllowMultiple="true" CssClass="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100" />
                 </div>
 

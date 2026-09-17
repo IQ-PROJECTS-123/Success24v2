@@ -26,7 +26,7 @@
                 <a href="AdminGallery.aspx" class="bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl font-semibold hover:bg-gray-200 transition">Review Pending
                 </a>
                 <a href="GalleryUpload.aspx" class="bg-orange-600 text-white px-5 py-2.5 rounded-xl font-bold hover:bg-orange-700 transition shadow-lg shadow-orange-200">+ Upload New
-                </a>
+                </a><a href="AdminGallery.aspx">AdminGallery.aspx</a>
             </div>
         </div>
 
@@ -67,6 +67,9 @@
                         <h4 class="text-lg font-bold text-gray-800 truncate mb-1" title='<%# Eval("Title") %>'>
                             <%# Eval("Title") %>
                         </h4>
+                        <p class="text-sm text-gray-500 line-clamp-3 mb-4">
+                            <%# Eval("Description") %>
+                        </p>
                         <div class="flex items-center text-gray-400 text-xs mb-4">
                             <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>

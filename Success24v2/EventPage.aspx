@@ -30,18 +30,50 @@
             </h1>
 
             <!-- GALLERY GRID -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                <asp:Repeater ID="rptGallery" runat="server">
-                    <ItemTemplate>
+           <!-- GALLERY GRID -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
 
-                        <img src='<%# ResolveUrl("~/" + Eval("FilePath")) %>'
-                            alt='<%# Eval("Title") %>'
-                            class="w-full h-72 object-cover rounded-xl shadow cursor-pointer hover:opacity-90"
-                            onclick="openLightbox(<%# Container.ItemIndex %>)" />
+    <asp:Repeater ID="rptGallery" runat="server">
 
-                    </ItemTemplate>
-                </asp:Repeater>
+        <ItemTemplate>
+
+            <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200 hover:shadow-xl transition duration-300">
+
+                <!-- IMAGE -->
+                <div class="relative">
+
+                    <img
+                        src='<%# ResolveUrl("~/" + Eval("FilePath")) %>'
+                        alt='<%# Eval("Title") %>'
+                        class="w-full h-72 object-cover cursor-pointer hover:scale-105 transition duration-500"
+                        onclick="openLightbox(<%# Container.ItemIndex %>)" />
+
+                </div>
+
+
+                <!-- CONTENT BELOW IMAGE -->
+                <div class="p-5">
+
+                    <!-- TITLE -->
+                    <h2 class="text-xl font-bold text-gray-800 mb-2">
+                        <%# Eval("Title") %>
+                    </h2>
+
+
+                    <!-- DESCRIPTION -->
+                    <p class="text-gray-500 text-sm leading-6">
+                        <%# Eval("Description") %>
+                    </p>
+
+                </div>
+
             </div>
+
+        </ItemTemplate>
+
+    </asp:Repeater>
+
+</div>
 
         </div>
     </div>

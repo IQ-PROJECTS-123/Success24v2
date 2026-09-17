@@ -583,12 +583,16 @@
                             <span class="required">*</span>
                         </label>
 
-                        <asp:TextBox
-                            ID="txtPhone"
-                            runat="server"
-                            CssClass="form-control"
-                            MaxLength="20"
-                            placeholder="Enter phone number">
+                        
+
+                         <asp:TextBox
+                         ID="txtPhone"
+                         runat="server"
+                         TextMode="SingleLine"
+                         CssClass="form-control"
+                         MaxLength="10"
+                         inputmode="numeric"
+                         placeholder="Enter phone number">
                         </asp:TextBox>
 
                         <asp:RequiredFieldValidator
@@ -614,11 +618,15 @@
 
                         </label>
 
-                        <asp:TextBox
-                            ID="txtQualification"
-                            runat="server"
-                            CssClass="form-control"
-                            placeholder="Example: B.Tech, MCA, BCA">
+                        
+
+                             <asp:TextBox
+                                 ID="txtQualification"
+                                 runat="server"
+                                 inputmode="text"
+                                 TextMode="SingleLine"
+                                 CssClass="form-control"
+                                 placeholder="Example: B.Tech, MCA, BCA">
                         </asp:TextBox>
                         
                      <asp:RequiredFieldValidator
@@ -642,12 +650,14 @@
                             Stream
                             <span class="required">*</span>
                         </label>
+                                               
 
-                        <asp:TextBox
-                            ID="txtStream"
-                            runat="server"
-                            CssClass="form-control"
-                            placeholder="Example: CS, IT, Mechanical">
+                             <asp:TextBox
+                             ID="txtStream"
+                             runat="server"
+                             inputmode="text"
+                             CssClass="form-control"
+                             placeholder="Example: CS, IT, Mechanical">
                         </asp:TextBox>
                         
                           <asp:RequiredFieldValidator
@@ -672,14 +682,17 @@
                             <span class="required">*</span>
                         </label>
 
-                        <asp:TextBox
-                            ID="txtPassingYear"
-                            runat="server"
-                            TextMode="Number"
-                            CssClass="form-control"
-                            placeholder="Example: 2026">
-                        </asp:TextBox>
                         
+
+                               <asp:TextBox
+                                ID="txtPassingYear"
+                                runat="server"
+                                TextMode="SingleLine"
+                                MaxLength="4"
+                                CssClass="form-control"
+                                placeholder="Example: 2020"
+                                inputmode="numeric">
+                            </asp:TextBox>
                          <asp:RequiredFieldValidator
                                  ID="rfvPassingYear"
                                  runat="server"
@@ -733,5 +746,94 @@
 
 
     </div>
+
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // ==========================================
+        // NAME - ONLY ALPHABETS AND SPACE
+        // ==========================================
+
+        var nameInput = document.getElementById(
+            "<%= txtName.ClientID %>"
+        );
+
+        if (nameInput) {
+
+            nameInput.addEventListener("input", function () {
+
+                this.value =
+                    this.value.replace(/[^A-Za-z ]/g, "");
+
+            });
+
+        }
+
+
+        // ==========================================
+        // PHONE - ONLY 10 DIGITS
+        // ==========================================
+
+        var phoneInput = document.getElementById(
+            "<%= txtPhone.ClientID %>"
+        );
+
+        if (phoneInput) {
+
+            phoneInput.setAttribute("maxlength", "10");
+            phoneInput.setAttribute("inputmode", "numeric");
+
+            phoneInput.addEventListener("input", function () {
+
+                this.value =
+                    this.value.replace(/[^0-9]/g, "");
+
+                if (this.value.length > 10) {
+
+                    this.value =
+                        this.value.substring(0, 10);
+
+                }
+
+            });
+
+        }
+
+
+        // ==========================================
+        // PASSING YEAR - ONLY 4 DIGITS
+        // ==========================================
+
+        var passingYearInput = document.getElementById(
+            "<%= txtPassingYear.ClientID %>"
+        );
+
+        if (passingYearInput) {
+
+            passingYearInput.setAttribute("maxlength", "4");
+            passingYearInput.setAttribute("inputmode", "numeric");
+
+            passingYearInput.addEventListener("input", function() {
+
+                // Only numbers
+                this.value =
+                    this.value.replace(/[^0-9]/g, "");
+
+                // Maximum 4 digits
+                if (this.value.length > 4) {
+
+                    this.value =
+                        this.value.substring(0, 4);
+
+                }
+
+            });
+
+        }
+
+    });
+
+</script>
 
 </asp:Content>

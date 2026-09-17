@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -88,20 +90,39 @@ namespace Success24v2
                 txtStream.Text.Trim();
 
 
+            // ==========================================
+            // PASSING YEAR VALIDATION
+            // EXACTLY 4 DIGITS
+            // ==========================================
+
             int? passingYear = null;
 
             int year;
 
-            if (!string.IsNullOrWhiteSpace(
-                    txtPassingYear.Text))
+            string passingYearText =
+                txtPassingYear.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(passingYearText))
             {
-                if (int.TryParse(
-                    txtPassingYear.Text.Trim(),
-                    out year))
+                // Exactly 4 numeric digits
+                if (!Regex.IsMatch(
+                        passingYearText,
+                        @"^[0-9]{4}$"))
                 {
-                    passingYear = year;
+                    ShowMessage(
+                        "Passing Year must be exactly 4 digits. Example: 2020",
+                        false);
+
+                    return;
                 }
-                else
+
+
+                year = Convert.ToInt32(passingYearText);
+
+
+                // Valid year range
+                if (year < 1900 ||
+                    year > DateTime.Now.Year + 1)
                 {
                     ShowMessage(
                         "Please enter a valid passing year.",
@@ -109,8 +130,60 @@ namespace Success24v2
 
                     return;
                 }
+
+
+                passingYear = year;
             }
 
+            // ==========================================
+            // NAME VALIDATION
+            // ONLY A-Z AND SPACE
+            // ==========================================
+
+            if (!Regex.IsMatch(
+                    name,
+                    @"^[A-Za-z ]+$"))
+            {
+                ShowMessage(
+                    "Full Name should contain alphabets only.",
+                    false);
+
+                return;
+            }
+
+            // ==========================================
+            // MOBILE NUMBER VALIDATION
+            // EXACTLY 10 DIGITS
+            // ==========================================
+
+            if (!Regex.IsMatch(
+                    phone,
+                    @"^[0-9]{10}$"))
+            {
+                ShowMessage(
+                    "Phone number must contain exactly 10 digits.",
+                    false);
+
+                return;
+            }
+            // ==========================================
+            // EMAIL VALIDATION
+            // ==========================================
+
+            string emailPattern =
+                @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
+
+
+            if (!Regex.IsMatch(
+                    email,
+                    emailPattern))
+            {
+                ShowMessage(
+                    "Please enter a valid email address. Example: example@gmail.com",
+                    false);
+
+                return;
+            }
 
             try
             {

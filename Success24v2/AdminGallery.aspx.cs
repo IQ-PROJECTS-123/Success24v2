@@ -28,7 +28,7 @@ namespace Success24v2
                 using (SqlConnection con = new SqlConnection(conStr))
                 {
                     // Selecting all images for management
-                    string query = "SELECT Id, Title, FilePath, Status, UploadedDate FROM EventGallery ORDER BY UploadedDate DESC";
+                    string query = "SELECT Id, Title,Description, FilePath, Status, UploadedDate FROM EventGallery ORDER BY UploadedDate DESC";
 
                     using (SqlDataAdapter da = new SqlDataAdapter(query, con))
                     {

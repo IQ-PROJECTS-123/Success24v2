@@ -25,7 +25,7 @@ namespace Success24v2
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 // We only select 'Approved' status images
-                string query = "SELECT Title, FilePath FROM EventGallery WHERE Status = 'Approved' ORDER BY UploadedDate DESC";
+                string query = "SELECT Title,Description, FilePath FROM EventGallery WHERE Status = 'Approved' ORDER BY UploadedDate DESC";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {

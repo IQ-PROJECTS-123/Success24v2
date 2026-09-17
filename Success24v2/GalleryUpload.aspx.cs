@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
+using System.Web;
 using System.Web.UI;
 
 namespace Success24v2
@@ -17,76 +18,168 @@ namespace Success24v2
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-            // 1. Validation
-            if (string.IsNullOrEmpty(txtTitle.Text.Trim()))
+            // Title validation
+            if (string.IsNullOrWhiteSpace(txtTitle.Text))
             {
                 ShowMessage("Please enter a title.", "text-red-600");
                 return;
             }
 
-            if (!fuImage.HasFile)
+            // File validation
+            if (!fuImage.HasFiles)
             {
-                ShowMessage("Please select an image to upload.", "text-red-600");
+                ShowMessage("Please select at least one image.", "text-red-600");
                 return;
             }
 
             try
             {
-                // 2. Define File Path
-                string fileName = Path.GetFileName(fuImage.FileName);
-                string extension = Path.GetExtension(fileName).ToLower();
+                string title = txtTitle.Text.Trim();
+                string description = txtDescription.Text.Trim();
 
-                // Optional: Validate extensions
-                string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
-                bool isAllowed = false;
-                foreach (string ext in allowedExtensions) { if (extension == ext) isAllowed = true; }
+                string folderPath = Server.MapPath("~/Uploads/Gallery/");
 
-                if (!isAllowed)
-                {
-                    ShowMessage("Only JPG, JPEG, PNG, or GIF files are allowed.", "text-red-600");
-                    return;
-                }
-
-                // Create a unique filename to prevent overwriting
-                string uniqueFileName = Guid.NewGuid().ToString() + extension;
-                string folderPath = Server.MapPath("https://success24.in/Uploads/Gallery/");
-
-                // Create directory if it doesn't exist
+                // Create folder if it does not exist
                 if (!Directory.Exists(folderPath))
                 {
                     Directory.CreateDirectory(folderPath);
                 }
 
-                string savePath = Path.Combine(folderPath, uniqueFileName);
-                string dbRelativePath = "https://success24.in/Uploads/Gallery/" + uniqueFileName;
-
-                // 3. Save to Disk
-                fuImage.SaveAs(savePath);
-
-                // 4. Save to Database
-                using (SqlConnection con = new SqlConnection(conStr))
+                string[] allowedExtensions =
                 {
-                    string query = "INSERT INTO EventGallery (Title, FilePath, Status, UploadedDate) VALUES (@Title, @Path, @Status, @Date)";
-                    using (SqlCommand cmd = new SqlCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@Title", txtTitle.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Path", dbRelativePath);
-                        cmd.Parameters.AddWithValue("@Status", "Pending");
-                        cmd.Parameters.AddWithValue("@Date", DateTime.Now);
+                    ".jpg",
+                    ".jpeg",
+                    ".png",
+                    ".gif",
+                    ".webp"
+                };
 
-                        con.Open();
-                        cmd.ExecuteNonQuery();
+                int uploadedCount = 0;
+
+                foreach (HttpPostedFile file in fuImage.PostedFiles)
+                {
+                    if (file == null || file.ContentLength == 0)
+                        continue;
+
+                    string originalFileName = Path.GetFileName(file.FileName);
+
+                    string extension = Path
+                        .GetExtension(originalFileName)
+                        .ToLowerInvariant();
+
+                    // Extension validation
+                    bool isAllowed = false;
+
+                    foreach (string ext in allowedExtensions)
+                    {
+                        if (extension == ext)
+                        {
+                            isAllowed = true;
+                            break;
+                        }
                     }
+
+                    if (!isAllowed)
+                    {
+                        continue;
+                    }
+
+                    // Unique filename
+                    string uniqueFileName =
+                        Guid.NewGuid().ToString("N") + extension;
+
+                    string savePath =
+                        Path.Combine(folderPath, uniqueFileName);
+
+                    // Save physical file
+                    file.SaveAs(savePath);
+
+                    // IMPORTANT:
+                    // Store path WITHOUT "~/" in database
+                    string dbRelativePath =
+                        "Uploads/Gallery/" + uniqueFileName;
+
+                    // Insert database record
+                    using (SqlConnection con = new SqlConnection(conStr))
+                    {
+                        string query = @"
+                    INSERT INTO EventGallery
+                    (
+                        Title,
+                        Description,
+                        FilePath,
+                        Status,
+                        UploadedDate
+                    )
+                    VALUES
+                    (
+                        @Title,
+                        @Description,
+                        @FilePath,
+                        @Status,
+                        @UploadedDate
+                    )";
+
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("@Title", title);
+
+                            cmd.Parameters.AddWithValue(
+                                "@Description",
+                                string.IsNullOrWhiteSpace(description)
+                                    ? (object)DBNull.Value
+                                    : description
+                            );
+
+                            cmd.Parameters.AddWithValue(
+                                "@FilePath",
+                                dbRelativePath
+                            );
+
+                            cmd.Parameters.AddWithValue(
+                                "@Status",
+                                "Pending"
+                            );
+
+                            cmd.Parameters.AddWithValue(
+                                "@UploadedDate",
+                                DateTime.Now
+                            );
+
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    uploadedCount++;
                 }
 
-                // 5. Success UI
-                ShowMessage("Upload successful! Pending moderation.", "text-green-600");
-                txtTitle.Text = ""; // Clear form
+                if (uploadedCount == 0)
+                {
+                    ShowMessage(
+                        "No valid image was uploaded.",
+                        "text-red-600"
+                    );
+
+                    return;
+                }
+
+                ShowMessage(
+                    uploadedCount + " image(s) uploaded successfully! Pending moderation.",
+                    "text-green-600"
+                );
+
+                txtTitle.Text = "";
+                txtDescription.Text = "";
             }
             catch (Exception ex)
             {
-                ShowMessage("Error: " + ex.Message, "text-red-600");
+                ShowMessage(
+                    "Error: " + ex.Message,
+                    "text-red-600"
+                );
             }
+
         }
 
         private void ShowMessage(string msg, string cssClass)
