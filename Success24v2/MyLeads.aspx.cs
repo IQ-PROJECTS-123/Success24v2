@@ -607,7 +607,7 @@ namespace Success24v2
                     emailBody.Append("</tr>");
                 }
                 emailBody.Append(@"</table> <br /> <p> Regards,<br /> Success24 Lead Management </p> </body> </html> ");
-                bool emailSent = Utility._SendEmail("Shrikantkumar.info@gmail.com","","Today's Complete Lead Report",emailBody.ToString());
+                bool emailSent = Utility._SendEmail("Shrikantkumar.info@gmail.com", "","Today's Complete Lead Report",emailBody.ToString());
 
                 if (emailSent)
                 {

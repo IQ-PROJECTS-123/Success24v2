@@ -61,7 +61,7 @@ namespace Success24v2
                 MailMessage message = new MailMessage();
 
                 message.From = new MailAddress(
-                    "varunravindra2143@gmail.com",
+                    "ravindra21432@gmail.com",
                     "Success24"
                 );
 
@@ -86,8 +86,8 @@ namespace Success24v2
 
                 smtp.Credentials =
                     new NetworkCredential(
-                        "varunravindra2143@gmail.com",
-                        "ujxtwxwhzhvtgkro"
+                        "ravindra21432@gmail.com",
+                        "cyeedqizotanuhkq"
                     );
 
                 smtp.Send(message);
