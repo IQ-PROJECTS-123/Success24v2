@@ -46,46 +46,68 @@ namespace Success24v2
             }
 
         }
+        //private void ManageNavigation()
+        //{
+        //    string role =
+        //        Convert.ToString(
+        //            Session["Role"]
+        //        );
+
+
+        //    // Admin
+        //    if (role.Equals(
+        //        "Admin",
+        //        StringComparison.OrdinalIgnoreCase))
+        //    {
+        //        lnkLeadManagement.Visible = true;
+
+        //        // Admin doesn't need caller page
+        //        lnkMyLeads.Visible = false;
+        //        lnkStudentDetails.Visible = true;
+        //    }
+
+        //    // Caller
+        //    else if (role.Equals(
+        //        "Caller",
+        //        StringComparison.OrdinalIgnoreCase))
+        //    {
+        //        lnkLeadManagement.Visible = false;
+
+        //        lnkMyLeads.Visible = true;
+        //        lnkStudentDetails.Visible = true;
+        //    }
+
+        //    else
+        //    {
+        //        lnkLeadManagement.Visible = false;
+
+        //        lnkMyLeads.Visible = false;
+        //        lnkStudentDetails.Visible = false;
+        //    }
+        //}
+
+
         private void ManageNavigation()
         {
-            string role =
-                Convert.ToString(
-                    Session["Role"]
-                );
+            string role = Convert.ToString(Session["Role"]);
 
+            bool isAdmin = string.Equals(
+                role, "Admin", StringComparison.OrdinalIgnoreCase);
 
-            // Admin
-            if (role.Equals(
-                "Admin",
-                StringComparison.OrdinalIgnoreCase))
-            {
-                lnkLeadManagement.Visible = true;
+            bool isCaller = string.Equals(
+                role, "Caller", StringComparison.OrdinalIgnoreCase);
 
-                // Admin doesn't need caller page
-                lnkMyLeads.Visible = false;
-                lnkStudentDetails.Visible = true;
-            }
+            lnkLeadManagement.Visible = isAdmin;
+            lnkMyLeads.Visible = isCaller;
 
-            // Caller
-            else if (role.Equals(
-                "Caller",
-                StringComparison.OrdinalIgnoreCase))
-            {
-                lnkLeadManagement.Visible = false;
+            // Admin and Caller both can open Student Details
+            lnkStudentDetails.Visible = isAdmin || isCaller;
 
-                lnkMyLeads.Visible = true;
-                lnkStudentDetails.Visible = false;
-            }
-
-            else
-            {
-                lnkLeadManagement.Visible = false;
-
-                lnkMyLeads.Visible = false;
-                lnkStudentDetails.Visible = false;
-            }
+            // Keep these links restricted to Admin if required
+            lnkAD.Visible = isAdmin;
+            lnkAG.Visible = isAdmin;
+            lnkGU.Visible = isAdmin;
         }
-
 
 
 

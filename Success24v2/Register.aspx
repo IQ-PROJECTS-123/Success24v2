@@ -670,7 +670,7 @@
                         ID="txtReference"
                         runat="server"
                         CssClass="form-control"
-                        placeholder="Email / Old Candidate">
+                        placeholder="Name / Old Candidate">
                     </asp:TextBox>
 
                 </div>
@@ -790,8 +790,10 @@
             });
 
 
+
             // ==========================================
-            // DOB - DD/MM/YYYY
+            // DOB - AUTO FORMAT DD/MM/YYYY
+            // Works with mobile numeric keyboards
             // ==========================================
 
             var dobInput = document.getElementById(
@@ -799,23 +801,27 @@
             );
 
             if (dobInput) {
-
+                dobInput.setAttribute("type", "text");
                 dobInput.setAttribute("maxlength", "10");
                 dobInput.setAttribute("placeholder", "DD/MM/YYYY");
                 dobInput.setAttribute("inputmode", "numeric");
+                dobInput.setAttribute("autocomplete", "bday");
 
                 dobInput.addEventListener("input", function () {
+                    // Keep digits only; mobile keyboards need not show /
+                    var digits = this.value.replace(/\D/g, "").substring(0, 8);
 
-                    // Only numbers and /
-                    this.value = this.value.replace(/[^0-9/]/g, "");
-
-                    // Maximum 10 characters
-                    if (this.value.length > 10) {
-                        this.value = this.value.substring(0, 10);
+                    if (digits.length > 4) {
+                        this.value = digits.substring(0, 2) + "/" +
+                            digits.substring(2, 4) + "/" +
+                            digits.substring(4, 8);
+                    } else if (digits.length > 2) {
+                        this.value = digits.substring(0, 2) + "/" +
+                            digits.substring(2, 4);
+                    } else {
+                        this.value = digits;
                     }
-
                 });
-
             }
 
             // ==========================================

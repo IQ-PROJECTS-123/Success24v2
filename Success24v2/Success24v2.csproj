@@ -87,6 +87,8 @@
     <Content Include="DotNet.aspx" />
     <Content Include="DotNetMicrosoft.aspx" />
     <Content Include="DS.aspx" />
+    <Content Include="EditLeads.aspx" />
+    <Content Include="EditStudent.aspx" />
     <Content Include="EventPage.aspx" />
     <Content Include="GalleryUpload.aspx" />
     <Content Include="Global.asax" />
@@ -284,6 +286,7 @@
     <Content Include="StudentDetails.aspx" />
     <Content Include="SuccessStory.aspx" />
     <Content Include="test.aspx" />
+    <Content Include="ViewLead.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web Design.aspx" />
     <Content Include="Web.config" />
@@ -471,6 +474,20 @@
     </Compile>
     <Compile Include="DS.aspx.designer.cs">
       <DependentUpon>DS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditLeads.aspx.cs">
+      <DependentUpon>EditLeads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditLeads.aspx.designer.cs">
+      <DependentUpon>EditLeads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditStudent.aspx.cs">
+      <DependentUpon>EditStudent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditStudent.aspx.designer.cs">
+      <DependentUpon>EditStudent.aspx</DependentUpon>
     </Compile>
     <Compile Include="EventPage.aspx.cs">
       <DependentUpon>EventPage.aspx</DependentUpon>
@@ -681,6 +698,13 @@
       <DependentUpon>test.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utility.cs" />
+    <Compile Include="ViewLead.aspx.cs">
+      <DependentUpon>ViewLead.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewLead.aspx.designer.cs">
+      <DependentUpon>ViewLead.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

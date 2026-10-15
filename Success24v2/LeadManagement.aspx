@@ -1081,6 +1081,53 @@ body {
 
 }
 
+.lead-grid .action-btn {
+    display: inline-block;
+    padding: 8px 11px;
+    margin: 2px 1px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.lead-grid .btn-view {
+    color: #2563eb !important;
+    background: #eff6ff;
+    border-color: #bfdbfe;
+}
+
+.lead-grid .btn-view:hover {
+    color: #fff !important;
+    background: #2563eb;
+}
+
+.lead-grid .btn-edit {
+    color: #ea580c !important;
+    background: #fff7ed;
+    border-color: #fed7aa;
+}
+
+.lead-grid .btn-edit:hover {
+    color: #fff !important;
+    background: linear-gradient(90deg, #ff6411, #ef2d32);
+}
+
+.lead-grid .btn-delete {
+    color: #dc2626 !important;
+    background: #fef2f2;
+    border-color: #fecaca;
+}
+
+.lead-grid .btn-delete:hover {
+    color: #fff !important;
+    background: #dc2626;
+}
+
+
     </style>
 
 </asp:Content>
@@ -1286,87 +1333,77 @@ body {
 
         <div class="grid-wrapper">
 
+           
             <asp:GridView
                 ID="gvLeads"
                 runat="server"
-
                 AutoGenerateColumns="False"
-
+                DataKeyNames="ID"
                 CssClass="lead-grid"
-
                 GridLines="None"
-
                 AllowPaging="True"
-
-                PageSize="10"
-
+                PageSize="100"
                 OnPageIndexChanging="gvLeads_PageIndexChanging"
-
+                OnRowDeleting="gvLeads_RowDeleting"
                 EmptyDataText="No leads found.">
 
                 <Columns>
+                    <asp:BoundField DataField="ID" HeaderText="ID" />
+                    <asp:BoundField DataField="Name" HeaderText="Name" />
+                    <asp:BoundField DataField="Email" HeaderText="Email" />
+                    <asp:BoundField DataField="Phone" HeaderText="Phone" />
+                    <asp:BoundField DataField="Qualification" HeaderText="Qualification" />
+                    <asp:BoundField DataField="Stream" HeaderText="Stream" />
+                    <asp:BoundField DataField="PassingYear" HeaderText="Passing Year" />
 
-                    <asp:BoundField
-                        DataField="ID"
-                        HeaderText="ID" />
-
-
-                    <asp:BoundField
-                        DataField="Name"
-                        HeaderText="Name" />
-
-
-                    <asp:BoundField
-                        DataField="Email"
-                        HeaderText="Email" />
-
-
-                    <asp:BoundField
-                        DataField="Phone"
-                        HeaderText="Phone" />
-
-
-                    <asp:BoundField
-                        DataField="Qualification"
-                        HeaderText="Qualification" />
-
-
-                    <asp:BoundField
-                        DataField="Stream"
-                        HeaderText="Stream" />
-
-
-                    <asp:BoundField
-                        DataField="PassingYear"
-                        HeaderText="Passing Year" />
-
-
-                   <asp:TemplateField HeaderText="Status">
-                    <ItemTemplate>
-
-                        <span class='status <%# GetStatusClass(Eval("Status")) %>'>
-                            <%# Eval("Status") %>
-                        </span>
-
-                    </ItemTemplate>
-                </asp:TemplateField>
-
+                    <asp:TemplateField HeaderText="Status">
+                        <ItemTemplate>
+                            <span class='status <%# GetStatusClass(Eval("Status")) %>'>
+                                <%# Eval("Status") %>
+                            </span>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
                     <asp:BoundField
                         DataField="AssignTo"
                         HeaderText="Assign To"
                         NullDisplayText="Not Assigned" />
 
-                </Columns>
+                    <asp:TemplateField HeaderText="Actions">
+                        <ItemTemplate>
+                            <asp:HyperLink
+                                ID="lnkView"
+                                runat="server"
+                                Text="View"
+                                NavigateUrl='<%# Eval("ID", "~/ViewLead.aspx?id={0}") %>'
+                                CssClass="action-btn btn-view" />
 
+                            <asp:HyperLink
+                                ID="lnkEdit"
+                                runat="server"
+                                Text="Edit"
+                                NavigateUrl='<%# Eval("ID", "~/EditLeads.aspx?id={0}") %>'
+                                CssClass="action-btn btn-edit" />
+
+                            <asp:LinkButton
+                                ID="btnDelete"
+                                runat="server"
+                                Text="Delete"
+                                CommandName="Delete"
+                                CausesValidation="False"
+                                CssClass="action-btn btn-delete"
+                                OnClientClick="return confirm('Are you sure you want to permanently delete this lead?');" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
 
                 <PagerSettings
                     Mode="NumericFirstLast"
                     FirstPageText="First"
                     LastPageText="Last"
                     PageButtonCount="5" />
-
             </asp:GridView>
+
 
         </div>
 

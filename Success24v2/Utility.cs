@@ -149,6 +149,55 @@ namespace Success24v2
             finally { Con.Close(); }
         }
 
+
+        public static int ExecuteQuery24(
+            string query, params SqlParameter[] parameters)
+        {
+            using (SqlConnection con = new SqlConnection(
+                System.Configuration.ConfigurationManager
+                .ConnectionStrings["S24"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    if (parameters != null)
+                    {
+                        foreach (SqlParameter parameter in parameters)
+                        {
+                            cmd.Parameters.Add(parameter);
+                        }
+                    }
+
+                    con.Open();
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static DataTable _GetDataTable24(
+            string query, params SqlParameter[] parameters)
+        {
+            string connectionString =
+                System.Configuration.ConfigurationManager
+                .ConnectionStrings["S24"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+            {
+                if (parameters != null)
+                {
+                    foreach (SqlParameter parameter in parameters)
+                    {
+                        cmd.Parameters.Add(parameter);
+                    }
+                }
+
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
+        }
+
         public static DataTable _GetLocation()
         {
             Page page = HttpContext.Current.Handler as Page;

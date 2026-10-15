@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -73,19 +74,47 @@ namespace Success24v2
         // Load Leads
         // ==========================================
 
+
         private void BindLeads()
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = @"SELECT L.ID, L.Name, L.Email,L.Phone, L.Qualification, L.Stream, L.PassingYear, L.Status, ISNULL(M.Name, 'Not Assigned') AS AssignTo FROM Leads L LEFT JOIN LeadAssignment LA ON L.ID = LA.LeadID AND LA.IsActive = 1 LEFT JOIN Members M ON LA.AssignedTo = M.ID  ORDER BY L.ID DESC";
-
+                string query = @"
+            SELECT
+                L.ID,
+                L.Name,
+                L.Email,
+                L.Phone,
+                L.Qualification,
+                L.Stream,
+                L.PassingYear,
+                L.Status,
+                ISNULL(M.Name, 'Not Assigned') AS AssignTo
+            FROM dbo.Leads L
+            LEFT JOIN dbo.LeadAssignment LA
+                ON L.ID = LA.LeadID AND LA.IsActive = 1
+            LEFT JOIN dbo.Members M
+                ON LA.AssignedTo = M.ID
+            WHERE
+                (@Search = ''
+                 OR L.Name LIKE @SearchPattern
+                 OR L.Email LIKE @SearchPattern
+                 OR L.Phone LIKE @SearchPattern)
+            ORDER BY L.ID DESC";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
+                    string search = txtSearch.Text.Trim();
+
+                    cmd.Parameters.Add("@Search", SqlDbType.NVarChar, 200)
+                        .Value = search;
+
+                    cmd.Parameters.Add("@SearchPattern", SqlDbType.NVarChar, 202)
+                        .Value = "%" + search + "%";
+
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {
                         DataTable dt = new DataTable();
-
                         da.Fill(dt);
 
                         gvLeads.DataSource = dt;
@@ -94,6 +123,7 @@ namespace Success24v2
                 }
             }
         }
+
 
 
         // ==========================================
@@ -142,42 +172,15 @@ namespace Success24v2
         protected void gvLeads_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvLeads.PageIndex = e.NewPageIndex;
-
+            gvLeads.EditIndex = -1;
             BindLeads();
         }
         private void SearchLeads()
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                string query = @"SELECT L.ID, L.Name, L.Email, L.Phone, L.Qualification, L.Stream, L.PassingYear, L.Status, ISNULL(U.Name, 'Not Assigned') AS AssignTo FROM Leads L LEFT JOIN LeadAssignment LA ON L.ID = LA.LeadID AND LA.IsActive = 1 LEFT JOIN Members U ON LA.AssignedTo = U.ID WHERE L.Name LIKE @Search OR L.Email LIKE @Search OR L.Phone LIKE @Search ORDER BY L.ID DESC";
-                SqlCommand cmd =
-                    new SqlCommand(query, con);
-
-
-                cmd.Parameters.Add(
-                    "@Search",
-                    SqlDbType.NVarChar,
-                    200
-                ).Value =
-                    "%" + txtSearch.Text.Trim() + "%";
-
-
-                SqlDataAdapter da =
-                    new SqlDataAdapter(cmd);
-
-
-                DataTable dt =
-                    new DataTable();
-
-
-                da.Fill(dt);
-
-
-                gvLeads.DataSource = dt;
-
-                gvLeads.DataBind();
-            }
+            gvLeads.PageIndex = 0;
+            BindLeads();
         }
+        
 
 
         // ==========================================
@@ -393,7 +396,76 @@ namespace Success24v2
             LoadStatistics();
         }
 
+       
+        protected void gvLeads_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int leadID = Convert.ToInt32(gvLeads.DataKeys[e.RowIndex].Value);
 
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+
+                    using (SqlTransaction transaction = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            using (SqlCommand cmd = new SqlCommand(
+                                "DELETE FROM dbo.LeadAssignment WHERE LeadID = @ID",
+                                con, transaction))
+                            {
+                                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = leadID;
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            using (SqlCommand cmd = new SqlCommand(
+                                "DELETE FROM dbo.Leads WHERE ID = @ID",
+                                con, transaction))
+                            {
+                                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = leadID;
+
+                                if (cmd.ExecuteNonQuery() == 0)
+                                    throw new Exception("Lead not found.");
+                            }
+
+                            transaction.Commit();
+                        }
+                        catch
+                        {
+                            try { transaction.Rollback(); } catch { }
+                            throw;
+                        }
+                    }
+                }
+
+                if (gvLeads.Rows.Count == 1 && gvLeads.PageIndex > 0)
+                    gvLeads.PageIndex--;
+
+                BindLeads();
+                LoadStatistics();
+
+                lblMessage.Text = "Lead deleted successfully.";
+                lblMessage.CssClass = "success-message";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError("Lead delete error: " + ex);
+
+                lblMessage.Text =
+                    "Unable to delete lead. It may be linked to other records.";
+                lblMessage.CssClass = "error-message";
+            }
+
+        }
+
+        private void ShowLeadMessage(string message, bool success)
+        {
+            lblMessage.Text = message;
+            lblMessage.CssClass = success
+                ? "success-message"
+                : "error-message";
+        }
     }
     
 }

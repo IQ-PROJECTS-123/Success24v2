@@ -73,126 +73,123 @@ namespace Success24v2
             if (!Page.IsValid)
                 return;
 
+            string name = txtName.Text.Trim();
+            string email = txtEmail.Text.Trim();
+            string phone = txtPhone.Text.Trim();
+            string qualification = txtQualification.Text.Trim();
+            string stream = txtStream.Text.Trim();
 
-            string name =
-                txtName.Text.Trim();
-
-            string email =
-                txtEmail.Text.Trim();
-
-            string phone =
-                txtPhone.Text.Trim();
-
-            string qualification =
-                txtQualification.Text.Trim();
-
-            string stream =
-                txtStream.Text.Trim();
-
-
-            // ==========================================
-            // PASSING YEAR VALIDATION
-            // EXACTLY 4 DIGITS
-            // ==========================================
-
+            // Passing Year validation
             int? passingYear = null;
-
-            int year;
-
-            string passingYearText =
-                txtPassingYear.Text.Trim();
+            string passingYearText = txtPassingYear.Text.Trim();
 
             if (!string.IsNullOrWhiteSpace(passingYearText))
             {
-                // Exactly 4 numeric digits
-                if (!Regex.IsMatch(
-                        passingYearText,
-                        @"^[0-9]{4}$"))
+                if (!Regex.IsMatch(passingYearText, @"^[0-9]{4}$"))
                 {
                     ShowMessage(
                         "Passing Year must be exactly 4 digits. Example: 2020",
                         false);
-
                     return;
                 }
 
+                int year = Convert.ToInt32(passingYearText);
 
-                year = Convert.ToInt32(passingYearText);
-
-
-                // Valid year range
-                if (year < 1900 ||
-                    year > DateTime.Now.Year + 1)
+                if (year < 1900 || year > DateTime.Now.Year + 1)
                 {
-                    ShowMessage(
-                        "Please enter a valid passing year.",
-                        false);
-
+                    ShowMessage("Please enter a valid passing year.", false);
                     return;
                 }
-
 
                 passingYear = year;
             }
 
-            // ==========================================
-            // NAME VALIDATION
-            // ONLY A-Z AND SPACE
-            // ==========================================
-
-            if (!Regex.IsMatch(
-                    name,
-                    @"^[A-Za-z ]+$"))
+            // Name validation
+            if (!Regex.IsMatch(name, @"^[A-Za-z ]+$"))
             {
                 ShowMessage(
                     "Full Name should contain alphabets only.",
                     false);
-
                 return;
             }
 
-            // ==========================================
-            // MOBILE NUMBER VALIDATION
-            // EXACTLY 10 DIGITS
-            // ==========================================
-
-            if (!Regex.IsMatch(
-                    phone,
-                    @"^[0-9]{10}$"))
+            // Phone validation
+            if (!Regex.IsMatch(phone, @"^[0-9]{10}$"))
             {
                 ShowMessage(
                     "Phone number must contain exactly 10 digits.",
                     false);
-
                 return;
             }
-            // ==========================================
-            // EMAIL VALIDATION
-            // ==========================================
 
+            // Email validation
             string emailPattern =
                 @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
 
-
-            if (!Regex.IsMatch(
-                    email,
-                    emailPattern))
+            if (!Regex.IsMatch(email, emailPattern))
             {
                 ShowMessage(
-                    "Please enter a valid email address. Example: example@gmail.com",
+                    "Please enter a valid email address.",
                     false);
-
                 return;
             }
 
             try
             {
-                using (SqlConnection con =
-                    new SqlConnection(connectionString))
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    string query = @"
+                    con.Open();
 
-                        INSERT INTO Leads
+                    using (SqlTransaction transaction =
+                        con.BeginTransaction(IsolationLevel.Serializable))
+                    {
+                        try
+                        {
+                            // Duplicate check:
+                            // Name + Phone + Email
+                            // Stream, Qualification and PassingYear are ignored.
+
+                            string checkQuery = @"
+                        SELECT TOP (1) ID
+                        FROM dbo.Leads WITH (UPDLOCK, HOLDLOCK)
+                        WHERE LOWER(LTRIM(RTRIM(ISNULL(Name, ''))))
+                                  = LOWER(LTRIM(RTRIM(@Name))
+                            )
+                          AND LTRIM(RTRIM(ISNULL(Phone, '')))
+                                  = LTRIM(RTRIM(@Phone))
+                          AND LOWER(LTRIM(RTRIM(ISNULL(Email, ''))))
+                                  = LOWER(LTRIM(RTRIM(@Email)));
+                    ";
+
+                            using (SqlCommand checkCmd =
+                                new SqlCommand(checkQuery, con, transaction))
+                            {
+                                checkCmd.Parameters.Add(
+                                    "@Name", SqlDbType.VarChar, 250).Value = name;
+
+                                checkCmd.Parameters.Add(
+                                    "@Phone", SqlDbType.VarChar, 20).Value = phone;
+
+                                checkCmd.Parameters.Add(
+                                    "@Email", SqlDbType.VarChar, 250).Value = email;
+
+                                object existingLead = checkCmd.ExecuteScalar();
+
+                                if (existingLead != null &&
+                                    existingLead != DBNull.Value)
+                                {
+                                    transaction.Rollback();
+
+                                    ShowMessage(
+                                        "Duplicate lead! This Name, Phone and Email already exist.",
+                                        false);
+                                    return;
+                                }
+                            }
+
+                            // Insert lead only when no matching record exists
+                            string insertQuery = @"
+                        INSERT INTO dbo.Leads
                         (
                             Name,
                             Email,
@@ -203,7 +200,6 @@ namespace Success24v2
                             Status,
                             CreatedOn
                         )
-
                         VALUES
                         (
                             @Name,
@@ -216,202 +212,85 @@ namespace Success24v2
                             GETDATE()
                         );
 
-                        SELECT CAST(
-                            SCOPE_IDENTITY()
-                            AS BIGINT
-                        );";
+                        SELECT CAST(SCOPE_IDENTITY() AS BIGINT);
+                    ";
 
+                            long newLeadID;
 
-                    using (SqlCommand cmd =
-                        new SqlCommand(query, con))
-                    {
-                        cmd.Parameters.Add(
-                            "@Name",
-                            SqlDbType.VarChar,
-                            250
-                        ).Value = name;
-
-
-                        cmd.Parameters.Add(
-                            "@Email",
-                            SqlDbType.VarChar,
-                            250
-                        ).Value =
-                            string.IsNullOrWhiteSpace(email)
-                                ? (object)DBNull.Value
-                                : email;
-
-
-                        cmd.Parameters.Add(
-                            "@Phone",
-                            SqlDbType.VarChar,
-                            20
-                        ).Value = phone;
-
-
-                        cmd.Parameters.Add(
-                            "@Qualification",
-                            SqlDbType.VarChar,
-                            250
-                        ).Value =
-                            string.IsNullOrWhiteSpace(qualification)
-                                ? (object)DBNull.Value
-                                : qualification;
-
-
-                        cmd.Parameters.Add(
-                            "@Stream",
-                            SqlDbType.VarChar,
-                            250
-                        ).Value =
-                            string.IsNullOrWhiteSpace(stream)
-                                ? (object)DBNull.Value
-                                : stream;
-
-
-                        cmd.Parameters.Add(
-                            "@PassingYear",
-                            SqlDbType.Int
-                        ).Value =
-                            passingYear.HasValue
-                                ? (object)passingYear.Value
-                                : DBNull.Value;
-
-
-                        con.Open();
-
-
-                        // ==========================================
-                        // CHECK COMPLETE DUPLICATE LEAD
-                        // ==========================================
-
-                        string checkQuery = @"
-                            SELECT COUNT(*)
-                            FROM Leads
-                            WHERE
-                                LTRIM(RTRIM(Name)) = LTRIM(RTRIM(@Name))
-
-                                AND ISNULL(LTRIM(RTRIM(Email)), '') =
-                                    ISNULL(LTRIM(RTRIM(@Email)), '')
-
-                                AND LTRIM(RTRIM(Phone)) =
-                                    LTRIM(RTRIM(@Phone))
-
-                                AND ISNULL(LTRIM(RTRIM(Qualification)), '') =
-                                    ISNULL(LTRIM(RTRIM(@Qualification)), '')
-
-                                AND ISNULL(LTRIM(RTRIM(Stream)), '') =
-                                    ISNULL(LTRIM(RTRIM(@Stream)), '')
-
-                                AND (
-                                    PassingYear = @PassingYear
-                                    OR (
-                                        PassingYear IS NULL
-                                        AND @PassingYear IS NULL
-                                    )
-                                )
-                        ";
-
-
-                        using (SqlCommand checkCmd =
-                            new SqlCommand(checkQuery, con))
-                        {
-                            checkCmd.Parameters.Add(
-                                "@Name",
-                                SqlDbType.VarChar,
-                                250
-                            ).Value = name;
-
-
-                            checkCmd.Parameters.Add(
-                                "@Email",
-                                SqlDbType.VarChar,
-                                250
-                            ).Value =
-                                string.IsNullOrWhiteSpace(email)
-                                    ? (object)DBNull.Value
-                                    : email;
-
-
-                            checkCmd.Parameters.Add(
-                                "@Phone",
-                                SqlDbType.VarChar,
-                                20
-                            ).Value = phone;
-
-
-                            checkCmd.Parameters.Add(
-                                "@Qualification",
-                                SqlDbType.VarChar,
-                                250
-                            ).Value =
-                                string.IsNullOrWhiteSpace(qualification)
-                                    ? (object)DBNull.Value
-                                    : qualification;
-
-
-                            checkCmd.Parameters.Add(
-                                "@Stream",
-                                SqlDbType.VarChar,
-                                250
-                            ).Value =
-                                string.IsNullOrWhiteSpace(stream)
-                                    ? (object)DBNull.Value
-                                    : stream;
-
-
-                            checkCmd.Parameters.Add(
-                                "@PassingYear",
-                                SqlDbType.Int
-                            ).Value =
-                                passingYear.HasValue
-                                    ? (object)passingYear.Value
-                                    : DBNull.Value;
-
-
-                            int existingLead =
-                                Convert.ToInt32(
-                                    checkCmd.ExecuteScalar()
-                                );
-
-
-                            if (existingLead > 0)
+                            using (SqlCommand cmd =
+                                new SqlCommand(insertQuery, con, transaction))
                             {
-                                ShowMessage(
-                                    "This lead already exists with the same information.",
-                                    false
-                                );
+                                cmd.Parameters.Add(
+                                    "@Name", SqlDbType.VarChar, 250).Value = name;
 
-                                return;
+                                cmd.Parameters.Add(
+                                    "@Email", SqlDbType.VarChar, 250).Value = email;
+
+                                cmd.Parameters.Add(
+                                    "@Phone", SqlDbType.VarChar, 20).Value = phone;
+
+                                cmd.Parameters.Add(
+                                    "@Qualification", SqlDbType.VarChar, 250).Value =
+                                    string.IsNullOrWhiteSpace(qualification)
+                                        ? (object)DBNull.Value
+                                        : qualification;
+
+                                cmd.Parameters.Add(
+                                    "@Stream", SqlDbType.VarChar, 250).Value =
+                                    string.IsNullOrWhiteSpace(stream)
+                                        ? (object)DBNull.Value
+                                        : stream;
+
+                                cmd.Parameters.Add(
+                                    "@PassingYear", SqlDbType.Int).Value =
+                                    passingYear.HasValue
+                                        ? (object)passingYear.Value
+                                        : DBNull.Value;
+
+                                newLeadID = Convert.ToInt64(cmd.ExecuteScalar());
                             }
+
+                            transaction.Commit();
+
+                            ShowMessage(
+                                "Lead created successfully. Lead ID: " + newLeadID,
+                                true);
+
+                            ClearForm();
                         }
+                        catch
+                        {
+                            try
+                            {
+                                transaction.Rollback();
+                            }
+                            catch
+                            {
+                                // Transaction may already be completed.
+                            }
 
-
-                        // ==========================================
-                        // INSERT NEW LEAD
-                        // ==========================================
-
-                        long newLeadID =
-                            Convert.ToInt64(
-                                cmd.ExecuteScalar()
-                            );
-
-
-                        ShowMessage(
-                            "Lead created successfully. Lead ID: "
-                            + newLeadID,
-                            true);
-
-
-                        ClearForm();
+                            throw;
+                        }
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                // Log ex on the server in production.
+                System.Diagnostics.Trace.TraceError(
+                    "CreateLead SQL error: " + ex);
+
+                ShowMessage(
+                    "Unable to create lead. Please try again.",
+                    false);
+            }
             catch (Exception ex)
             {
+                System.Diagnostics.Trace.TraceError(
+                    "CreateLead error: " + ex);
+
                 ShowMessage(
-                    "Unable to create lead. "
-                    + ex.Message,
+                    "Unable to create lead. Please try again.",
                     false);
             }
 

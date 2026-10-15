@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="StudentDetails.aspx.cs" Inherits="Success24v2.StudentDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
- <style>
+ 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
 
 /* =========================================
    STUDENT DETAILS PAGE
@@ -186,6 +188,31 @@
 }
 
 
+.btn-action {
+    display: inline-block;
+    padding: 7px 11px;
+    margin: 2px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.btn-delete {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.btn-action:hover {
+    opacity: 0.8;
+}
 /* Header orange bottom line */
 
 .details-grid th::after {
@@ -331,6 +358,149 @@
 
     text-align: center;
 }
+/* =========================================================
+   SEARCH BOX
+========================================================= */
+
+.lead-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+}
+
+.search-input {
+    width: 320px;
+    height: 42px;
+    padding: 0 14px;
+
+    background: #ffffff;
+    color: #1f2937;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 7px;
+
+    font-size: 13px;
+    outline: none;
+
+    transition: all .2s ease;
+}
+
+.search-input::placeholder {
+    color: #9ca3af;
+}
+
+.search-input:focus {
+    border-color: #f65a18;
+
+    box-shadow:
+        0 0 0 3px rgba(246, 90, 24, .10);
+}
+
+
+/* =========================================================
+   SEARCH BUTTON
+========================================================= */
+
+.btn-search {
+    height: 42px;
+
+    padding: 0 20px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: linear-gradient(
+        90deg,
+        #ff6411,
+        #ef2d32
+    );
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 10px rgba(239, 45, 50, .18);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.btn-search:hover {
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 15px rgba(239, 45, 50, .28);
+}
+
+.btn-search:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   CLEAR BUTTON
+========================================================= */
+
+.btn-clear-search {
+    height: 42px;
+
+    padding: 0 18px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #6b7280;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
+}
+
+.btn-clear-search:hover {
+    background: #f9fafb;
+
+    color: #ef4b25;
+
+    border-color: #f65a18;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   MOBILE SEARCH
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .lead-search {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .btn-search,
+    .btn-clear-search {
+        flex: 1;
+    }
+}
+
 
 
 /* =========================================
@@ -526,6 +696,30 @@
                 <h2>All Student Details</h2>
 
             </div>
+               <div class="lead-search">
+
+                <asp:TextBox
+                    ID="txtSearch"
+                    runat="server"
+                    CssClass="search-input"
+                    placeholder="Search Name / Phone / Email">
+                </asp:TextBox>
+
+                <asp:Button
+                    ID="btnSearch"
+                    runat="server"
+                    Text="Search"
+                    CssClass="btn-search"
+                    OnClick="btnSearch_Click" />
+
+                <asp:Button
+                    ID="btnClearSearch"
+                    runat="server"
+                    Text="Clear"
+                    CssClass="btn-clear-search"
+                    OnClick="btnClearSearch_Click" />
+
+            </div>
 
 
             <div class="grid-wrapper">
@@ -539,6 +733,7 @@
                     AllowPaging="True"
                     PageSize="100"
                     OnPageIndexChanging="gvLeadDetails_PageIndexChanging"
+                    onRowCommand="gvLeadDetails_RowCommand"
                     EmptyDataText="No Student details found.">
 
                     <Columns>
@@ -606,6 +801,29 @@
                          <asp:BoundField
                              DataField="ReferenceName"
                              HeaderText="Reference Name" />
+
+                        
+                    <asp:TemplateField HeaderText="Action">
+                        <ItemTemplate>
+                            <asp:HyperLink
+                                ID="lnkEdit"
+                                runat="server"
+                                Text="Edit"
+                                CssClass="btn-action btn-edit"
+                                NavigateUrl='<%# "EditStudent.aspx?ID=" + Eval("ID") %>' />
+
+                           
+                        <asp:LinkButton
+                            ID="btnDelete"
+                            runat="server"
+                            Text="Delete"
+                            CssClass="btn-action btn-delete"
+                            CommandName="DeleteStudent"
+                            CommandArgument='<%# Eval("ID") %>'
+                            OnClientClick="return confirm('Are you sure you want to delete this student?');"
+                            CausesValidation="false" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
                     </Columns>
 

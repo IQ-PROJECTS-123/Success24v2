@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
@@ -846,16 +847,43 @@ namespace Success24v2
 
                         if (rowsAffected > 0)
                         {
-                            ShowMessage(
-                                "Registration completed successfully.",
-                                true);
+                            bool emailSent = SendRegistrationEmail(
+                                firstname,
+                                lastname,
+                                dob,
+                                course,
+                                graduation,
+                                graduationYear,
+                                masters,
+                                mastersYear,
+                                primaryMobile,
+                                whatsApp,
+                                secondaryMobile,
+                                primaryEmail,
+                                secondaryEmail,
+                                fatherName,
+                                guardianName,
+                                guardianRelationship,
+                                guardianContact,
+                                currentAddress,
+                                permanentAddress,
+                                reference
+                            );
+
+                            if (emailSent)
+                            {
+                                ShowMessage(
+                                    "Registration completed successfully.",
+                                    true);
+                            }
+                           
 
                             ClearForm();
                         }
                         else
                         {
                             ShowMessage(
-                                "Registration failed. No data was inserted.",
+                                "Registration failed.",
                                 false);
                         }
                     }
@@ -893,6 +921,79 @@ namespace Success24v2
             }
         }
 
+
+        private bool SendRegistrationEmail(string firstname,string lastname,string dob,string course,string graduation,string graduationYear,string masters,string mastersYear,string primaryMobile,string whatsApp,string secondaryMobile,string primaryEmail,string secondaryEmail,string fatherName,string guardianName,string guardianRelationship,string guardianContact,string currentAddress,string permanentAddress,string reference)
+        {
+            try
+            {
+                using (MailMessage mail = new MailMessage())
+                {
+                    // Three email recipients
+                    mail.To.Add("shrikantkumar.info@gmail.com");
+                    mail.To.Add("radha@legalex.in");
+                    mail.To.Add("shivani.ranaut@orbex.co.in");
+                    mail.To.Add("priya@teceonsoft.com");
+
+                    mail.Subject = "New Student Registration - Success24";
+                    mail.IsBodyHtml = true;
+
+                    // Encode user-provided values before inserting into HTML
+                    Func<string, string> safe = value =>
+                        HttpUtility.HtmlEncode(value ?? "");
+
+                    mail.Body = @"
+                <html>
+                <body style='font-family:Arial,sans-serif;color:#1f2937;'>
+                    <h2 style='color:#ea580c;'>New Student Registration</h2>
+                    <p>A new student registration has been submitted.</p>
+
+                    <table cellpadding='8' cellspacing='0'
+                        style='border-collapse:collapse;width:100%;'
+                        border='1'>
+                        <tr><th align='left'>Field</th><th align='left'>Details</th></tr>
+                        <tr><td>First Name</td><td>" + safe(firstname) + @"</td></tr>
+                        <tr><td>Last Name</td><td>" + safe(lastname) + @"</td></tr>
+                        <tr><td>Date of Birth</td><td>" + safe(dob) + @"</td></tr>
+                        <tr><td>Course</td><td>" + safe(course) + @"</td></tr>
+                        <tr><td>Graduation Qualification</td><td>" + safe(graduation) + @"</td></tr>
+                        <tr><td>Graduation Passout Year</td><td>" + safe(graduationYear) + @"</td></tr>
+                        <tr><td>Masters Qualification</td><td>" + safe(masters) + @"</td></tr>
+                        <tr><td>Masters Passout Year</td><td>" + safe(mastersYear) + @"</td></tr>
+                        <tr><td>Primary Mobile</td><td>" + safe(primaryMobile) + @"</td></tr>
+                        <tr><td>WhatsApp Number</td><td>" + safe(whatsApp) + @"</td></tr>
+                        <tr><td>Secondary Mobile</td><td>" + safe(secondaryMobile) + @"</td></tr>
+                        <tr><td>Primary Email</td><td>" + safe(primaryEmail) + @"</td></tr>
+                        <tr><td>Secondary Email</td><td>" + safe(secondaryEmail) + @"</td></tr>
+                        <tr><td>Father Name</td><td>" + safe(fatherName) + @"</td></tr>
+                        <tr><td>Guardian Name</td><td>" + safe(guardianName) + @"</td></tr>
+                        <tr><td>Guardian Relationship</td><td>" + safe(guardianRelationship) + @"</td></tr>
+                        <tr><td>Guardian Contact</td><td>" + safe(guardianContact) + @"</td></tr>
+                        <tr><td>Current Address</td><td>" + safe(currentAddress) + @"</td></tr>
+                        <tr><td>Permanent Address</td><td>" + safe(permanentAddress) + @"</td></tr>
+                        <tr><td>Reference</td><td>" + safe(reference) + @"</td></tr>
+                    </table>
+
+                    <p style='margin-top:20px;color:#6b7280;'>
+                        This is an automated email from Success24.
+                    </p>
+                </body>
+                </html>";
+
+                    using (SmtpClient smtp = new SmtpClient())
+                    {
+                        smtp.Send(mail);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                // Registration is already saved; email failure should not undo it.
+                // Log the exception on the server in production.
+                return false;
+            }
+        }
 
         // ==========================================
         // CLEAR FORM
