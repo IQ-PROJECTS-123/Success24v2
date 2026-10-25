@@ -647,6 +647,7 @@
               Registered Students Details
 
              </asp:HyperLink>
+            <asp:HyperLink ID="lnkgenerate" runat="server" NavigateUrl="~/GenerateLink.aspx">Generate Link</asp:HyperLink>
 
 
         </div>

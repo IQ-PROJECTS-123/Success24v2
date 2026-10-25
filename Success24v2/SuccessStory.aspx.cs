@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Text;
 using System.Web;
 using System.Web.UI;
-using System.Diagnostics;
-using System.Configuration;
 
 namespace Success24v2
 {
@@ -12,20 +13,23 @@ namespace Success24v2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!AuthorizeSuccessStory())
+                return;
             if (!IsPostBack)
             {
+
                 try
                 {
                     // Add this line for security purpose
-                    bool isPlacementUser =
-                       Session["IsPlacementUser"] != null &&
-                       Convert.ToBoolean(Session["IsPlacementUser"]);
+                    //bool isPlacementUser =
+                    //   Session["IsPlacementUser"] != null &&
+                    //   Convert.ToBoolean(Session["IsPlacementUser"]);
 
-                    if (!isPlacementUser)
-                    {
-                        Response.Redirect("~/Login.aspx");
-                        return;
-                    }
+                    //if (!isPlacementUser)
+                    //{
+                    //    Response.Redirect("~/Login.aspx");
+                    //    return;
+                    //}
 
                     _LiteralSuccess.Text = "0";
                     _LiteralPrac.Text = "0";
@@ -154,6 +158,114 @@ namespace Success24v2
                     _LiteralPrac.Text = "0";
                 }
             }
+
         }
+
+
+        private bool AuthorizeSuccessStory()
+        {
+            // Condition 1: Existing logged-in placement user
+            bool isPlacementUser =
+                Session["IsPlacementUser"] != null &&
+                Convert.ToBoolean(Session["IsPlacementUser"]);
+
+            if (isPlacementUser)
+                return true;
+
+            string gid = Request.QueryString["id"];
+
+            if (string.IsNullOrWhiteSpace(gid))
+            {
+                DenySuccessStoryAccess();
+                return false;
+            }
+
+            // Allow postbacks for the page that already consumed this link.
+            if (IsPostBack &&
+                Session["SuccessStoryLinkGid"] != null &&
+                string.Equals(
+                    Convert.ToString(Session["SuccessStoryLinkGid"]),
+                    gid,
+                    StringComparison.Ordinal))
+            {
+                return true;
+            }
+
+            string cs = ConfigurationManager
+                .ConnectionStrings["S24"].ConnectionString;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(cs))
+                using (SqlCommand cmd = new SqlCommand(@"
+            DELETE FROM dbo.SuccessStoryLinks
+            WHERE gID = @gid
+              AND IsUsed = 0;", con))
+                {
+                    cmd.Parameters.Add("@gid", SqlDbType.NVarChar, 64)
+                        .Value = gid;
+
+                    con.Open();
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    // Token must exist and be unused.
+                    if (rowsAffected == 1)
+                    {
+                        // Remember the token for this page's postbacks.
+                        Session["SuccessStoryLinkGid"] = gid;
+
+                        // IMPORTANT: First access is now authorized.
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError(
+                    "SuccessStory authorization failed: " + ex);
+            }
+
+            // Missing, already-consumed, or invalid token.
+            DenySuccessStoryAccess();
+            return false;
+        }
+
+
+        private void DenySuccessStoryAccess()
+        {
+            Response.Clear();
+            Response.StatusCode = 403;
+            Response.TrySkipIisCustomErrors = true;
+            Response.ContentType = "text/html";
+
+            Response.Write(@"
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset='utf-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                <title>Link Expired</title>
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            </head>
+            <body>
+            <script>
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Link Already Used!',
+                    text: 'This link is invalid or has already been used.',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#f97316',
+                    allowOutsideClick: false
+                }).then(function () {
+                    window.location.href = 'Default.aspx';
+                });
+            </script>
+            </body>
+            </html>");
+
+            Response.End();
+        }
+
     }
 }

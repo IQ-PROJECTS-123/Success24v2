@@ -10,11 +10,32 @@ namespace Success24v2
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            // If already logged in, send to admin panel
-            if (!IsPostBack && Session["AdminID"] != null)
+            if (!IsPostBack)
             {
-                Response.Redirect("AdminDashboard.aspx");
+                // Members table se logged-in Admin/Caller
+                if (Session["UserID"] != null && Session["Role"] != null)
+                {
+                    string role = Convert.ToString(Session["Role"]);
+
+                    if (role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Response.Redirect("~/LeadManagement.aspx");
+                        return;
+                    }
+
+                    if (role.Equals("Caller", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Response.Redirect("~/MyLeads.aspx");
+                        return;
+                    }
+                }
+
+                // AdminUsers table se logged-in Admin
+                if (Session["AdminID"] != null)
+                {
+                    Response.Redirect("~/AdminDashboard.aspx");
+                    return;
+                }
             }
         }
 

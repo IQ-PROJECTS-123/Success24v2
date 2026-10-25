@@ -102,6 +102,7 @@ namespace Success24v2
 
             // Admin and Caller both can open Student Details
             lnkStudentDetails.Visible = isAdmin || isCaller;
+            lnkgenerate.Visible = isAdmin || isCaller;
 
             // Keep these links restricted to Admin if required
             lnkAD.Visible = isAdmin;

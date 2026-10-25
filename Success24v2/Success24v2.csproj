@@ -91,6 +91,7 @@
     <Content Include="EditStudent.aspx" />
     <Content Include="EventPage.aspx" />
     <Content Include="GalleryUpload.aspx" />
+    <Content Include="GenerateLink.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Frontend.aspx" />
     <Content Include="HDAA.aspx" />
@@ -502,6 +503,13 @@
     </Compile>
     <Compile Include="GalleryUpload.aspx.designer.cs">
       <DependentUpon>GalleryUpload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GenerateLink.aspx.cs">
+      <DependentUpon>GenerateLink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GenerateLink.aspx.designer.cs">
+      <DependentUpon>GenerateLink.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
