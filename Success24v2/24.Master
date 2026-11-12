@@ -1,4 +1,4 @@
-﻿﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="24.master.cs" Inherits="Success24v2._24" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="24.master.cs" Inherits="Success24v2._24" %>
 
 <!DOCTYPE html>
 <html lang="en">

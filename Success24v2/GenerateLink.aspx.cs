@@ -49,11 +49,11 @@ namespace Success24v2
         protected void btnGenerate_Click(object sender, EventArgs e)
         {
             // Recheck authorization when the button is clicked.
-            if (!IsAdminOrCallerLoggedIn())
-            {
-                Response.Redirect("~/AdminLogin.aspx");
-                return;
-            }
+           if (!IsAdminOrCallerLoggedIn())
+{
+    Response.Redirect("~/AdminLogin.aspx");
+    return;
+}
 
             pnlGenerated.Visible = false;
             lblMessage.Text = "";

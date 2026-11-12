@@ -162,9 +162,61 @@ namespace Success24v2
         }
 
 
+        // Detect known link-preview crawlers.
+        private bool IsLinkPreviewCrawler()
+        {
+            string userAgent = Request.UserAgent ?? "";
+
+            string[] crawlerNames =
+            {
+                "WhatsApp",
+                "facebookexternalhit",
+                "Facebot",
+                "Twitterbot",
+                "LinkedInBot",
+                "TelegramBot",
+                "Slackbot",
+                "Discordbot",
+                "SkypeUriPreview",
+                "Pinterest",
+                "Google-InspectionTool"
+            };
+
+            foreach (string crawler in crawlerNames)
+            {
+                if (userAgent.IndexOf(
+                    crawler,
+                    StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsValidGid(string gid)
+        {
+            if (string.IsNullOrWhiteSpace(gid) || gid.Length != 64)
+                return false;
+
+            foreach (char c in gid)
+            {
+                bool isHex =
+                    (c >= '0' && c <= '9') ||
+                    (c >= 'a' && c <= 'f') ||
+                    (c >= 'A' && c <= 'F');
+
+                if (!isHex)
+                    return false;
+            }
+
+            return true;
+        }
+
         private bool AuthorizeSuccessStory()
         {
-            // Condition 1: Existing logged-in placement user
+            // Existing logged-in placement user access.
             bool isPlacementUser =
                 Session["IsPlacementUser"] != null &&
                 Convert.ToBoolean(Session["IsPlacementUser"]);
@@ -174,19 +226,19 @@ namespace Success24v2
 
             string gid = Request.QueryString["id"];
 
-            if (string.IsNullOrWhiteSpace(gid))
+            if (!IsValidGid(gid))
             {
                 DenySuccessStoryAccess();
                 return false;
             }
 
-            // Allow postbacks for the page that already consumed this link.
+            // Allow postbacks in the same session after authorization.
             if (IsPostBack &&
                 Session["SuccessStoryLinkGid"] != null &&
                 string.Equals(
                     Convert.ToString(Session["SuccessStoryLinkGid"]),
                     gid,
-                    StringComparison.Ordinal))
+                    StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
@@ -196,26 +248,48 @@ namespace Success24v2
 
             try
             {
+                // Preview crawlers check the token without consuming it.
+                if (IsLinkPreviewCrawler())
+                {
+                    using (SqlConnection con = new SqlConnection(cs))
+                    using (SqlCommand cmd = new SqlCommand(@"
+                        SELECT COUNT(1)
+                        FROM dbo.SuccessStoryLinks
+                        WHERE gID = @gid
+                          AND IsUsed = 0;", con))
+                    {
+                        cmd.Parameters.Add(
+                            "@gid", SqlDbType.NVarChar, 64).Value = gid;
+
+                        con.Open();
+
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                        if (count == 1)
+                            return true;
+                    }
+
+                    DenySuccessStoryAccess();
+                    return false;
+                }
+
+                // Normal browser request: consume the token once.
                 using (SqlConnection con = new SqlConnection(cs))
                 using (SqlCommand cmd = new SqlCommand(@"
-            DELETE FROM dbo.SuccessStoryLinks
-            WHERE gID = @gid
-              AND IsUsed = 0;", con))
+                    DELETE FROM dbo.SuccessStoryLinks
+                    WHERE gID = @gid
+                      AND IsUsed = 0;", con))
                 {
-                    cmd.Parameters.Add("@gid", SqlDbType.NVarChar, 64)
-                        .Value = gid;
+                    cmd.Parameters.Add(
+                        "@gid", SqlDbType.NVarChar, 64).Value = gid;
 
                     con.Open();
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
-                    // Token must exist and be unused.
                     if (rowsAffected == 1)
                     {
-                        // Remember the token for this page's postbacks.
                         Session["SuccessStoryLinkGid"] = gid;
-
-                        // IMPORTANT: First access is now authorized.
                         return true;
                     }
                 }
@@ -226,11 +300,9 @@ namespace Success24v2
                     "SuccessStory authorization failed: " + ex);
             }
 
-            // Missing, already-consumed, or invalid token.
             DenySuccessStoryAccess();
             return false;
         }
-
 
         private void DenySuccessStoryAccess()
         {
@@ -240,32 +312,33 @@ namespace Success24v2
             Response.ContentType = "text/html";
 
             Response.Write(@"
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset='utf-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1'>
-                <title>Link Expired</title>
-                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-            </head>
-            <body>
-            <script>
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Link Already Used!',
-                    text: 'This link is invalid or has already been used.',
-                    confirmButtonText: 'OK',
-                    confirmButtonColor: '#f97316',
-                    allowOutsideClick: false
-                }).then(function () {
-                    window.location.href = 'Default.aspx';
-                });
-            </script>
-            </body>
-            </html>");
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset='utf-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1'>
+            <title>Link Expired</title>
+            <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        </head>
+        <body>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Link Already Used!',
+                text: 'This link is invalid or has already been used.',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#f97316',
+                allowOutsideClick: false
+            }).then(function () {
+                window.location.href = 'Default.aspx';
+            });
+        </script>
+        </body>
+        </html>");
 
             Response.End();
         }
+
 
     }
 }
